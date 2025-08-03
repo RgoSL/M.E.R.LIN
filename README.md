@@ -122,7 +122,7 @@ Confira o resultado do projeto
     </td>
     <td align="center">
       <a href="https://github.com/RgoSL">
-        <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Rodrigo.jpg width=400px;" alt="Foto do Membro"/><br />
+        <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Rodrigo.jpg" height="290px;  width=300px;" alt="Foto do Membro"/><br />
         <b>Rodrigo Lima</b><br />
       </a>
     </td>
