@@ -1,27 +1,28 @@
 <!-- LOGO DO NOSSO PROJETO -->
 <div align="center">
-<img src="" alt="Logo M.E.R.LIN" width="250px">
+<img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Logo%20M.E.R.LIN.png" alt="Logo M.E.R.LIN" width="350px">
 </div>
 
 <!-- TÍTULO E DESCRIÇÃO DO PROJETO -->
 # M.E.R.LIN - Sistema de Assistência à Acessibilidade para Pessoas com Deficiência Motora no Uso de Computadores.
 
-> O M.E.R.LIN é um
+> O M.E.R.LIN é um software de controle adaptativo desenvolvido para auxiliar pessoas com doenças motoras crônicas a interagir com o computador apenas com movimentos dos olhos ou da face.
+O projeto busca promover acessibilidade digital, autonomia e inclusão, permitindo que usuários realizem tarefas no computador de forma prática e independente.
 
 <br>
 
 <!-- OBJETIVO DESSE REPOSITÓRIO -->
 ## Visão Geral do Projeto
 
-Este repositório é uma coletânea dos itens mais cruciais no desenvolvimento do nosso Trabalho de Conclusão de Curso.
+Este repositório reúne os itens mais importantes para o desenvolvimento do nosso Trabalho de Conclusão de Curso.
 
 <br>
 
 ## Branchs Deste Repositório :
 
-  ### Nome da Branch
-- [Branch](LinkDaBranch) <!-- LINK PARA AS RESPECTIVAS BRANCHS -->
-> Descrição do que essa branch contém.
+  ### Documentation
+- [Documentação](https://github.com/RgoSL/M.E.R.LIN/tree/Documentation) <!-- LINK PARA AS RESPECTIVAS BRANCHS -->
+> Esta branch reúne os fundamentos teóricos do projeto M.E.R.LIN, incluindo a modelagem UML, itens para a organização do repositório e a fundamentação conceitual preliminar e final que orientaram o desenvolvimento do trabalho.
 
   ### Nome da Branch
 - [Branch](LinkDaBranch) <!-- LINK PARA AS RESPECTIVAS BRANCHS -->
@@ -109,19 +110,19 @@ Confira o resultado do projeto
   <tr>
     <td align="center">
       <a href="https://github.com/emycspri">
-         <img src="" width="100px;" alt="Foto do Membro"/><br />
+         <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Emily.jpg" height="290px;" width="300px;" alt="Foto do Membro"/><br />
         <b>Emily Cristina</b><br />
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/joaopedrosantanamotalol">
-          <img src="" width="100px;" alt="Foto do Membro"/><br />
+          <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Mota.png" height="290px; "width="300px;" alt="Foto do Membro"/><br />
         <b>João Mota</b><br />
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/RgoSL">
-        <img src="" width="100px;" alt="Foto do Membro"/><br />
+        <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Rodrigo.jpg width=400px;" alt="Foto do Membro"/><br />
         <b>Rodrigo Lima</b><br />
       </a>
     </td>
@@ -134,13 +135,13 @@ Confira o resultado do projeto
 <!-- INSTITUIÇÃO RESPONSÁVEL PELO CURSO -->
 ## ETEC Zona Leste
 
-Este projeto foi entregue para a conclusão do curso de Desenvolvimento de Sistemas - Articulado Médio Superior da ETEC da Zona Leste.
+Este projeto foi elaborado como Trabalho de Conclusão de Curso (TCC) do curso de Desenvolvimento de Sistemas — modalidade Articulado Médio-Superior — da ETEC da Zona Leste.
 
 <br>
 
 <!-- LOGO DO NOSSO PROJETO -->
 <div align="center">
-<img src="" alt="Logo M.E.R.LIN" width="75px">
+<img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Logo%20M.E.R.LIN.png" alt="Logo M.E.R.LIN" width="205px">
 </div>
 
 <br>
@@ -150,3 +151,7 @@ Este projeto foi entregue para a conclusão do curso de Desenvolvimento de Siste
   <h2> © M.E.R.LIN, Todos Os Direitos Reservados 2025 </h2>
   <h6>SP, São Paulo, Brasil</h6>
 </div>
+
+<br>
+
+---
