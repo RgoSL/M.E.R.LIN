@@ -19,6 +19,9 @@ class config(CTkFrame):
         header = CTkFrame(self, fg_color="#654E82", corner_radius=0)
         header.place(relx=0, rely=0, relwidth=1, relheight=0.1)
 
+        txt_logo = CTkLabel(header, text="M.E.R.LIN", font=("Bold", 20), text_color="#E6C8FA")
+        txt_logo.place(relx=0.1, rely=0.5, anchor=CENTER)
+
         label = CTkLabel(header, text="Escolha como se preparar", font=("Bold", 20), text_color="black")
         label.place(relx=0.5, rely=0.5, anchor=CENTER)
 
