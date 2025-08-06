@@ -14,6 +14,9 @@ class inicial(CTkFrame):
         header = CTkFrame(self, fg_color="#654E82", corner_radius=0)
         header.place(relx=0, rely=0, relwidth=1, relheight=0.1)
 
+        txt_logo = CTkLabel(header, text="M.E.R.LIN", font=("Bold", 20), text_color="#E6C8FA")
+        txt_logo.place(relx=0.1, rely=0.5, anchor=CENTER)
+
         # Título
         Titulo = CTkLabel(
             self,
@@ -76,7 +79,7 @@ def adcionar_imagem(parent_frame, caminho_img, texto_str=" ", cor="transparent",
 
         # Container para imagem e texto
         container = CTkFrame(parent_frame, fg_color=cor, corner_radius=8)
-        container.pack(side="left", padx=10, pady=10, fill="y")
+        container.pack(side="left", padx=220, pady=10, fill="y")
 
         # Label da imagem
         img_label = CTkLabel(container, image=img_ctk, text="")

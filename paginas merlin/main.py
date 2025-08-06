@@ -4,10 +4,25 @@ from paginas_alt.esc_config import config
 from paginas_alt.video_assis import video_Assis
 from paginas_alt.ajustes import ajustes
 
+def centralizar_janela(janela, largura, altura):
+    # Pega a largura e altura da tela do monitor
+    largura_tela = janela.winfo_screenwidth()
+    altura_tela = janela.winfo_screenheight()
+
+    # Calcula a posição para centralizar
+    x = int((largura_tela / 2) - (largura / 2))
+    y = int((altura_tela / 2) - (altura / 2))
+
+    # Define tamanho e posição
+    janela.geometry(f"{largura}x{altura}+{x}+{y}")
+
 class App(CTk):
     def __init__(self):
         super().__init__()
-        self.geometry("800x600")
+        largura_janela = 800
+        altura_janela = 600
+
+        centralizar_janela(self, largura_janela, altura_janela)
         self.title("Minha Aplicação")
         self.resizable(False, False)
         
