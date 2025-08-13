@@ -25,7 +25,7 @@ class App(CTk):
         centralizar_janela(self, largura_janela, altura_janela)
         self.title("Minha Aplicação")
         self.resizable(False, False)
-        
+        self.iconbitmap("images/logoicon.ico")
         # Dicionário para guardar as páginas
         self.frames = {}
 

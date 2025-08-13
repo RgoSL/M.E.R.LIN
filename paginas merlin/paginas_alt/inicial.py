@@ -1,7 +1,7 @@
 # inicial.py
 from customtkinter import *
 from PIL import Image
-from func_visual.imagem import adcionar_imagem
+from func_visual import configurar_imagens_no_frame
 
 class inicial(CTkFrame):
     def __init__(self, master, controller):
@@ -43,73 +43,26 @@ class inicial(CTkFrame):
         content_frame = CTkFrame(frame1, fg_color="transparent")
         content_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
+        icone_voltar = CTkImage(Image.open("images/seta_esquerda.png"), size=(20, 20))
+
         # Botão de configurações
         btntst = CTkButton(
             self,
-            text="Voltar",
-            font=("Arial", 15),
-            text_color="black",
-            fg_color="#F9B14F",
-            command=self.abrir_config,
+            image=icone_voltar,
+            text="",
+            fg_color="#654E82",
+            command=lambda: self.controller.mostrar_pagina("config")
         )
-        btntst.place(relx=0.9, rely=0.15, anchor="center", relwidth=0.1, relheight=0.06)
 
-        # Adicionar imagens horizontalmente
-        adcionar_imagem(content_frame, "func_visual/rezende.jpg", texto_str="Imagem 1")
-        adcionar_imagem(content_frame, "func_visual/rezende.jpg", texto_str="Imagem 2")
-        adcionar_imagem(content_frame, "func_visual/rezende.jpg", texto_str="Imagem 3")
+        btntst.place(relx=0.07, rely=0.15, anchor="center", relwidth=0.05, relheight=0.06)
+    
+            # Para centralizar melhor e com espaçamento adequado:
+        images_frame = CTkFrame(frame1, fg_color="transparent")
+        images_frame.pack(expand=True, fill="both")
 
-    def abrir_config(self):
-        self.controller.mostrar_pagina("config")
+        # Configurar peso das colunas para centralização
+        images_frame.grid_columnconfigure(0, weight=1)
+        images_frame.grid_columnconfigure(1, weight=1)
+        images_frame.grid_rowconfigure(0, weight=1)
 
-
-# func_visual/imagem.py
-from customtkinter import *
-from PIL import Image
-
-def adcionar_imagem(parent_frame, caminho_img, texto_str=" ", cor="transparent", largura=200, altura=160):
-    """
-    Função corrigida para adicionar imagens em layout horizontal
-    """
-    try:
-        # Carregar e redimensionar a imagem
-        img_pil = Image.open(caminho_img).convert("RGBA")
-        img_pil = img_pil.resize((largura, altura), Image.Resampling.LANCZOS)
-        img_ctk = CTkImage(light_image=img_pil, size=(largura, altura))
-
-        # Container para imagem e texto
-        container = CTkFrame(parent_frame, fg_color=cor, corner_radius=8)
-        container.pack(side="left", padx=220, pady=10, fill="y")
-
-        # Label da imagem
-        img_label = CTkLabel(container, image=img_ctk, text="")
-        img_label.image = img_ctk  # Manter referência
-        img_label.pack(pady=(10, 5))
-
-        # Texto abaixo da imagem
-        if texto_str and texto_str.strip():
-            texto = CTkLabel(
-                container, 
-                text=texto_str, 
-                font=("Arial", 12), 
-                text_color="white",  # Mudei para branco para contrastar com o fundo
-                fg_color="transparent"
-            )
-            texto.pack(pady=(0, 10))
-        else:
-            texto = None
-
-        return img_label, texto
-        
-    except Exception as e:
-        print(f"Erro na função adcionar_imagem: {e}")
-        # Criar um placeholder em caso de erro
-        placeholder = CTkLabel(
-            parent_frame, 
-            text=f"Erro ao carregar\n{texto_str}", 
-            width=largura, 
-            height=altura,
-            fg_color="gray"
-        )
-        placeholder.pack(side="left", padx=10, pady=10)
-        return placeholder, None
+        configurar_imagens_no_frame(frame1, self.controller)

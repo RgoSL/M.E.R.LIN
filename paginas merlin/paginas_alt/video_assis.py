@@ -2,7 +2,6 @@ from customtkinter import *
 from PIL import Image
 import os
 
-from func_visual.imagem import adcionar_imagem
 
 class video_Assis(CTkFrame):
     def __init__(self, master, controller):

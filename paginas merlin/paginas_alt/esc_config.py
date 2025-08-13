@@ -1,9 +1,7 @@
 from customtkinter import *
 from PIL import Image
 import os
-
-from func_visual.imagem import adcionar_imagem
-
+from func_visual.funcs_imgs.imagem import adcionar_logo
 
 class config(CTkFrame):
     def __init__(self, master, controller):
@@ -14,6 +12,17 @@ class config(CTkFrame):
         frame = CTkFrame(self, fg_color="#FFFFFF", corner_radius=0)
         frame.place(relx=0, rely=0, relwidth=1, relheight=1)
 
+        logo = adcionar_logo(
+            self, 
+            caminho_img="images/logo.png", 
+            texto="Sua História começa aqui", 
+            cor="#FFFFFF", 
+            tamanho=160, 
+            espacamento=10,
+            cor_texto="black"
+        )
+
+        logo.place(relx=0.2, rely=0.5, anchor=CENTER)
         # header
 
         header = CTkFrame(self, fg_color="#654E82", corner_radius=0)
@@ -59,63 +68,4 @@ class config(CTkFrame):
                                       fg_color="#654E82", progress_color="#C58ADE")
         progress_bar.place(relx=0.5, rely=0.9, anchor=CENTER, relwidth=0.4, relheight=0.03)
 
-         # DEBUG: Vamos investigar os caminhos
-        print("=== DEBUG CAMINHOS ===")
-        print(f"__file__ = {__file__}")
-        print(f"Diretório atual: {os.getcwd()}")
-        
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        print(f"Base dir calculado: {base_dir}")
-        
-        logo_path = os.path.join(base_dir, "func_visual", "logo.png")
-        print(f"Caminho da logo: {logo_path}")
-        print(f"Arquivo existe? {os.path.exists(logo_path)}")
-        
-        # Vamos também testar outros caminhos possíveis
-        alternative_paths = [
-            "func_visual/logo.png",
-            "./func_visual/logo.png",
-            os.path.join(os.getcwd(), "func_visual", "logo.png"),
-            "../func_visual/logo.png"
-        ]
-        
-        print("\n=== TESTANDO CAMINHOS ALTERNATIVOS ===")
-        for path in alternative_paths:
-            print(f"{path} -> Existe: {os.path.exists(path)}")
-        
-        print("\n=== LISTANDO ARQUIVOS ===")
-        try:
-            func_visual_dir = os.path.join(base_dir, "func_visual")
-            if os.path.exists(func_visual_dir):
-                print(f"Arquivos em func_visual: {os.listdir(func_visual_dir)}")
-            else:
-                print("Diretório func_visual não encontrado!")
-                
-            # Listar arquivos do diretório atual
-            print(f"Arquivos no diretório raiz: {os.listdir(base_dir)}")
-        except Exception as e:
-            print(f"Erro ao listar arquivos: {e}")
-        
-        print("=== FIM DEBUG ===\n")
-        
-        # Tentar carregar a imagem com o caminho que funciona
-        logo_loaded = False
-        for path in [logo_path] + alternative_paths:
-            if os.path.exists(path):
-                try:
-                    print(f"Tentando carregar imagem de: {path}")
-                    adcionar_imagem(self, path, 0.12, 0.3, self, padx=10, pady=60,
-                                   texto_str="A sua História começa aqui", cor="#FFFFFF",corF="white")
-                    print("✓ Imagem carregada com sucesso!")
-                    logo_loaded = True
-                    break
-                except Exception as e:
-                    print(f"✗ Erro ao carregar imagem de {path}: {e}")
-        
-        if not logo_loaded:
-            print("⚠ Criando fallback text label")
-            # Fallback: label de texto
-            fallback_label = CTkLabel(self, text="🖼 A sua História começa aqui", 
-                                    font=("Bold", 16), text_color="#654E82",
-                                    bg_color="white")
-            fallback_label.place(relx=0.12, rely=0.12, anchor="nw")
+      
