@@ -54,12 +54,14 @@ class ajustes(CTkFrame):
             lingua = CTkLabel(frame2, text="Língua", font=("Arial", 15), text_color="#E6C8FA")
             lingua.place(relx=0.23, rely=0.46, anchor=CENTER)
 
-            termos_de_uso = CTkLabel(frame2, text="Termos de Uso", font=("Arial", 15), text_color="#E6C8FA")
+            termos_de_uso = CTkLabel(frame2, text="Termos de Uso", font=("Arial", 15), text_color="#E6C8FA", cursor="hand2")
             termos_de_uso.place(relx=0.15, rely=0.9, anchor=CENTER)
+            termos_de_uso.bind("<Button-1>", lambda e: self.controller.mostrar_pagina("termos_de_uso"))
+          
 
             icone_voltar = CTkImage(Image.open("images/seta_esquerda.png"), size=(20, 20))
 
-            btn_voltar = CTkButton(frame, image=icone_voltar, text="", text_color="#E6C8FA", fg_color="#654E82", command=lambda: controller.mostrar_pagina("config"))
+            btn_voltar = CTkButton(frame, image=icone_voltar, text="", text_color="#E6C8FA", fg_color="#654E82",command=lambda: controller.mostrar_pagina("config"))
             btn_voltar.place(relx=0.07, rely=0.15, anchor=CENTER, relwidth=0.05, relheight=0.06)
 
 

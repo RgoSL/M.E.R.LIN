@@ -1,7 +1,7 @@
 from customtkinter import *
 from PIL import Image, ImageOps, ImageDraw, ImageFilter
 
-def adcionar_logo(parent, caminho_img, texto=" ", cor="transparent", 
+def adicionar_imagem_texto(parent, caminho_img, texto=" ", cor="transparent", 
                    tamanho=100, espacamento=30, cor_texto="white"):
     # Container para imagem + texto (sem usar pack com side="left")
     container = CTkFrame(parent, fg_color=cor, corner_radius=8)

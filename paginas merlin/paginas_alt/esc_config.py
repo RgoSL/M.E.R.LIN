@@ -1,7 +1,8 @@
 from customtkinter import *
 from PIL import Image
 import os
-from func_visual.funcs_imgs.imagem import adcionar_logo
+from func_visual.funcs_imgs.imagem import adicionar_imagem_texto
+from func_visual.widgets.progress import progress_bar
 
 class config(CTkFrame):
     def __init__(self, master, controller):
@@ -12,7 +13,7 @@ class config(CTkFrame):
         frame = CTkFrame(self, fg_color="#FFFFFF", corner_radius=0)
         frame.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-        logo = adcionar_logo(
+        logo = adicionar_imagem_texto(
             self, 
             caminho_img="images/logo.png", 
             texto="Sua História começa aqui", 
@@ -56,16 +57,13 @@ class config(CTkFrame):
         radio2.place(relx=0.2, rely=0.5, anchor=CENTER)
 
         # Botões
-        btn_voltar = CTkButton(self, text="Voltar", font=("Bold", 15), text_color="white", fg_color="#654E82",corner_radius=10, command=lambda: controller.mostrar_pagina("inicial"), hover=False)
+        btn_voltar = CTkButton(self, text="Voltar", font=("Bold", 15), text_color="white",bg_color="#FFFFFF" ,fg_color="#654E82",corner_radius=10, command=lambda: controller.mostrar_pagina("inicial"), hover=False)
         
-        btn_proximo = CTkButton(self, text="Proximo",  font=("Bold", 15), text_color="white", fg_color="#654E82",corner_radius=10,command=lambda: controller.mostrar_pagina("ajustes"), hover=False)
+        btn_proximo = CTkButton(self, text="Proximo",  font=("Bold", 15), text_color="white",bg_color="#FFFFFF" ,fg_color="#654E82",corner_radius=10,command=lambda: controller.mostrar_pagina("ajustes"), hover=False)
         
         btn_voltar.place(relx=0.15, rely=0.9, anchor=CENTER, relwidth=0.2, relheight=0.06)
         btn_proximo.place(relx=0.85, rely=0.9, anchor=CENTER, relwidth=0.2, relheight=0.06)
 
         # Barra de progresso
-        progress_bar = CTkProgressBar(self, mode="determinate", width=200, height=20,
-                                      fg_color="#654E82", progress_color="#C58ADE")
-        progress_bar.place(relx=0.5, rely=0.9, anchor=CENTER, relwidth=0.4, relheight=0.03)
-
-      
+        self.barra = progress_bar(self,cor_progresso="#C58ADE",cor_fundo="#FFFFFF",modo="determinate",valor=0.7)
+        self.barra.place(relx=0.5, rely=0.9, anchor=CENTER)

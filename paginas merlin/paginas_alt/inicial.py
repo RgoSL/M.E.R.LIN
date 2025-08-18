@@ -1,7 +1,7 @@
 # inicial.py
 from customtkinter import *
 from PIL import Image
-from func_visual import configurar_imagens_no_frame
+from func_visual.funcs_imgs.img_redonda import configurar_imagens_no_frame
 
 class inicial(CTkFrame):
     def __init__(self, master, controller):

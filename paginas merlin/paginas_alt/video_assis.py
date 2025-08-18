@@ -29,7 +29,17 @@ class video_Assis(CTkFrame):
         frame = CTkFrame(quad, fg_color="white", corner_radius=15, border_color="#C58ADE", border_width=2)
         frame.place(relx=0.5, rely=0.5, relwidth=0.8, relheight=0.6, anchor=CENTER)
 
-        btn = CTkButton(self, text="Próximo", font=("Bold", 15), text_color="black", fg_color="#F9B14F", command=lambda: controller.mostrar_pagina("inicial"))
-        btn.place(relx=0.93, rely=0.15, anchor=CENTER,relwidth=0.09)
+        icone_voltar = CTkImage(Image.open("images/seta_esquerda.png"), size=(20, 20))
 
+        # Botão de configurações
+        btntst = CTkButton(
+            self,
+            image=icone_voltar,
+            text="",
+            fg_color="#654E82",
+            command=lambda: self.controller.mostrar_pagina("config")
+        )
+
+        btntst.place(relx=0.07, rely=0.15, anchor="center", relwidth=0.05, relheight=0.06)
+    
         
