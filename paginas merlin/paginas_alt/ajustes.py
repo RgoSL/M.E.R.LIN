@@ -15,14 +15,14 @@ class ajustes(CTkFrame):
             header = CTkFrame(frame, fg_color="#654E82", corner_radius=0)
             header.place(relx=0, rely=0, relwidth=1, relheight=0.1)
 
-            titulo = CTkLabel(header, text="Ajustes", font=("Bold", 20), text_color="black")
-            titulo.place(relx=0.5, rely=0.5, anchor=CENTER)
+            titulo = CTkLabel(self, text="Ajustes", font=("Bold", 20), text_color="black", bg_color="#FFFFFF")
+            titulo.place(relx=0.5, rely=0.15, anchor=CENTER)
 
             txt_logo = CTkLabel(header, text="M.E.R.LIN", font=("Bold", 20), text_color="#E6C8FA")
             txt_logo.place(relx=0.1, rely=0.5, anchor=CENTER)
 
             frame2 = CTkFrame(frame, fg_color="#654E82", corner_radius=15)
-            frame2.place(relx=0.5, rely=0.55, relwidth=0.8, relheight=0.7, anchor=CENTER)
+            frame2.place(relx=0.5, rely=0.6, relwidth=0.8, relheight=0.7, anchor=CENTER)
 
 
             

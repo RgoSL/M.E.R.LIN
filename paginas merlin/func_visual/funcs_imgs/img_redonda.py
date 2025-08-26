@@ -102,7 +102,7 @@ def configurar_imagens_no_frame(frame1, controller):
             dados["texto"],
             "#654E82",
             espacamento_texto=8,
-            comando=lambda: controller.mostrar_pagina("config")
+            comando=lambda: controller.mostrar_pagina("comandos_coletanea")
         )
         
         # Usar grid para posicionamento horizontal

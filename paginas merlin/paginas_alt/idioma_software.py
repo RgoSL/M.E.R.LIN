@@ -33,8 +33,8 @@ class idioma_software(CTkFrame):
 
         logo.place(relx=0.2, rely=0.5, anchor=CENTER)
 
-        Txt_selecao = CTkLabel(self, text="Selecione o idioma do software:", font=("Bold", 18), text_color="black", bg_color="white")
-        Txt_selecao.place(relx=0.56, rely=0.2, anchor=CENTER)
+        Txt_selecao = CTkLabel(self, text="Selecione o idioma do software:", font=("Bold", 20), text_color="black", bg_color="white")
+        Txt_selecao.place(relx=0.56, rely=0.15, anchor=CENTER)
 
         quad = CTkScrollableFrame(self, fg_color="white", corner_radius=15, border_color="#C58ADE", border_width=2, scrollbar_button_color="#C58ADE", scrollbar_button_hover_color="#654E82")
         quad.place(relx=0.65, rely=0.5, relwidth=0.5, relheight=0.5, anchor=CENTER)
@@ -49,5 +49,5 @@ class idioma_software(CTkFrame):
         btn_proximo.place(relx=0.85, rely=0.9, anchor=CENTER, relwidth=0.2, relheight=0.06)
 
         # Barra de progresso
-        self.barra = progress_bar(self,cor_progresso="#C58ADE",cor_fundo="#FFFFFF",modo="determinate",valor=0.7)
+        self.barra = progress_bar(self,cor_progresso="#C58ADE",cor_fundo="#FFFFFF",modo="determinate",valor=0.5)
         self.barra.place(relx=0.5, rely=0.9, anchor=CENTER)

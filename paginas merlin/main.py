@@ -6,6 +6,7 @@ from paginas_alt.ajustes import ajustes
 from paginas_alt.termos_de_uso import termos_de_uso
 from paginas_alt.modo_claro_escuro import modo_claro_escuro
 from paginas_alt.idioma_software import idioma_software
+from paginas_alt.comandos_coletanea import comandos_coletanea
 
 def centralizar_janela(janela, largura, altura):
     # Pega a largura e altura da tela do monitor
@@ -33,13 +34,13 @@ class App(CTk):
         self.frames = {}
 
         # Instanciar todas as páginas e colocar no mesmo lugar
-        for PageClass in (inicial, config, video_Assis, ajustes,termos_de_uso,modo_claro_escuro, idioma_software):
+        for PageClass in (inicial, config, video_Assis, ajustes,termos_de_uso,modo_claro_escuro, idioma_software,comandos_coletanea):
             page_name = PageClass.__name__
             frame = PageClass(self, self)
             self.frames[page_name] = frame
             frame.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-        self.mostrar_pagina("video_Assis")
+        self.mostrar_pagina("inicial")
 
     def mostrar_pagina(self, nome):
         frame = self.frames[nome]

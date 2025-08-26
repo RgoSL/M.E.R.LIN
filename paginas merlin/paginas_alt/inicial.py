@@ -2,6 +2,7 @@
 from customtkinter import *
 from PIL import Image
 from func_visual.funcs_imgs.img_redonda import configurar_imagens_no_frame
+from func_nao_visual.mouse_scroll import mouse_scroll
 
 class inicial(CTkFrame):
     def __init__(self, master, controller):
@@ -64,5 +65,7 @@ class inicial(CTkFrame):
         images_frame.grid_columnconfigure(0, weight=1)
         images_frame.grid_columnconfigure(1, weight=1)
         images_frame.grid_rowconfigure(0, weight=1)
+
+        mouse_scroll(frame1)
 
         configurar_imagens_no_frame(frame1, self.controller)

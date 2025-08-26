@@ -32,8 +32,8 @@ class config(CTkFrame):
         txt_logo = CTkLabel(header, text="M.E.R.LIN", font=("Bold", 20), text_color="#E6C8FA")
         txt_logo.place(relx=0.1, rely=0.5, anchor=CENTER)
 
-        label = CTkLabel(header, text="Escolha como se preparar", font=("Bold", 20), text_color="black")
-        label.place(relx=0.5, rely=0.5, anchor=CENTER)
+        label = CTkLabel(self, text="Escolha como se preparar", font=("Bold", 20), text_color="black", bg_color="#FFFFFF")
+        label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
         Label2 = CTkLabel(self, text="Tipo de Configuração:", font=("Bold", 18), text_color="black",bg_color="white")
         Label2.place(relx=0.62, rely=0.35, anchor=CENTER)
@@ -65,5 +65,5 @@ class config(CTkFrame):
         btn_proximo.place(relx=0.85, rely=0.9, anchor=CENTER, relwidth=0.2, relheight=0.06)
 
         # Barra de progresso
-        self.barra = progress_bar(self,cor_progresso="#C58ADE",cor_fundo="#FFFFFF",modo="determinate",valor=0.7)
+        self.barra = progress_bar(self,cor_progresso="#C58ADE",cor_fundo="#FFFFFF",modo="determinate",valor=0.8)
         self.barra.place(relx=0.5, rely=0.9, anchor=CENTER)
