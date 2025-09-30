@@ -1,10 +1,9 @@
-// Arquivo Único Para Todos os Estilos
+/* Arquivo Único Para Todos os Estilos */
 
-// font-family: 'Gideon Roman', sans-serif;
-// font-family: 'Textos', sans-serif;
+/* font-family: 'Gideon Roman', sans-serif; */
+/* font-family: 'Textos', sans-serif; */
 
-
-// Começo Reset CSS 
+/* Começo Reset CSS */
 *,
 *::before,
 *::after {
@@ -13,7 +12,8 @@
   box-sizing: border-box;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
@@ -30,190 +30,219 @@ img {
   max-width: 100%;
   height: auto;
 }
-// Fim Reset CSS 
+/* Fim Reset CSS */
 
-
-// Começo Import das Fontes
+/* Começo Import das Fontes */
 @font-face {
-  font-family: 'Titulos';
-  src: url('./assets/fonts/GideonRoman-Regular.ttf') format('truetype');
+  font-family: "Titulos";
+  src: url("./assets/fonts/GideonRoman-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Textos';
-  src: url('./assets/fonts/GowunDodum-Regular.ttf') format('truetype');
+  font-family: "Textos";
+  src: url("./assets/fonts/GowunDodum-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
-// Fim Import das Fontes
+/* Fim Import das Fontes */
 
+/* Começo do Header */
+header {
+  background-color: #8156B8;
+  color: #E6C8FA ;
+  font-family: 'Gideon Roman', sans-serif;
+}
+/* Fim do Header */
 
-// Começo da Navbar
+/* Começo da Navbar */
 .navbar {
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
 }
-// Fim da Navbar
+/* Fim da Navbar */
 
-// Começo da Logo na Navbar
+/* Começo da Logo na Navbar */
 .logotipo {
-
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Gideon Roman', sans-serif;
 }
-// Fim da Logo na Navbar
 
-// Começo do Nome na Navbar
+.logotipo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+/* Fim da Logo na Navbar */
+
+/* Começo do Nome na Navbar */
 .nProjeto {
-
+  font-family: 'Gideon Roman', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
-// Fim do Nome na Navbar
+/* Fim do Nome na Navbar */
 
-// Começo dos Itens da Navbar
+/* Começo dos Itens da Navbar */
 .itensNav {
-
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex: 1;
 }
-// Fim dos Itens da Navbar
 
-// Começo dos Botões do Site
+.itensNav li a {
+  color: #E6C8FA;
+  font-size: 1.1rem;
+  transition: color 0.6s;
+  font-weight: 600;
+}
+
+.itensNav li a:hover {
+  color: #F9B14F;
+}
+/* Fim dos Itens da Navbar */
+
+/* Começo dos Botões do Site */
 .btn {
-
+  padding: 0.5rem 1rem;
+  background-color: #654E82;
+  color: #E6C8FA;
+  font-weight: 500;
+  border-radius: 8px;
+-webkit-box-shadow: 1px 9px 23px 0px rgba(0,0,0,0.85); 
+box-shadow: 1px 9px 23px 0px rgba(0,0,0,0.85);
+transition: 0.3s;
 }
-// Fim dos Botões do Site
 
-// Começo da Sessão Home
+.btn:hover {
+-moz-transform: scale(1.1);
+-webkit-transform: scale(1.1);
+-o-transform: scale(1.1);
+-ms-transform: scale(1.1);
+}
+/* Fim dos Botões do Site */
+
+/* Começo da Sessão Home */
 .merlin {
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
 }
-// Fim da Sessão Home
+/* Fim da Sessão Home */
 
-// Começo da Class com Titulo, Subtitulo e Imagem
+/* Começo da Class com Titulo, Subtitulo e Imagem */
 .tema {
-
 }
-// Fim da Class com Titulo, Subtitulo e Imagem
+/* Fim da Class com Titulo, Subtitulo e Imagem */
 
-// Começo do Texto e Título da Sessão Home
+/* Começo do Texto e Título da Sessão Home */
 .textoTema {
-
 }
-// Fim do Texto e Título da Sessão Home
+/* Fim do Texto e Título da Sessão Home */
 
-// Começo da Imagem na Sessão Home
+/* Começo da Imagem na Sessão Home */
 .imgTema {
-
 }
-// Fim da Imagem na Sessão Home
+/* Fim da Imagem na Sessão Home */
 
-// Começo da Sessão Sobre
+/* Começo da Sessão Sobre */
 .sobre {
-
 }
-// Fim da Sessão Sobre
+/* Fim da Sessão Sobre */
 
-// Começo da Class com a Imagem 3D, o Slogan e a Descrição
+/* Começo da Class com a Imagem 3D, o Slogan e a Descrição */
 .desc {
-
 }
-// Fim da Class com a Imagem 3D, o Slogan e a Descrição
+/* Fim da Class com a Imagem 3D, o Slogan e a Descrição */
 
-// Começo do Slogan e da Descrição
+/* Começo do Slogan e da Descrição */
 .textoDesc {
-
 }
-// Fim do Slogan e da Descrição
+/* Fim do Slogan e da Descrição */
 
-// Começo da Imagem 3D
+/* Começo da Imagem 3D */
 .imgDesc {
-
 }
-// Fim da Imagem 3D
+/* Fim da Imagem 3D */
 
-// Começo da Sessão Pitch
+/* Começo da Sessão Pitch */
 .pitch {
-
 }
-// Fim da Sessão Pitch
+/* Fim da Sessão Pitch */
 
-// Começo da Class com o Título, o Vídeo e a Explicação
+/* Começo da Class com o Título, o Vídeo e a Explicação */
 .fun {
-    
 }
-// Fim da Class com o Título, o Vídeo e a Explicação
+/* Fim da Class com o Título, o Vídeo e a Explicação */
 
-// Começo da Sessão Desenvolvedores
+/* Começo da Sessão Desenvolvedores */
 .devs {
-
 }
-// Fim da Sessão Desenvolvedores
+/* Fim da Sessão Desenvolvedores */
 
-// Começo da Class que Agrupa os 3 Cards
+/* Começo da Class que Agrupa os 3 Cards */
 .cards {
-
 }
-// Fim da Class que Agrupa os 3 Cards
+/* Fim da Class que Agrupa os 3 Cards */
 
-// Começo da Class de Cada Card
+/* Começo da Class de Cada Card */
 .card {
-
 }
-// Fim da Class de Cada Card
+/* Fim da Class de Cada Card */
 
-// Começo da Sessão Baixar
+/* Começo da Sessão Baixar */
 .baixar {
-
 }
-// Fim da Sessão Baixar
+/* Fim da Sessão Baixar */
 
-// Começo da Class que Agrupa as 2 Opções de Download
+/* Começo da Class que Agrupa as 2 Opções de Download */
 .mets {
-
 }
-// Fim da Class que Agrupa as 2 Opções de Download
+/* Fim da Class que Agrupa as 2 Opções de Download */
 
-// Começo da Class com os Itens do GitHub
+/* Começo da Class com os Itens do GitHub */
 .github {
-
 }
-// Fim da Class com os Itens do GitHub
+/* Fim da Class com os Itens do GitHub */
 
-// Começo da Class com os Itens do .EXE
+/* Começo da Class com os Itens do .EXE */
 .exe {
-
 }
-// Fim da Class com os Itens do .EXE
+/* Fim da Class com os Itens do .EXE */
 
-// Começo da Class que Agrupa Todos os Elementos do Footer
+/* Começo da Class que Agrupa Todos os Elementos do Footer */
 .footer-container {
-
 }
-// Fim da Class que Agrupa Todos os Elementos do Footer
+/* Fim da Class que Agrupa Todos os Elementos do Footer */
 
-// Começo da Class com os Itens Privacidade e Termos
+/* Começo da Class com os Itens Privacidade e Termos */
 .trp {
-
 }
-// Fim da Class com os Itens Privacidade e Termos
+/* Fim da Class com os Itens Privacidade e Termos */
 
-// Começo da Class com as Informações de Contato
+/* Começo da Class com as Informações de Contato */
 .contato {
-
 }
-// Fim da Class com as Informações de Contato
+/* Fim da Class com as Informações de Contato */
 
-
-// Começo da Class com as Redes Sociais
+/* Começo da Class com as Redes Sociais */
 .redes {
-
 }
-// Fim da Class com as Redes Sociais
+/* Fim da Class com as Redes Sociais */
 
-// Começo da Class com o Texto de Copyright
+/* Começo da Class com o Texto de Copyright */
 .copyright {
-
 }
-// Fim da Class com o Texto de Copyright
+/* Fim da Class com o Texto de Copyright */
 
+/* Começo da Responsividade */
 
-// Começo da Responsividade
-
-// Fim da Responsividade
+/* Fim da Responsividade */
