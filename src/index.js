@@ -1,0 +1,1 @@
+// Lógica de Funcionalidades em um Arquivo Único
