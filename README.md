@@ -21,12 +21,18 @@ Este repositório reúne os itens mais importantes para o desenvolvimento do nos
 ## Branchs Deste Repositório :
 
   ### Documentation
-- [Documentação](https://github.com/RgoSL/M.E.R.LIN/tree/Documentation) <!-- LINK PARA AS RESPECTIVAS BRANCHS -->
-> Esta branch reúne os fundamentos teóricos do projeto M.E.R.LIN, incluindo a modelagem UML, itens para a organização do repositório e a fundamentação conceitual preliminar e final que orientaram o desenvolvimento do trabalho.
+- [Documentação](https://github.com/RgoSL/M.E.R.LIN/tree/Documentation) <!-- LINK PARA A RESPECTIVA BRANCH -->
+> Foi nesta branch que os fundamentos do M.E.R.LIN começaram a ser traçados. Ela reúne a modelagem UML, a organização inicial do repositório e toda a base conceitual,
+> do esboço preliminar à fundamentação final que orientou o desenvolvimento do projeto.
 
-  ### Nome da Branch
-- [Branch](LinkDaBranch) <!-- LINK PARA AS RESPECTIVAS BRANCHS -->
-> Descrição do que essa branch contém.
+  ### V1.0
+- [Software](https://github.com/RgoSL/M.E.R.LIN/tree/V1.0) <!-- LINK PARA A RESPECTIVA BRANCH -->
+> Foi nesta branch que o M.E.R.LIN ganhou forma. Toda a lógica e estrutura do Software Assistivo foram desenvolvidas aqui.
+
+  ### Website
+- [WebVitrine](https://github.com/RgoSL/M.E.R.LIN/tree/V1.0) <!-- LINK PARA A RESPECTIVA BRANCH -->
+> Nesta branch, o M.E.R.LIN ganha rosto e presença. Aqui está uma interface pensada para apresentar sua essência, propósito e funcionalidades de forma clara,
+>  acessível e visualmente convidativa.
 <br> 
 
 <!-- LISTA DE FUNCIONALIDADES -->
