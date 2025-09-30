@@ -50,9 +50,9 @@ img {
 
 /* Começo do Header */
 header {
-  background-color: #8156B8;
-  color: #E6C8FA ;
-  font-family: 'Gideon Roman', sans-serif;
+  background-color: #8156b8;
+  color: #e6c8fa;
+  font-family: "Gideon Roman", sans-serif;
 }
 /* Fim do Header */
 
@@ -70,7 +70,7 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: 'Gideon Roman', sans-serif;
+  font-family: "Gideon Roman", sans-serif;
 }
 
 .logotipo img {
@@ -82,7 +82,7 @@ header {
 
 /* Começo do Nome na Navbar */
 .nProjeto {
-  font-family: 'Gideon Roman', sans-serif;
+  font-family: "Gideon Roman", sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: 1px;
@@ -98,90 +98,241 @@ header {
 }
 
 .itensNav li a {
-  color: #E6C8FA;
+  color: #e6c8fa;
   font-size: 1.1rem;
   transition: color 0.6s;
   font-weight: 600;
 }
 
 .itensNav li a:hover {
-  color: #F9B14F;
+  color: #f9b14f;
 }
 /* Fim dos Itens da Navbar */
 
-/* Começo dos Botões do Site */
-.btn {
+/* Começo do Botão da Navbar */
+.btnNav {
   padding: 0.5rem 1rem;
-  background-color: #654E82;
-  color: #E6C8FA;
+  background-color: #654e82;
+  color: #e6c8fa;
   font-weight: 500;
   border-radius: 8px;
--webkit-box-shadow: 1px 9px 23px 0px rgba(0,0,0,0.85); 
-box-shadow: 1px 9px 23px 0px rgba(0,0,0,0.85);
-transition: 0.3s;
+  -webkit-box-shadow: 1px 9px 23px 0px rgba(0, 0, 0, 0.85);
+  box-shadow: 1px 9px 23px 0px rgba(0, 0, 0, 0.85);
+  transition: 0.3s;
 }
 
-.btn:hover {
--moz-transform: scale(1.1);
--webkit-transform: scale(1.1);
--o-transform: scale(1.1);
--ms-transform: scale(1.1);
+.btnNav:hover {
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  -ms-transform: scale(1.1);
 }
-/* Fim dos Botões do Site */
+/* Fim do Botão da Navbar */
 
 /* Começo da Sessão Home */
 .merlin {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 4rem 2rem;
 }
 /* Fim da Sessão Home */
 
 /* Começo da Class com Titulo, Subtitulo e Imagem */
 .tema {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
 }
 /* Fim da Class com Titulo, Subtitulo e Imagem */
 
 /* Começo do Texto e Título da Sessão Home */
-.textoTema {
+.textoTema h1 {
+  font-family: "Gideon Roman", sans-serif;
+  letter-spacing: 3px;
+  font-size: 3rem;
+  background-image: linear-gradient(to right, #6f00ff49, #f9b14f);
+  color: black;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.textoTema p {
+  font-family: "Textos", sans-serif;
+  text-align: justify;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #0b0111;
+  max-width: 500px;
+  margin-bottom: 1rem;
+  font-style: italic;
 }
 /* Fim do Texto e Título da Sessão Home */
 
+/* Começo do Botão Saiba Mais */
+.btnSm {
+  background-color: #654e82;
+  color: #e6c8fa;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  transition: 0.3s;
+}
+
+.btnSm::hover {
+}
+/* Fim do Botão Saiba Mais */
+
 /* Começo da Imagem na Sessão Home */
 .imgTema {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.imgTema img {
+  width: %;
+  max-width: 700px;
+  border-radius: 12px;
 }
 /* Fim da Imagem na Sessão Home */
 
 /* Começo da Sessão Sobre */
 .sobre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
 }
 /* Fim da Sessão Sobre */
 
 /* Começo da Class com a Imagem 3D, o Slogan e a Descrição */
 .desc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  flex-direction: row-reverse;
 }
 /* Fim da Class com a Imagem 3D, o Slogan e a Descrição */
 
 /* Começo do Slogan e da Descrição */
-.textoDesc {
+.textoDesc h1 {
+  font-family: "Gideon Roman", sans-serif;
+  word-spacing: -5px;
+  text-align: justify;
+  letter-spacing: 3px;
+  background-image: linear-gradient(to right, #6f00ff49, #f9b14f);
+  color: black;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.textoDesc p {
+  font-family: "Textos", sans-serif;
+  text-align: justify;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #0b0111;
+  max-width: 500px;
+  margin-bottom: 1rem;
+  font-style: italic;
 }
 /* Fim do Slogan e da Descrição */
 
+/* Começo do Botão Como é Possível */
+.btnSb {
+  background-color: #654e82;
+  color: #e6c8fa;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  transition: 0.3s;
+}
+
+.btnSb:hover {
+}
+/* Fim do Botão Como é Possível */
+
 /* Começo da Imagem 3D */
 .imgDesc {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.imgDesc img {
+  width: %;
+  max-width: 700px;
+  border-radius: 12px;
 }
 /* Fim da Imagem 3D */
 
 /* Começo da Sessão Pitch */
 .pitch {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 2rem;
 }
 /* Fim da Sessão Pitch */
 
 /* Começo da Class com o Título, o Vídeo e a Explicação */
 .fun {
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
 }
 /* Fim da Class com o Título, o Vídeo e a Explicação */
+
+/* Começo do Título do Vídeo */
+.fun h1 {
+  font-family: "Gideon Roman", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: black;
+  background-image: linear-gradient(to right, #6f00ff49, #f9b14f);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  line-height: 1.1;
+}
+/* Fim do Título do Vídeo */
+
+/* Começo do Vídeo */
+.fun video {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+/* Fim do Vídeo*/
+
+/* Começo do Texto do Vídeo*/
+.fun p {
+  font-family: "Textos", sans-serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  text-align: justify;
+  line-height: 1.7;
+  color: #0B0111;
+  max-width: 800px;
+  margin: 0 auto;
+}
+/* Fim do Texto do Vídeo */
 
 /* Começo da Sessão Desenvolvedores */
 .devs {
