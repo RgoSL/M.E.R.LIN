@@ -1,1 +1,219 @@
 // Arquivo Único Para Todos os Estilos
+
+// font-family: 'Gideon Roman', sans-serif;
+// font-family: 'Textos', sans-serif;
+
+
+// Começo Reset CSS 
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+// Fim Reset CSS 
+
+
+// Começo Import das Fontes
+@font-face {
+  font-family: 'Titulos';
+  src: url('./assets/fonts/GideonRoman-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Textos';
+  src: url('./assets/fonts/GowunDodum-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+// Fim Import das Fontes
+
+
+// Começo da Navbar
+.navbar {
+
+}
+// Fim da Navbar
+
+// Começo da Logo na Navbar
+.logotipo {
+
+}
+// Fim da Logo na Navbar
+
+// Começo do Nome na Navbar
+.nProjeto {
+
+}
+// Fim do Nome na Navbar
+
+// Começo dos Itens da Navbar
+.itensNav {
+
+}
+// Fim dos Itens da Navbar
+
+// Começo dos Botões do Site
+.btn {
+
+}
+// Fim dos Botões do Site
+
+// Começo da Sessão Home
+.merlin {
+
+}
+// Fim da Sessão Home
+
+// Começo da Class com Titulo, Subtitulo e Imagem
+.tema {
+
+}
+// Fim da Class com Titulo, Subtitulo e Imagem
+
+// Começo do Texto e Título da Sessão Home
+.textoTema {
+
+}
+// Fim do Texto e Título da Sessão Home
+
+// Começo da Imagem na Sessão Home
+.imgTema {
+
+}
+// Fim da Imagem na Sessão Home
+
+// Começo da Sessão Sobre
+.sobre {
+
+}
+// Fim da Sessão Sobre
+
+// Começo da Class com a Imagem 3D, o Slogan e a Descrição
+.desc {
+
+}
+// Fim da Class com a Imagem 3D, o Slogan e a Descrição
+
+// Começo do Slogan e da Descrição
+.textoDesc {
+
+}
+// Fim do Slogan e da Descrição
+
+// Começo da Imagem 3D
+.imgDesc {
+
+}
+// Fim da Imagem 3D
+
+// Começo da Sessão Pitch
+.pitch {
+
+}
+// Fim da Sessão Pitch
+
+// Começo da Class com o Título, o Vídeo e a Explicação
+.fun {
+    
+}
+// Fim da Class com o Título, o Vídeo e a Explicação
+
+// Começo da Sessão Desenvolvedores
+.devs {
+
+}
+// Fim da Sessão Desenvolvedores
+
+// Começo da Class que Agrupa os 3 Cards
+.cards {
+
+}
+// Fim da Class que Agrupa os 3 Cards
+
+// Começo da Class de Cada Card
+.card {
+
+}
+// Fim da Class de Cada Card
+
+// Começo da Sessão Baixar
+.baixar {
+
+}
+// Fim da Sessão Baixar
+
+// Começo da Class que Agrupa as 2 Opções de Download
+.mets {
+
+}
+// Fim da Class que Agrupa as 2 Opções de Download
+
+// Começo da Class com os Itens do GitHub
+.github {
+
+}
+// Fim da Class com os Itens do GitHub
+
+// Começo da Class com os Itens do .EXE
+.exe {
+
+}
+// Fim da Class com os Itens do .EXE
+
+// Começo da Class que Agrupa Todos os Elementos do Footer
+.footer-container {
+
+}
+// Fim da Class que Agrupa Todos os Elementos do Footer
+
+// Começo da Class com os Itens Privacidade e Termos
+.trp {
+
+}
+// Fim da Class com os Itens Privacidade e Termos
+
+// Começo da Class com as Informações de Contato
+.contato {
+
+}
+// Fim da Class com as Informações de Contato
+
+
+// Começo da Class com as Redes Sociais
+.redes {
+
+}
+// Fim da Class com as Redes Sociais
+
+// Começo da Class com o Texto de Copyright
+.copyright {
+
+}
+// Fim da Class com o Texto de Copyright
+
+
+// Começo da Responsividade
+
+// Fim da Responsividade
