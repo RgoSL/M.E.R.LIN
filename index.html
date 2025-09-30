@@ -7,17 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Ícone do TCC ao Lado da Aba -->
-    <link rel="shortcut icon" href="#" />
+    <link rel = "shortcut icon" href = "#" />
+
+        <!-- Import dos Ícones Fontawesome -->
+    <link rel = "stylesheet" href = "path/to/font-awesome/css/font-awesome.min.css">
 
       <!-- Caminho do CSS Externo -->
-    <link rel="stylesheet" href="src/style.css" />
+    <link rel = "stylesheet" href = "src/style.css" />
 
      <!-- Caminho do JavaScript Externo -->
-    <script src="src/index.js"></script>
+    <script src = "src/index.js"></script>
 
     <title>M.E.R.LIN</title>
   </head>
   <body>
+
+    <!-- INICIO NAVBAR -->
+
     <header>
       <nav class = "navbar"> <!-- Inicio Class Navbar -->
       <div class = "logotipo"> <!-- Inicio Class Logotipo -->
@@ -34,6 +40,10 @@
         </nav> <!-- Fim Class Navbar -->
     </header>
 
+        <!-- FIM NAVBAR -->
+
+        <!-- COMEÇO HOME -->
+
   <section id = "Home" class = "merlin"> <!-- Inicio da Sessão com a Logo o Título e o Botão -->
             <div class = "tema"> <!-- Inicio da Class que Agrupa Título, Subtítulo, Botão e Imagem -->
                 <div class = "textoTema"> <!-- Inicio da Class que Agrupa Titulo, Subtítulo e Botão -->
@@ -49,6 +59,11 @@
             </div> <!-- Fim da Class que Agrupa Título, Subtítulo, Botão e Imagem -->
         </section> <!-- Fim da Sessão com a Logo o Título e o Botão -->
 
+       <!-- FIM HOME -->
+
+
+              <!-- COMEÇO SOBRE -->
+
         <section id = "Sobre" class = "sobre"> <!-- Inicio da Sessão com a Imagem 3D a Descrição, o Slogan e o Botão -->
             <div class = "desc"> <!-- Inicio da Class com a Descrição, o Slogan, a Imagem 3D e o Botão  -->
                 <div class = "textoDesc"> <!-- Inicio da Class com a Descrição, o Slogan e o Botão -->
@@ -61,10 +76,15 @@
                         <a href = "#Pitch" class = "btn">Como Isso é Possível?</a>
                 </div> <!-- Fim da Class com a Descrição, o Slogan e o Botão -->
                  <div class = "imgDesc"> <!-- Inicio da Class com a Imagem 3D -->
-                        <img src = "" alt = "Computador 3D">
+                        <img src = "src/assets/imgs/Laptop Right.png" alt = "Computador 3D">
                     </div> <!-- Fim da Class com a Imagem 3D -->
             </div> <!-- Fim da Class com a Descrição, o Slogan, a Imagem 3D e o Botão  -->
         </section> <!-- Fim da Sessão com a Imagem 3D a Descrição, o Slogan e o Botão --> 
+
+        <!-- FIM SOBRE -->
+
+
+        <!-- COMEÇO PITCH -->
 
         <section id = "Pitch" class = "pitch"> <!-- Inicio da Sessão com o Título, o Vídeo e a Explicação -->
           <div class = "fun"> <!-- Inicio da Class com o Título, o Vídeo e a Explicação -->
@@ -80,9 +100,14 @@
           </div> <!-- Fim da Class com o Título, o Vídeo e a Explicação -->
         </section> <!-- Fim da Sessão com o Título, o Vídeo e a Explicação -->
 
+        <!-- FIM PITCH -->
+
+        
+        <!-- COMEÇO DESENVOLVEDORES -->
+
         <section id = "Devs" class = "devs"> <!-- Inicio da Sessão com os Cards de Desenvolvedores -->
           <div class = "cards"> <!-- Inicio da Class que Agrupa Todos os Cards -->
-
+            <h1>Desenvolvedores</h1>
             <div class = "card" id = "mota"> <!-- Inicio da Class do Card Individual do João -->
               <img src = "" alt = "Foto do Membro João">
                 <h4> João Mota</h4>
@@ -104,17 +129,61 @@
           </div> <!-- Fim da Class que Agrupa Todos os Cards -->
         </section> <!-- Fim da Sessão com os Cards de Desenvolvedores -->
 
+           <!-- FIM DESENVOLVEDORES -->
+
+
+   <!-- COMEÇO DOWNLOAD -->
+
         <section id = "Baixar" class = "baixar"> <!-- Inicio da Sessão com o Título, os Ícones do GitHub e de Download, e os Textos de Cada Método -->
           <div class = "mets"> <!-- Inicio da Class que Agrupa os Métodos de Download, GitHub e .Exe-->
+            <h1>M.E.R.LIN ao Seu Alcance</h1>
             <div class = "github"> <!-- Inicio da Class que Agrupa a Logo do GitHub, o Título Dele e a Observação-->
+              <img src = "src/assets/imgs/Github Logo 3D.webp" alt = "Ícone do GitHub">
+              <h4>GitHub</h4>
+              <p>Acesse o código completo e conheça ainda mais !</p>
 
             </div> <!-- Fim da Class que Agrupa a Logo do GitHub, o Título Dele e a Observação-->
             <div class = "exe"> <!-- Inicio da Class que Agrupa a Logo do Exe, o Título Dele e a Observação-->
-
+              <img src = "src/assets/imgs/Download 3D.png" alt = "Ícone de Download">
+              <h4>Download .Exe</h4>
+              <p>Baixe o M.E.R.LIN e comece a usar a acessibilidade na prática</p>
             </div> <!-- Fim da Class que Agrupa a Logo do Exe, o Título Dele e a Observação-->
           </div> <!-- Fim da Class que Agrupa os Métodos de Download, GitHub e .Exe-->
-
         </section> <!-- Fim da Sessão com o Título, os Ícones do GitHub e de Download, e os Textos de Cada Método -->
+
+           <!-- FIM DOWNLOAD -->
+
+
+           <!-- COMEÇO FOOTER -->
+
+        <footer> <!-- Inicio do Footer -->
+          <div class = "footer-container">  <!-- Inicio da Class que Agrupa Todos os Itens do Footer -->
+            <div class = "trp"> <!-- Inicio da Class com os Itens de Politica e Termos -->
+              <h5>Transparência</h5>
+              <a href = "#">Política de Privacidade</a>
+              <a href = "#">Termos de Uso</a>
+
+            </div> <!-- Fim da Class com os Itens de Politica e Termos -->
+            <div class = "contato"> <!-- Inicio da Class com os Itens de Contatos -->
+              <h5>Fale Conosco</h5>
+              <a href = "#">merlin@gmail.com</a>
+              <a href = "#">55+ 11 90000-0000</a>
+
+            </div> <!-- Fim da Class com os Itens de Contatos -->
+            <div class = "redes"> <!-- Inicio da Class com as Redes Sociais -->
+              <h5>Redes Sociais</h5>
+             <a href = "#"><i class="fa-brands fa-square-linkedin">LinkedIn</i></a>
+             <a href = "#"><i class="fa-brands fa-square-youtube">Youtube</i></a>
+            <a href = "#"><i class="fa-brands fa-square-instagram">Instagram</i></a>
+
+            </div> <!-- Inicio da Class com as Redes Sociais -->
+            <div class = "copyright">
+               © 2025 M.E.R.LIN. Todos os Direitos Reservados.
+            </div>
+          </div>  <!-- Fim da Class que Agrupa Todos os Itens do Footer -->
+        </footer>  <!-- Fim do Footer -->
+
+         <!-- FIM FOOTER -->
 
       </body>
 </html>
