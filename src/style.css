@@ -328,7 +328,7 @@ header {
   font-style: italic;
   text-align: justify;
   line-height: 1.7;
-  color: #0B0111;
+  color: #0b0111;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -336,37 +336,214 @@ header {
 
 /* Começo da Sessão Desenvolvedores */
 .devs {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /* Fim da Sessão Desenvolvedores */
 
+.devs h1 {
+  font-family: "Gideon Roman", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: black;
+  background-image: linear-gradient(to right, #6f00ff49, #f9b14f);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
 /* Começo da Class que Agrupa os 3 Cards */
 .cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 /* Fim da Class que Agrupa os 3 Cards */
 
+/* */
+
+/* */
+
+.cards .card {
+  margin: 1rem;
+}
+
 /* Começo da Class de Cada Card */
 .card {
+  background: linear-gradient(180deg, #f9b14f 0%, #fffdf6 90%, #fffdf6 100%);
+  border-radius: 300px 300px 0px 0px;
+  cursor: pointer;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+  width: 280px;
+  height: 400px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 /* Fim da Class de Cada Card */
 
+/* */
+.card img {
+  width: 220px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+/* */
+
+/* Começo do Nome no Card */
+.card h4 {
+  font-family: "Titulos", sans-serif;
+  font-size: 1.2rem;
+  color: inherit;
+  margin-bottom: 0.5rem;
+}
+/* Fim do Nome no Card */
+
+/* Começo do Encargo no Card */
+.card p {
+  font-family: "Textos", sans-serif;
+  font-size: 1rem;
+  color: #0b0111;
+  line-height: 1.3;
+}
+/* Fim do Encargo no Card */
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
 /* Começo da Sessão Baixar */
 .baixar {
+  padding: 2rem 2rem;
+  text-align: center;
 }
 /* Fim da Sessão Baixar */
 
+.baixar h1 {
+  font-family: "Gideon Roman", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: black;
+  background-image: linear-gradient(to right, #6f00ff49, #f9b14f);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
 /* Começo da Class que Agrupa as 2 Opções de Download */
 .mets {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 2rem;
 }
 /* Fim da Class que Agrupa as 2 Opções de Download */
 
 /* Começo da Class com os Itens do GitHub */
 .github {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 /* Fim da Class com os Itens do GitHub */
 
+.github img {
+  object-fit: contain;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.github h4 {
+  font-family: "Gideon Roman", sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #271433;
+  text-shadow: -1px 0px 3px #c58ade;
+}
+
+.github p {
+  font-family: "Textos", sans-serif;
+  font-size: 1rem;
+  color: #0b0111;
+  line-height: 1.3;
+  font-style: italic;
+}
+
+.github img:hover {
+  transform: scale(1.1);
+}
+
 /* Começo da Class com os Itens do .EXE */
 .exe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.exe img {
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exe h4 {
+  font-family: "Gideon Roman", sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #271433ff;
+  text-shadow: -1px 0px 3px #c58ade;
+}
+
+.exe p {
+  font-family: "Textos", sans-serif;
+  font-size: 1rem;
+  color: #0b0111;
+  line-height: 1.3;
+  font-style: italic;
+}
+
+.exe img:hover {
+  transform: scale(1.1);
+}
+
 /* Fim da Class com os Itens do .EXE */
 
 /* Começo da Class que Agrupa Todos os Elementos do Footer */
