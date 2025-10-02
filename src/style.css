@@ -3,7 +3,7 @@
 /* font-family: 'Gideon Roman', sans-serif; */
 /* font-family: 'Textos', sans-serif; */
 
-/* Começo Reset CSS */
+/* Começo do Reset CSS */
 *,
 *::before,
 *::after {
@@ -30,9 +30,9 @@ img {
   max-width: 100%;
   height: auto;
 }
-/* Fim Reset CSS */
+/* Fim do Reset CSS */
 
-/* Começo Import das Fontes */
+/* Começo do Import das Fontes */
 @font-face {
   font-family: "Titulos";
   src: url("./assets/fonts/GideonRoman-Regular.ttf") format("truetype");
@@ -46,7 +46,7 @@ img {
   font-weight: normal;
   font-style: normal;
 }
-/* Fim Import das Fontes */
+/* Fim do Import das Fontes */
 
 /* Começo do Header */
 header {
@@ -373,15 +373,11 @@ header {
   flex-wrap: wrap;
   gap: 2rem;
 }
-/* Fim da Class que Agrupa os 3 Cards */
-
-/* */
-
-/* */
 
 .cards .card {
   margin: 1rem;
 }
+/* Fim da Class que Agrupa os 3 Cards */
 
 /* Começo da Class de Cada Card */
 .card {
@@ -401,9 +397,7 @@ header {
   align-items: center;
   justify-content: flex-start;
 }
-/* Fim da Class de Cada Card */
 
-/* */
 .card img {
   width: 220px;
   height: 240px;
@@ -412,18 +406,14 @@ header {
   margin-bottom: 1.2rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
-/* */
 
-/* Começo do Nome no Card */
 .card h4 {
   font-family: "Titulos", sans-serif;
   font-size: 1.2rem;
   color: inherit;
   margin-bottom: 0.5rem;
 }
-/* Fim do Nome no Card */
 
-/* Começo do Encargo no Card */
 .card p {
   font-family: "Textos", sans-serif;
   font-size: 1rem;
@@ -436,13 +426,13 @@ header {
   transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
+/* Fim da Class de Cada Card */
 
 /* Começo da Sessão Baixar */
 .baixar {
   padding: 2rem 2rem;
   text-align: center;
 }
-/* Fim da Sessão Baixar */
 
 .baixar h1 {
   font-family: "Gideon Roman", sans-serif;
@@ -458,6 +448,7 @@ header {
   font-weight: bold;
   line-height: 1.1;
 }
+/* Fim da Sessão Baixar */
 
 /* Começo da Class que Agrupa as 2 Opções de Download */
 .mets {
@@ -479,7 +470,6 @@ header {
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-/* Fim da Class com os Itens do GitHub */
 
 .github img {
   object-fit: contain;
@@ -507,6 +497,7 @@ header {
 .github img:hover {
   transform: scale(1.1);
 }
+/* Fim da Class com os Itens do GitHub */
 
 /* Começo da Class com os Itens do .EXE */
 .exe {
@@ -543,7 +534,6 @@ header {
 .exe img:hover {
   transform: scale(1.1);
 }
-
 /* Fim da Class com os Itens do .EXE */
 
 /* Começo da Class que Agrupa Todos os Elementos do Footer */
