@@ -536,28 +536,89 @@ header {
 }
 /* Fim da Class com os Itens do .EXE */
 
+/* Começo da Sessão Footer */
+footer {
+  background-color: ;
+  color: #f1f5f9;
+  padding: 3rem 2rem 1.5rem;
+  font-family: "Textos", sans-serif;
+}
+/* Fim da Sessão Footer */
+
 /* Começo da Class que Agrupa Todos os Elementos do Footer */
 .footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 /* Fim da Class que Agrupa Todos os Elementos do Footer */
 
-/* Começo da Class com os Itens Privacidade e Termos */
-.trp {
+.footer-container h5 {
+  font-family: "Gideon Roman", sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: #f9b14f;
 }
+
+/* Começo da Class com os Itens Privacidade e Termos */
+.trp a {
+  display: block;
+  color: #271433;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  transition: color 0.3s ease;
+}
+
+.trp a:hover {
+  color: #8f39b4ff;
+}
+
 /* Fim da Class com os Itens Privacidade e Termos */
 
 /* Começo da Class com as Informações de Contato */
 .contato {
+  display: block;
+  color: #271433;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  transition: color 0.3s ease;
+}
+
+.contato a:hover {
+  color: #8f39b4ff;
 }
 /* Fim da Class com as Informações de Contato */
 
 /* Começo da Class com as Redes Sociais */
-.redes {
+.redes .icones {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.icones a {
+  color: #271433;
+  font-size: 1.7rem;
+  transition: 0.3s;
+}
+
+.icones a:hover {
+  transform: scale(1.1);
+  text-shadow: 1px 2px 2px #c58ade;
 }
 /* Fim da Class com as Redes Sociais */
 
 /* Começo da Class com o Texto de Copyright */
 .copyright {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #341647ff;
 }
 /* Fim da Class com o Texto de Copyright */
 
