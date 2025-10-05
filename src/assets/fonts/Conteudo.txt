@@ -20,21 +20,21 @@ Com movimentos simples do rosto e dos olhos, o software permite navegar, clicar 
 
 João Mota
 - Desenvolvedor de Software Front-End
-- LinkedIn -
-- Instagram -
-- GitHub -
+- LinkedIn - https://www.linkedin.com/in/jo%C3%A3o-mota-a59b6035b/
+- Instagram - https://www.instagram.com/jaokky/
+- GitHub - https://github.com/joaopedrosantanamotalol
 
 Rodrigo Lima
 - Desenvolvedor de Software Back-End
 - LinkedIn - linkedIn.com/in/limarodrigo-
-- Instagram - instagram.com/Rd0.SL
+- Instagram - instagram.com/Rd0.ls/
 - GitHub - github.com/RgoSL
 
 Emily Cristina
 - Diretora Criativa
-- LinkedIn -
-- Instagram -
-- GitHub -
+- LinkedIn - 
+- Instagram - https://www.instagram.com/emycspri__/
+- GitHub - https://github.com/emycspri
 
 
 INSTALAÇÃO DO MERLIN
