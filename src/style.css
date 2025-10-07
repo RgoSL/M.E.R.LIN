@@ -1,5 +1,3 @@
-/* Arquivo Único Para Todos os Estilos */
-
 /* font-family: 'Gideon Roman', sans-serif; */
 /* font-family: 'Textos', sans-serif; */
 
@@ -466,7 +464,6 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 300px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -475,6 +472,7 @@ header {
   object-fit: contain;
   margin-bottom: 2rem;
   cursor: pointer;
+  width: 300px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -501,17 +499,17 @@ header {
 
 /* Começo da Class com os Itens do .EXE */
 .exe {
-  display: flex;
+   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 300px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .exe img {
-  margin-bottom: 2rem;
+  margin-bottom: 3.4rem;
   cursor: pointer;
+  width: 490px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 

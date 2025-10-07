@@ -1,5 +1,3 @@
-// Lógica de Funcionalidades em um Arquivo Único
-
 // Inicializando as Animações de Scroll
 AOS.init(); 
 AOS.init({
