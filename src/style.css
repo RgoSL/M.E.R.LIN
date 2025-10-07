@@ -3,6 +3,9 @@
 /* font-family: 'Gideon Roman', sans-serif; */
 /* font-family: 'Textos', sans-serif; */
 
+/* Background Inicial :  #8156B8 */
+/* Background Final |: #D9D9D9 */
+
 /* Começo do Reset CSS */
 *,
 *::before,
@@ -259,9 +262,6 @@ header {
   border-radius: 8px;
   padding: 0.5rem 1rem;
   transition: 0.3s;
-}
-
-.btnSb:hover {
 }
 /* Fim do Botão Como é Possível */
 
