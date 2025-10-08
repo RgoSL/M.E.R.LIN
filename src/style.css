@@ -54,6 +54,31 @@ html {
 }
 /* Fim dos Efeitos Para Melhorar o AOS */
 
+/* Começo da ScrollBar Personalizada */
+::-webkit-scrollbar {
+  width: 10px; 
+  height: 5px; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e6c8fa; 
+  border-radius: 6px; 
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ffffff; 
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-button {
+  background-color: #f9b14f;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #ffffff; 
+}
+/* Fim da ScrollBar Personalizada*/
 
 /* Começo do Import das Fontes */
 @font-face {
