@@ -661,6 +661,7 @@ footer {
 .copyright {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding-top: 1rem;
+  justify-content: center;
   text-align: center;
   font-size: 0.85rem;
   font-weight: 600;
@@ -669,5 +670,167 @@ footer {
 /* Fim da Class com o Texto de Copyright */
 
 /* Começo da Responsividade */
+@media (min-width: 1200px) { 
+  .navbar {
+    padding: 1rem 4rem;
+  }
 
+  .tema, .desc {
+    padding: 0 2rem;
+  }
+
+  .cards {
+    gap: 3rem;
+  }
+
+  .mets {
+    gap: 6rem;
+  }
+} 
+
+@media (max-width: 992px) { 
+  .navbar{
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .itensNav {
+    flex-basis: 100%;
+    order: 3;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+
+  .btnNav {
+    order: 2;
+  }
+
+  .logotipo {
+    order: 1;
+  }
+
+  .tema {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .textoTema h1, .textoTema p {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .desc {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .textoDesc h1, .textoDesc p {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .cards {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .mets {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .github img, .exe img {
+    width: 250px;
+  }
+  
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+} 
+
+@media (max-width: 600px) { 
+  .navbar {
+    padding: 1rem;
+    flex-direction: column;
+    align-Itens: center;
+  }
+
+  .logotipo {
+    margin-bottom: 1rem;
+  }
+
+  .itensNav {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .btnNav {
+    width: 100%;
+    text-align: center;
+  }
+
+  .merlin, .sobre, .pitch, .devs, .baixar {
+    padding: 2rem 1rem;
+  }
+
+  .textoTema h1, .textoDesc h1, .fun h1, .devs h1, .baixar h1 {
+    font-size: 2rem;
+  }
+
+  .textoTema p, .textoDesc p, .fun p {
+    font-size: 1rem;
+  }
+
+  .imgTema img,
+  .imgDesc img {
+    max-width: 90%;
+  }
+
+  .card {
+    width: 250px;
+    height: auto;
+    padding-bottom: 1rem;
+  }
+
+  .card img {
+    width: 180px;
+    height: 200px;
+  }
+
+  .github img, .exe img {
+    width: 200px;
+  }
+
+  .footer-container {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .trp, .contato, .redes {
+    width: 100%;
+    text-align: center;
+  }
+} 
+
+@media (max-width: 400px) {
+  .textoTema h1, .textoDesc h1, .fun h1, .devs h1, .baixar h1 {
+    font-size: 1.8rem;
+  }
+
+  .card {
+    width: 220px;
+  }
+
+  .card img {
+    width: 160px;
+    height: 180px;
+  }
+
+  .github img, .exe img {
+    width: 180px;
+  }
+}
 /* Fim da Responsividade */
