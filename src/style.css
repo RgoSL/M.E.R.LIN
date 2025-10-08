@@ -1,9 +1,6 @@
 /* font-family: 'Gideon Roman', sans-serif; */
 /* font-family: 'Textos', sans-serif; */
 
-/* Background Inicial :  #8156B8 */
-/* Background Final |: #D9D9D9 */
-
 /* Começo do Reset CSS */
 *,
 *::before,
@@ -98,7 +95,7 @@ html {
 
 /* Começo do Header */
 header {
-  background-color: #8156b8;
+  background-color: #8156b8cf;
   color: #e6c8fa;
   font-family: "Gideon Roman", sans-serif;
 }
@@ -122,8 +119,8 @@ header {
 }
 
 .logotipo img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
 }
 /* Fim da Logo na Navbar */
@@ -140,7 +137,7 @@ header {
 /* Começo dos Itens da Navbar */
 .itensNav {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   justify-content: center;
   flex: 1;
 }
@@ -160,12 +157,12 @@ header {
 /* Começo do Botão da Navbar */
 .btnNav {
   padding: 0.5rem 1rem;
-  background-color: #654e82;
+  background-color: #654e8239;
   color: #e6c8fa;
   font-weight: 500;
   border-radius: 8px;
   -webkit-box-shadow: 1px 9px 23px 0px rgba(0, 0, 0, 0.85);
-  box-shadow: 1px 9px 23px 0px rgba(0, 0, 0, 0.85);
+  box-shadow: 1px 9px 23px 0px rgba(0, 0, 0, 0.43);
   transition: 0.3s;
 }
 
