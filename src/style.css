@@ -33,6 +33,28 @@ img {
 }
 /* Fim do Reset CSS */
 
+/* Começo dos Efeitos Para Melhorar o AOS */
+section:not(:first-of-type) {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+section {
+    scroll-margin-top: 80px;
+}
+
+footer {
+  opacity: 1;
+  transform: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+/* Fim dos Efeitos Para Melhorar o AOS */
+
+
 /* Começo do Import das Fontes */
 @font-face {
   font-family: "Titulos";

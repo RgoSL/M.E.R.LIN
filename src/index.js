@@ -12,8 +12,8 @@ AOS.init({
   
   offset: 120,
   delay: 0, 
-  duration: 400, 
-  easing: 'ease', 
+  duration: 1000, 
+  easing: 'ease-out', 
   once: false, 
   mirror: false, 
   anchorPlacement: 'top-bottom', 
@@ -120,3 +120,8 @@ document.querySelectorAll(".link-rede").forEach(link => { // O Elemento em Quest
   });
 });
 // Fim da Rede Social Aleatória
+
+
+// Começo da Imagem do GitHub Clicável
+
+// Fim da Imagem do GitHub Clicável
