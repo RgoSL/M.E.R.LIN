@@ -546,9 +546,10 @@ footer {
 /* Começo da Class que Agrupa Todos os Elementos do Footer */
 .footer-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   text-align: center;
+  justify-content: space-between;
   gap: 2rem;
   margin-bottom: 2rem;
 }
