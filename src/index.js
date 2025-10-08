@@ -121,7 +121,8 @@ document.querySelectorAll(".link-rede").forEach(link => { // O Elemento em Quest
 });
 // Fim da Rede Social Aleatória
 
-
 // Começo da Imagem do GitHub Clicável
-
+document.getElementById("git").addEventListener("click", function() {
+    window.open("https://github.com/RgoSL/M.E.R.LIN", "_blank");
+});
 // Fim da Imagem do GitHub Clicável
