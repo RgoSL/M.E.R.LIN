@@ -40,5 +40,4 @@ btns_dock("images\ImgsDock/pacotes.png", lambda: Btn_Pacotes)
 btns_dock("images\ImgsDock/navegador.png", lambda: Btn_Navegador) 
 btns_dock("images\ImgsDock/Fechar.png",)
 
-
 Dock.mainloop() 
