@@ -1,6 +1,8 @@
 from customtkinter import *
+from scripts.windows.buscar_apps import *  
 import subprocess
 
+# Criação da Classe
 class AppList(CTkFrame):
     def __init__(self, master, apps):
         super().__init__(master, fg_color = "#654E82")
@@ -8,26 +10,26 @@ class AppList(CTkFrame):
         self.filtered_apps = apps
         self.show_favorites = False
 
-        # Barra superior
         top_frame = CTkFrame(self, fg_color = "#654E82")
         top_frame.pack(fill = "x", pady = 5)
-
+        
+# Barra de Pesquisa no Começo
         self.search_var = StringVar()
         search_entry = CTkEntry(top_frame, text_color = "#d9d9d9", border_color = "#F9B14F", textvariable=self.search_var)
         search_entry.pack(side = "left", fill = "x", expand = True, padx = 10)
         search_entry.bind("<KeyRelease>", self.update_list)
-
+        
+# Botão do Canto Superior Direito
         self.toggle_button = CTkButton(top_frame, text = "Favoritos ⭐", width = 100, fg_color = "#432D5D", hover_color = "#C58ADE", text_color = "#F9B14F", command = self.toggle_favorites)
-        self.toggle_button.pack(side="right", padx=10)
+        self.toggle_button.pack(side = "right", padx = 10)
 
-        # Frame scrollável
         self.scroll_frame = CTkScrollableFrame(self, fg_color = "#654E82", label_text = "Aplicativos", label_fg_color = "#200B3A", scrollbar_button_color = "#F9B14F")
         self.scroll_frame.pack(fill = "both", expand = True, padx = 10, pady = 5)
 
         self.populate_list()
 
     def populate_list(self):
-        # Limpa lista anterior
+# Botões ao Lado dos Aplicativos
         for widget in self.scroll_frame.winfo_children():
             widget.destroy()
 
@@ -36,22 +38,23 @@ class AppList(CTkFrame):
             app_frame.pack(fill = "x", pady = 5, padx = 5)
 
             label = CTkLabel(app_frame, text=app["name"], anchor="w")
-            label.pack(side="left", padx=10, pady=5, fill="x", expand=True)
+            label.pack(side = "left", padx = 10, pady = 5, fill = "x", expand = True)
 
             fav_button = CTkButton(
                 app_frame,
-                text="⭐" if app["favorite"] else "☆",
-                width=40,
+                text = "⭐" if app["favorite"] else "☆",
+                width = 40,
                 fg_color = "#432D5D",
                 hover_color = "#C58ADE",
                 text_color = "#F9B14F",
-                command=lambda a=app: self.toggle_favorite(a)
+                command = lambda a = app: self.toggle_favorite(a)
             )
             fav_button.pack(side="right", padx=5)
 
-            open_button = CTkButton(app_frame, text="Abrir", width=60, fg_color ="#432D5D", hover_color = "#C58ADE", command=lambda c=app["command"]: self.open_app(c))
-            open_button.pack(side="right", padx=5)
-
+            open_button = CTkButton(app_frame, text = "Abrir", width = 60, fg_color = "#432D5D", hover_color = "#C58ADE", command = lambda c = app["command"]: self.open_app(c))
+            open_button.pack(side = "right", padx = 5)
+            
+# Lógica do Controle de Favoritos
     def update_list(self, event=None):
         query = self.search_var.get().lower()
         if self.show_favorites:
@@ -67,7 +70,7 @@ class AppList(CTkFrame):
     def toggle_favorites(self):
         self.show_favorites = not self.show_favorites
         self.toggle_button.configure(
-            text="Todos 📋" if self.show_favorites else "Favoritos ⭐"
+            text = "Todos 📋" if self.show_favorites else "Favoritos ⭐"
         )
         self.update_list()
 
@@ -77,13 +80,10 @@ class AppList(CTkFrame):
         except Exception as e:
             print(f"Erro ao abrir {command}: {e}")
 
-# Teste inicial
-apps = [
-    {"name": "Navegador", "command": "start chrome", "favorite": False},
-    {"name": "Bloco de Notas", "command": "notepad", "favorite": True},
-    {"name": "Calculadora", "command": "calc", "favorite": False},
-]
+# Lista de Aplicativos Encontrados no Sistema
+apps = get_windows_apps()
 
+# Criando a Tela 
 ListaApps = CTk()
 ListaApps.geometry("400x600")
 ListaApps.title("Lista de Aplicativos - M.E.R.LIN")
