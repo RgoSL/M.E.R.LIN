@@ -7,8 +7,6 @@ class ajustes(CTkFrame):
             super().__init__(master)
             self.controller = controller
 
-            
-
             header = CTkFrame(self, fg_color="#654E82", corner_radius=0)
             header.place(relx=0, rely=0, relwidth=1, relheight=0.1)
 
@@ -19,7 +17,7 @@ class ajustes(CTkFrame):
             txt_logo.place(relx=0.1, rely=0.5, anchor=CENTER)
 
             frame2 = CTkFrame(self, fg_color="#654E82", corner_radius=15)
-            frame2.place(relx=0.5, rely=0.6, relwidth=0.85, relheight=0.7, anchor=CENTER)
+            frame2.place(relx=0.5, rely=0.6, relwidth=0.8, relheight=0.5, anchor=CENTER)
 
 
             

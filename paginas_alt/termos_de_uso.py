@@ -25,7 +25,7 @@ class termos_de_uso(CTkFrame):
         quad = CTkScrollableFrame(self, fg_color="#654E82", corner_radius=15, border_width=2)
         quad.place(relx=0.5, rely=0.6, relwidth=0.85, relheight=0.6, anchor=CENTER)
 
-        txt_termos = CTkLabel(quad, text="Termos de Uso", font=("Arial", 15, "bold"), text_color="black", wraplength=220)
+        txt_termos = CTkLabel(quad, text="Termos de Uso", font=("Arial", 15, "bold"), text_color="#E6C8FA", wraplength=220)
         txt_termos.pack(pady = 10, padx = 5)
 
         txt_termos = CTkLabel(quad, 

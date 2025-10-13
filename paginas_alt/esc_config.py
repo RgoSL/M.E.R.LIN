@@ -11,7 +11,7 @@ class config(CTkFrame):
 
         logo = adicionar_imagem_texto(
             self, 
-            caminho_img="images/logo.png", 
+            caminho_img="images/placeholder.jpg", 
             texto="Sua História começa aqui", 
             cor="transparent", 
             tamanho=160, 

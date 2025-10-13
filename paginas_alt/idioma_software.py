@@ -16,13 +16,13 @@ class idioma_software(CTkFrame):
             header,
             text="Toda a magia começa pelas palarvas certas",
             font=("Arial", 20, "bold"),
-            text_color=None
+            text_color="#E6C8FA",
         )
         titulo.place(relx=0.5, rely=0.5, anchor="center")
 
         logo = adicionar_imagem_texto(
             self, 
-            caminho_img="images/logo.png", 
+            caminho_img="images/placeholder.jpg", 
             texto=" ", 
             cor="transparent", 
             tamanho=160, 
@@ -33,7 +33,7 @@ class idioma_software(CTkFrame):
         logo.place(relx=0.2, rely=0.5, anchor=CENTER)
 
         Txt_selecao = CTkLabel(self, text="Selecione o idioma do software:", font=("Bold", 20), text_color=None, bg_color="transparent")
-        Txt_selecao.place(relx=0.56, rely=0.15, anchor=CENTER)
+        Txt_selecao.place(relx=0.57, rely=0.2, anchor=CENTER)
 
         quad = CTkScrollableFrame(self, fg_color="white", corner_radius=15, border_color="#C58ADE", border_width=2, scrollbar_button_color="#C58ADE", scrollbar_button_hover_color="#654E82")
         quad.place(relx=0.65, rely=0.5, relwidth=0.5, relheight=0.5, anchor=CENTER)

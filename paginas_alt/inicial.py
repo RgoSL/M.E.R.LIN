@@ -25,18 +25,18 @@ class inicial(CTkFrame):
             anchor="center",
             justify="center"
         )
-        Titulo.place(relx=0.5, rely=0.2, anchor="center")
+        Titulo.place(relx=0.5, rely=0.15, anchor=CENTER)
 
         # Frame com rolagem horizontal
         frame1 = CTkScrollableFrame(
             self,
             fg_color="#654E82",
-            corner_radius=5,
+            corner_radius=15,
             orientation="horizontal",
             scrollbar_button_color="#F9B14F",
             scrollbar_button_hover_color="#F9B14F"
         )
-        frame1.place(relx=0.08, rely=0.25, relwidth=0.85, relheight=0.5)
+        frame1.place(relx=0.5, rely=0.6, relwidth=0.8, relheight=0.5, anchor=CENTER)
 
         # Container para organizar elementos horizontalmente
         content_frame = CTkFrame(frame1, fg_color="transparent")

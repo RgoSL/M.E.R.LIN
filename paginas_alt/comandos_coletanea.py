@@ -6,7 +6,7 @@ class comandos_coletanea(CTkFrame):
     def __init__(self,master,controller):
         super().__init__(master)
         self.controller = controller
-
+        
         header = CTkFrame(self, fg_color="#654E82", corner_radius=0)
         header.place(relx=0, rely=0, relwidth=1, relheight=0.1)
 
