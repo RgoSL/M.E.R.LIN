@@ -84,16 +84,15 @@ class AppList(CTkFrame):
 apps = get_windows_apps()
 
 # Criando a Tela 
-ListaApps = CTk()
-ListaApps.geometry("400x600")
-ListaApps.title("Lista de Aplicativos - M.E.R.LIN")
-ListaApps.iconbitmap("images\logo.png")
-app_list = AppList(ListaApps, apps)
-app_list.pack(fill = "both", expand = True, padx = 10, pady = 10)
-
-ListaApps.mainloop()
-
-
+def abrir_lista_apps(master):
+    ListaApps = CTkToplevel(master)
+    ListaApps.geometry("400x600+100+100")
+    ListaApps.title("Lista de Aplicativos - M.E.R.LIN")
+    ListaApps.iconbitmap("images\\logo.png")
+    ListaApps.wm_attributes("-topmost", True)  # Mantém a janela acima do desktop
+    
+    app_list = AppList(ListaApps, apps)
+    app_list.pack(fill="both", expand=True, padx=10, pady=10)
 
 
 # Cor Base : #654E82

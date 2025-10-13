@@ -1,17 +1,24 @@
-from dock import Dock
+# comandos_dock.py
+from lista_apps import AppList
+from eye_tracking.navegacao import EyeControl
+from cv2 import destroyWindow
+class btns:
+    @staticmethod
+    def Btn_Lista():        
+        AppList()
 
-#
-def Btn_Lista(): 
-    print("Lista")
-    
-#
-def Btn_Pacotes(): 
-    print("Pacotes")
-    
-#
-def Btn_Navegador(): 
-    print("Navegador")
-    
-#
-def Btn_Fechar(Dock): 
-    Dock.destroy()  
+    @staticmethod
+    def Btn_Pacotes():
+        print("Pacotes")
+
+    @staticmethod
+    def Btn_Navegador():
+        eye =EyeControl()
+        eye.start()
+       
+
+    @staticmethod
+    def Btn_Fechar(dock):
+        dock.destroy()
+        dock.destroyWindow()
+
