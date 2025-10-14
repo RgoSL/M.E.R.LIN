@@ -1,22 +1,24 @@
 from customtkinter import CTkLabel
 import argostranslate.package
 import argostranslate.translate
+import os
 
+# Só idiomas necessários
 idiomas = {
     "pt": "Português",
     "en": "Inglês",
     "es": "Espanhol",
-    "fr": "Francês",
-    "de": "Alemão",
-    "it": "Italiano",
-    "ja": "Japonês",
-    "zh": "Chinês",
 }
 
+# Lista de pares que queremos suportar
+pares_disponiveis = [
+    ("pt", "en"), ("en", "pt"),
+    ("pt", "es"), ("es", "pt"),
+    ("en", "es"), ("es", "en")
+]
+
 def criar_lista_idiomas(frame, idiomas, callback, padding_y=10):
-    """
-    Cria labels clicáveis de idiomas.
-    """
+    """Cria labels clicáveis de idiomas."""
     labels = []
     for codigo, nome in idiomas.items():
         label = CTkLabel(
@@ -27,39 +29,43 @@ def criar_lista_idiomas(frame, idiomas, callback, padding_y=10):
             corner_radius=5,
             anchor="w"
         )
-
-        # 🖱️ Clique altera idioma
         label.bind("<Button-1>", lambda e, c=codigo: callback(c))
-
         label.pack(pady=(0, padding_y), anchor="w", padx=5)
         labels.append(label)
     return labels
-def instalar_modelos():
+
+def baixar_modelo(de, para):
+    """Baixa e instala o modelo se não estiver instalado."""
+    # Atualiza lista de pacotes disponíveis
     argostranslate.package.update_package_index()
     packages = argostranslate.package.get_available_packages()
-    pares = [
-        ("en", "pt"), ("pt", "en"), ("pt", "es"), ("es", "pt"),
-        ("pt", "fr"), ("fr", "pt"), ("pt", "de"), ("de", "pt"),
-        ("pt", "it"), ("it", "pt"), ("pt", "ja"), ("ja", "pt"),
-        ("pt", "zh"), ("zh", "pt")
-    ]
-    for de, para in pares:
-        try:
-            pacote = next(p for p in packages if p.from_code == de and p.to_code == para)
-            caminho = pacote.download()
-            argostranslate.package.install_from_path(caminho)
-        except StopIteration:
-            pass  # ignora pares não disponíveis
-def traduzir_texto(texto, de="pt", para="en"):
+    
+    # Verifica se já está instalado
+    idiomas_instalados = argostranslate.translate.get_installed_languages()
+    if any(i.code == de for i in idiomas_instalados) and any(i.code == para for i in idiomas_instalados):
+        # Modelo já instalado
+        return
+
+    # Tenta baixar
     try:
-        # Carrega os idiomas instalados
-        idiomas = argostranslate.translate.get_installed_languages()
+        pacote = next(p for p in packages if p.from_code == de and p.to_code == para)
+        caminho = pacote.download()
+        argostranslate.package.install_from_path(caminho)
+        print(f"Modelo {de} -> {para} instalado com sucesso.")
+    except StopIteration:
+        print(f"Modelo {de} -> {para} não encontrado.")
 
-        # Busca o idioma de origem e destino
-        idioma_origem = next((i for i in idiomas if i.code == de), None)
-        idioma_destino = next((i for i in idiomas if i.code == para), None)
+def traduzir_texto(texto, de="pt", para="en"):
+    """Tradução sob demanda, baixa modelos se necessário."""
+    try:
+        # Baixa modelo se não estiver disponível
+        baixar_modelo(de, para)
 
-        # Se ambos existirem, traduz
+        # Atualiza lista de idiomas instalados
+        idiomas_instalados = argostranslate.translate.get_installed_languages()
+        idioma_origem = next((i for i in idiomas_instalados if i.code == de), None)
+        idioma_destino = next((i for i in idiomas_instalados if i.code == para), None)
+
         if idioma_origem and idioma_destino:
             traducao = idioma_origem.get_translation(idioma_destino)
             return traducao.translate(texto)
@@ -70,6 +76,3 @@ def traduzir_texto(texto, de="pt", para="en"):
     except Exception as e:
         print(f"Erro ao traduzir: {e}")
         return texto
-
-    
-

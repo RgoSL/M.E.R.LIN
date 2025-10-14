@@ -30,7 +30,7 @@ class idioma_software(CTkFrame):
             scrollbar_button_color="#C58ADE",
             scrollbar_button_hover_color="#654E82"
         )
-        self.quad.place(relx=0.65, rely=0.5, relwidth=0.5, relheight=0.5, anchor="center")
+        self.quad.place(relx=0.65, rely=0.5, relwidth=0.5, relheight=0.25, anchor="center")
 
         criar_lista_idiomas(self.quad, idiomas, callback=self.mudar_idioma)
 
