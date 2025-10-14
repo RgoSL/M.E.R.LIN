@@ -1,7 +1,7 @@
 # comandos_dock.py
 from lista_apps import AppList
 from eye_tracking.navegacao import EyeControl
-from cv2 import destroyWindow
+import threading
 class btns:
     @staticmethod
     def Btn_Lista():        
@@ -13,8 +13,11 @@ class btns:
 
     @staticmethod
     def Btn_Navegador():
-        eye =EyeControl()
-        eye.start()
+        # Cria a instância
+        eye = EyeControl()
+        # Executa em uma thread separada para não travar o Tkinter
+        t = threading.Thread(target=eye.start, daemon=True)
+        t.start()
        
 
     @staticmethod

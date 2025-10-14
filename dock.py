@@ -4,10 +4,12 @@ from PIL import Image
 from lista_apps import abrir_lista_apps
 Dock = CTk() 
 
+
+
+                                
 # Posicionamento da Dock
 Dock.overrideredirect(True)
 Dock.attributes("-topmost", True)
-Dock.wm_attributes("-disabled", False)
 Dock.wm_attributes("-transparentcolor", "#654E82")  # opcional, pra transparência
 altura_tela = Dock.winfo_screenheight()
 largura_tela = Dock.winfo_screenwidth()
