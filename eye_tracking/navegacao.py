@@ -111,22 +111,27 @@ class EyeControl:
             if left_closed and right_closed:
                 if self.both_closed_start is None:
                     self.both_closed_start = current_time
-                elif current_time - self.both_closed_start >= self.CLOSE_DURATION and self.can_act():
+
+                duration_closed = current_time - self.both_closed_start
+
+                # Se ficou 0.25s fechado → TAB
+                if duration_closed >= self.CLOSE_DURATION and self.can_act() and duration_closed < self.DISABLE_DURATION:
                     pyautogui.press("tab")
                     print("TAB pressionado!")
                     self.last_action_time = current_time
-                    self.both_closed_start = None
 
-                self.left_closed_start = None
-                self.right_closed_start = None
-
-                if current_time - (self.both_closed_start or current_time) >= self.DISABLE_DURATION:
+                # Se ficou 3s fechado → encerra
+                elif duration_closed >= self.DISABLE_DURATION:
                     print("🔴 Ambos os olhos fechados por 3s — encerrando...")
                     self.stop()
                     sys.exit(0)
 
+                self.left_closed_start = None
+                self.right_closed_start = None
+
             else:
                 self.both_closed_start = None
+
 
                 if right_closed and not left_closed:
                     if self.right_closed_start is None:
