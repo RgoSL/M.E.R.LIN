@@ -3,6 +3,7 @@ from customtkinter import *
 from PIL import Image
 from func_visual.funcs_imgs.img_redonda import configurar_imagens_no_frame
 from func_nao_visual.mouse_scroll import mouse_scroll
+from func_visual.widgets.header import nav
 
 class inicial(CTkFrame):
     def __init__(self, master, controller):
@@ -10,11 +11,7 @@ class inicial(CTkFrame):
         self.controller = controller
 
         # Cabeçalho
-        header = CTkFrame(self, fg_color="#654E82", corner_radius=0)
-        header.place(relx=0, rely=0, relwidth=1, relheight=0.1)
-
-        txt_logo = CTkLabel(header, text="M.E.R.LIN", font=("Bold", 20), text_color="#E6C8FA")
-        txt_logo.place(relx=0.1, rely=0.5, anchor=CENTER)
+        nav(self,controller, "M.E.R.LIN")
 
         # Título
         Titulo = CTkLabel(

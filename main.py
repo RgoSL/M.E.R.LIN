@@ -1,4 +1,7 @@
+import ctypes
 from customtkinter import *
+
+# Importar todas as páginas
 from paginas_alt.inicial import inicial
 from paginas_alt.esc_config import config
 from paginas_alt.video_assis import video_Assis
@@ -8,7 +11,6 @@ from paginas_alt.modo_claro_escuro import modo_claro_escuro
 from paginas_alt.idioma_software import idioma_software
 from paginas_alt.comandos_coletanea import comandos_coletanea
 
-
 def centralizar_janela(janela, largura, altura):
     largura_tela = janela.winfo_screenwidth()
     altura_tela = janela.winfo_screenheight()
@@ -16,52 +18,114 @@ def centralizar_janela(janela, largura, altura):
     y = int((altura_tela / 2) - (altura / 2))
     janela.geometry(f"{largura}x{altura}+{x}+{y}")
 
-"""
-testando se está commitando
-"""
 def cor_atual():
+    
     modo = get_appearance_mode()
     return "#FFFFFF" if modo == "Light" else "#2B2B2B"
 
-
 class App(CTk):
-    def __init__(self): 
+    def __init__(self):
         super().__init__()
-        largura_janela = 800
-        altura_janela = 600
+
+        # ===== Aparência e geometria =====
         set_appearance_mode("dark")
+        self.largura_janela = 800
+        self.altura_janela = 600
+        self.radius = 30
+        centralizar_janela(self, self.largura_janela, self.altura_janela)
+        self.configure(fg_color="#2B2B2B")
+        self.overrideredirect(True)  # remove borda nativa
 
-        centralizar_janela(self, largura_janela, altura_janela)
-        self.title("Minha Aplicação")
-        self.resizable(False, False)
-        self.iconbitmap("images/logoicon.ico")
+        # ===== Janela arredondada =====
+        self.after(100, self.arredondar_janela)
 
-        # Dicionário para guardar as páginas
+        # ===== Frame principal interno =====
+        self.main_frame = CTkFrame(self, fg_color="#2B2B2B", corner_radius=self.radius)
+        self.main_frame.pack(expand=True, fill="both")
+
+        # ===== Barra de título customizada =====
+        self.title_bar = CTkFrame(self.main_frame, height=30, fg_color="#1E1E1E")
+        self.title_bar.pack(fill="x", side="top")
+
+        self.title_label = CTkLabel(self.title_bar, text="Minha Aplicação", fg_color="#1E1E1E")
+        self.title_label.pack(side="left", padx=10)
+
+        # ===== Inicialização das páginas =====
         self.frames = {}
-
-        # Instanciar todas as páginas e colocar no mesmo lugar
         for PageClass in (
             inicial, config, video_Assis, ajustes,
             termos_de_uso, modo_claro_escuro, idioma_software, comandos_coletanea
         ):
             page_name = PageClass.__name__
-            frame = PageClass(self, self)
-            self.frames[page_name] = frame
-            frame.place(relx=0, rely=0, relwidth=1, relheight=1)
+            try:
+                frame = PageClass(self.main_frame, self)
+                self.frames[page_name] = frame
+                frame.place(relx=0, rely=0, relwidth=1, relheight=1)
+            except Exception as e:
+                print(f"Erro ao inicializar página {page_name}: {e}")
 
         self.mostrar_pagina("modo_claro_escuro")
+        self.maximized = False  # estado da janela
 
+    # ====================== Funções de arredondamento e arraste ======================
+    def arredondar_janela(self):
+        try:
+            hwnd = ctypes.windll.user32.GetParent(self.winfo_id())
+            region = ctypes.windll.gdi32.CreateRoundRectRgn(
+                0, 0, self.largura_janela+1, self.altura_janela+1, self.radius, self.radius
+            )
+            ctypes.windll.user32.SetWindowRgn(hwnd, region, True)
+        except Exception as e:
+            print("Erro ao arredondar a janela:", e)
+
+    # ====================== Troca de páginas ======================
     def mostrar_pagina(self, nome):
-        frame = self.frames[nome]
-        frame.tkraise()
+        if nome in self.frames:
+            self.frames[nome].tkraise()
 
+    # ====================== Atualização de tema ======================
     def atualizar_tema(self):
-        """Atualiza a cor de fundo de todas as páginas conforme o modo atual."""
-        nova_cor = cor_atual()
+        """Atualiza cores de acordo com o modo, forçando #FFFFFF no Light Mode."""
+        modo = get_appearance_mode()
+        if modo == "Light":
+            nova_cor = "#FFFFFF"
+        else:
+            nova_cor = "#2B2B2B"
+
+        # Atualiza todos os frames
         for frame in self.frames.values():
             frame.configure(fg_color=nova_cor)
+            # se houver CTkLabels internos, você pode atualizar o fg_color do texto também
 
-if __name__ == "__main__": 
-    app = App() 
+        # Atualiza main_frame e title_bar
+        self.main_frame.configure(fg_color=nova_cor)
+        self.title_bar.configure(fg_color="#1E1E1E")
 
+    def aplicar_tema_personalizado(self):
+        """Aplica as cores personalizadas manualmente, forçando #FFFFFF no modo Light."""
+        modo = get_appearance_mode()
+
+        if modo == "Light":
+            bg_cor = "#FFFFFF"  # fundo branco real
+            texto_cor = "#000000"
+        else:
+            bg_cor = "#2B2B2B"  # fundo escuro padrão
+            texto_cor = "#FFFFFF"
+
+        # Aplica ao frame principal
+        self.configure(fg_color=bg_cor)
+        self.main_frame.configure(fg_color=bg_cor)
+
+        # Atualiza todos os frames e widgets filhos
+        for frame in self.frames.values():
+            frame.configure(fg_color=bg_cor)
+            for widget in frame.winfo_children():
+                try:
+                    widget.configure(fg_color=bg_cor, text_color=texto_cor)
+                except:
+                    pass  # ignora widgets que não têm essas propriedades
+
+# ====================== Inicialização ======================
+if __name__ == "__main__":
+    app = App()
     app.mainloop()

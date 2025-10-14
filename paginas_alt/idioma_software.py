@@ -3,22 +3,13 @@ from PIL import Image
 from func_visual.funcs_imgs.imagem import adicionar_imagem_texto
 from func_visual.widgets.progress import progress_bar
 from func_visual.widgets.lista_idiomas import criar_lista_idiomas, idiomas
-
+from func_visual.widgets.header import nav
 class idioma_software(CTkFrame):
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
 
-        header = CTkFrame(self, fg_color="#654E82", corner_radius=0)
-        header.place(relx=0, rely=0, relwidth=1, relheight=0.1)
-
-        titulo = CTkLabel(
-            header,
-            text="Toda a magia começa pelas palarvas certas",
-            font=("Arial", 20, "bold"),
-            text_color="#E6C8FA",
-        )
-        titulo.place(relx=0.5, rely=0.5, anchor="center")
+        nav(self,controller, "M.E.R.LIN")
 
         logo = adicionar_imagem_texto(
             self, 

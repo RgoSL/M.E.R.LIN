@@ -1,18 +1,14 @@
 from customtkinter import *
 from PIL import Image
 import os
-
+from func_visual.widgets.header import nav
 
 class video_Assis(CTkFrame):
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
 
-        header = CTkFrame(self, fg_color="#654E82", corner_radius=0)
-        header.place(relx=0, rely=0, relwidth=1, relheight=0.1)
-
-        txt_logo = CTkLabel(header, text="M.E.R.LIN", font=("Bold", 20), text_color="#E6C8FA")
-        txt_logo.place(relx=0.1, rely=0.5, anchor=CENTER)
+        nav(self,controller, "M.E.R.LIN")
 
         titulo = CTkLabel(self, text="Assistente de Vídeo", font=("Bold", 20), text_color="black", bg_color="transparent")
         titulo.place(relx=0.5, rely=0.15, anchor=CENTER)
