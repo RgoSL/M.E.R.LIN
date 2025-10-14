@@ -10,6 +10,9 @@ from paginas_alt.termos_de_uso import termos_de_uso
 from paginas_alt.modo_claro_escuro import modo_claro_escuro
 from paginas_alt.idioma_software import idioma_software
 from paginas_alt.comandos_coletanea import comandos_coletanea
+from func_visual.widgets.lista_idiomas import instalar_modelos
+
+
 
 def centralizar_janela(janela, largura, altura):
     largura_tela = janela.winfo_screenwidth()

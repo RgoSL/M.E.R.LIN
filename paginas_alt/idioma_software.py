@@ -2,42 +2,66 @@ from customtkinter import *
 from PIL import Image
 from func_visual.funcs_imgs.imagem import adicionar_imagem_texto
 from func_visual.widgets.progress import progress_bar
-from func_visual.widgets.lista_idiomas import criar_lista_idiomas, idiomas
+from func_visual.widgets.lista_idiomas import criar_lista_idiomas, idiomas,traduzir_texto
 from func_visual.widgets.header import nav
 class idioma_software(CTkFrame):
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
+        self.idioma_atual = "pt"  # idioma padrão
 
-        nav(self,controller, "M.E.R.LIN")
+        nav(self, controller, "M.E.R.LIN")
 
-        logo = adicionar_imagem_texto(
-            self, 
-            caminho_img="images/placeholder.jpg", 
-            texto=" ", 
-            cor="transparent", 
-            tamanho=160, 
-            espacamento=10,
-            cor_texto=None
+        self.logo = adicionar_imagem_texto(
+            self, caminho_img="images/placeholder.jpg", texto=" ", cor="transparent",
+            tamanho=160, espacamento=10, cor_texto=None
+        )
+        self.logo.place(relx=0.2, rely=0.5, anchor="center")
+
+        self.Txt_selecao = CTkLabel(
+            self, text="Selecione o idioma do software:",
+            font=("Bold", 20), text_color=None, bg_color="transparent"
+        )
+        self.Txt_selecao.place(relx=0.57, rely=0.2, anchor="center")
+
+        self.quad = CTkScrollableFrame(
+            self, fg_color="white", corner_radius=15,
+            border_color="#C58ADE", border_width=2,
+            scrollbar_button_color="#C58ADE",
+            scrollbar_button_hover_color="#654E82"
+        )
+        self.quad.place(relx=0.65, rely=0.5, relwidth=0.5, relheight=0.5, anchor="center")
+
+        criar_lista_idiomas(self.quad, idiomas, callback=self.mudar_idioma)
+
+        self.btn_voltar = CTkButton(
+            self, text="Voltar", font=("Bold", 15), text_color="white",
+            bg_color="transparent", fg_color="#654E82", corner_radius=10,
+            command=lambda: controller.mostrar_pagina("modo_claro_escuro"), hover=False
         )
 
-        logo.place(relx=0.2, rely=0.5, anchor=CENTER)
+        self.btn_proximo = CTkButton(
+            self, text="Próximo", font=("Bold", 15), text_color="white",
+            bg_color="transparent", fg_color="#654E82", corner_radius=10,
+            command=lambda: controller.mostrar_pagina("config"), hover=False
+        )
 
-        Txt_selecao = CTkLabel(self, text="Selecione o idioma do software:", font=("Bold", 20), text_color=None, bg_color="transparent")
-        Txt_selecao.place(relx=0.57, rely=0.2, anchor=CENTER)
-
-        quad = CTkScrollableFrame(self, fg_color="white", corner_radius=15, border_color="#C58ADE", border_width=2, scrollbar_button_color="#C58ADE", scrollbar_button_hover_color="#654E82")
-        quad.place(relx=0.65, rely=0.5, relwidth=0.5, relheight=0.5, anchor=CENTER)
-
-        criar_lista_idiomas(quad, idiomas, padding_y=10)
-
-        btn_voltar = CTkButton(self, text="Voltar", font=("Bold", 15), text_color="white",bg_color="transparent" ,fg_color="#654E82",corner_radius=10, command=lambda: controller.mostrar_pagina("modo_claro_escuro"), hover=False)
-        
-        btn_proximo = CTkButton(self, text="Proximo",  font=("Bold", 15), text_color="white",bg_color="transparent" ,fg_color="#654E82",corner_radius=10,command=lambda: controller.mostrar_pagina("config"), hover=False)
-        
-        btn_voltar.place(relx=0.15, rely=0.9, anchor=CENTER, relwidth=0.2, relheight=0.06)
-        btn_proximo.place(relx=0.85, rely=0.9, anchor=CENTER, relwidth=0.2, relheight=0.06)
+        self.btn_voltar.place(relx=0.15, rely=0.9, anchor="center", relwidth=0.2, relheight=0.06)
+        self.btn_proximo.place(relx=0.85, rely=0.9, anchor="center", relwidth=0.2, relheight=0.06)
 
         # Barra de progresso
-        self.barra = progress_bar(self,cor_progresso="#C58ADE",modo="determinate",valor=0.5)
-        self.barra.place(relx=0.5, rely=0.9, anchor=CENTER)
+        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.5)
+        self.barra.place(relx=0.5, rely=0.9, anchor="center")
+
+    def mudar_idioma(self, novo_idioma):
+        from_code = self.idioma_atual
+        to_code = novo_idioma
+
+        # Atualiza textos principais
+        self.Txt_selecao.configure(
+            text=traduzir_texto("Selecione o idioma do software:", from_code, to_code)
+        )
+        self.btn_voltar.configure(text=traduzir_texto("Voltar", from_code, to_code))
+        self.btn_proximo.configure(text=traduzir_texto("Próximo", from_code, to_code))
+
+        self.idioma_atual = novo_idioma
