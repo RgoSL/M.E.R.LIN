@@ -656,10 +656,10 @@ footer {
 
 /* Começo da Class com o Texto de Copyright */
 .copyright {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding-top: 1rem;
-  justify-content: center;
+  width: 100%; 
   text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   font-size: 0.85rem;
   font-weight: 600;
   color: #341647ff;
@@ -718,13 +718,23 @@ footer {
   }
 
   .desc {
-    flex-direction: column;
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;  
+    justify-content: center;  
+    text-align: center;
+    gap: 3rem;
+    max-width: 1200px;
+    width: 100%;
   }
 
   .textoDesc h1, .textoDesc p {
     text-align: center;
     max-width: 100%;
+  }
+
+  .btnSb {
+    margin: 1rem auto; 
   }
 
   .cards {
@@ -737,10 +747,10 @@ footer {
     gap: 3rem;
   }
 
-  .github img, .exe img {
+  .github img {
     width: 250px;
   }
-  
+
   .footer-container {
     flex-direction: column;
     text-align: center;
@@ -765,7 +775,7 @@ footer {
   }
 
   .btnNav {
-    width: 100%;
+    width: 50%;
     text-align: center;
   }
 
@@ -797,7 +807,7 @@ footer {
     height: 200px;
   }
 
-  .github img, .exe img {
+  .github img {
     width: 200px;
   }
 
@@ -826,7 +836,7 @@ footer {
     height: 180px;
   }
 
-  .github img, .exe img {
+  .github img {
     width: 180px;
   }
 }
