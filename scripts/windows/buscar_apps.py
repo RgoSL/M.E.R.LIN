@@ -1,3 +1,5 @@
+# Essa Classe é Especifica Para Achar Apps no Windows
+
 import os
 import win32com.client 
 import pathlib

@@ -1,9 +1,11 @@
+# Essa Classe é Especifica Para Achar Apps no Linux
+
 import os
 import glob
 import configparser
 
-def get_linux_apps():
-    desktop_dirs = [
+def get_linux_apps(): # Função que Procura Pelos Apps
+    desktop_dirs = [ # Definição dos Caminhos que Armazenam os Apps por Padrão em Sistemas Linux
         "/usr/share/applications",
         os.path.expanduser("~/.local/share/applications"),
         "/var/lib/flatpak/exports/share/applications",
@@ -40,6 +42,7 @@ def get_linux_apps():
     apps = sorted(apps, key=lambda a: a["name"].lower())
     return apps
 
+# Chamada Direta Temporária Para Testar a Classe
 if __name__ == "__main__":
     apps = get_linux_apps()
     for app in apps[:20]:
