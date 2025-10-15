@@ -30,7 +30,7 @@ Este repositório reúne os itens mais importantes para o desenvolvimento do nos
 > Foi nesta branch que o M.E.R.LIN ganhou forma. Toda a lógica e estrutura do Software Assistivo foram desenvolvidas aqui.
 
   ### Website
-- [WebVitrine](https://github.com/RgoSL/M.E.R.LIN/tree/V1.0) <!-- LINK PARA A RESPECTIVA BRANCH -->
+- [WebVitrine](https://github.com/RgoSL/M.E.R.LIN/tree/Website) <!-- LINK PARA A RESPECTIVA BRANCH -->
 > Nesta branch, o M.E.R.LIN ganha rosto e presença. Aqui está uma interface pensada para apresentar sua essência, propósito e funcionalidades de forma clara,
 >  acessível e visualmente convidativa.
 <br> 
@@ -79,31 +79,48 @@ Confira o resultado do projeto
 <!-- TECNOLOGIAS UTILIZADAS PARA DESENVOLVER O M.E.R.LIN -->
 ## Tecnologias
 
-### Foco da Tecnologia
+### Principal Linguagem de Programação Utilizada
 
 <br>
 
-
-![Tecnologia](linkDaShield) – Descrição da tecnologia.
-
-![Tecnologia](linkDaShield) – Descrição da tecnologia.
-
-![Tecnologia](linkDaShield) – Descrição da tecnologia.
-
-![Tecnologia](linkDaShield) – Descrição da tecnologia.
+![Python](https://img.shields.io/badge/Python-654E82?style=for-the-badge&logo=python&logoColor=F9B14F) &nbsp; 
+> É a linguagem central do projeto, escolhida por sua simplicidade e vasta disponibilidade de bibliotecas.
 
 <br>
 
-<!-- FERRAMENTAS DE APOIO AO DESENVOLVIMENTO DO M.E.R.LIN -->
-### Ferramentas
+### Reconhecimento Facial 
 
 <br>
 
-![Ferramenta](linkDaShield) – Descrição da ferramenta.
+![OpenCV](https://img.shields.io/badge/OpenCV-654E82?style=for-the-badge&logo=opencv&logoColor=F9B14F) 
+> É uma biblioteca de visão computacional amplamente utilizada. No projeto, ela é responsável por dar vida aos olhos do usuário.
 
-![Ferramenta](linkDaShield) – Descrição da ferramenta.
+![Mediapipe](https://img.shields.io/badge/Mediapipe-654E82?style=for-the-badge&logo=mediapipe&logoColor=F9B14F)
+> É um framework para rastreamento de rostos em tempo real. Foi utilizada para melhorar a precisão da detecção facial no projeto.
 
-![Ferramenta](linkDaShield) – Descrição da ferramenta.
+<br>
+
+### Front-End
+
+<br>
+
+![Customtkinter](https://img.shields.io/badge/Customtkinter-654E82?style=for-the-badge&logo=python&logoColor=F9B14F)
+> Uma biblioteca moderna que permite a criação de interfaces gráficas mais sofisticadas e responsivas com aparência contemporânea.
+
+![PyAutoGUI](https://img.shields.io/badge/PyAutoGUI-654E82?style=for-the-badge&logo=python&logoColor=F9B14F)
+> É uma biblioteca de automação que permite o controle do mouse e teclado. Foi empregada para interações automatizadas.
+
+<br>
+
+### Back-End
+
+<br>
+
+![Shell Script](https://img.shields.io/badge/Shell_Scripting-654E82?style=flat&logo=gnu-bash&logoColor=F9B14F) 
+> Foi utilizado para tarefas de automação e integração entre o M.E.R.LIN e o sistema operacional, garantindo a execução de comandos.
+ 
+![SQLite](https://img.shields.io/badge/SQLite-654E82?logo=sqlite&logoColor=fff&style=F9B14F) 
+> É um banco de dados ideal para o Python. Armazenando as informações de forma local, permitiu a personalização do M.E.R.LIN.
 
 <br>
 
