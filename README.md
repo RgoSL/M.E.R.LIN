@@ -37,21 +37,37 @@
 > O site é de página única, dividido em vários seções, sendo elas:
 
 - Home
-<img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/" width = 300px />
+<img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Home Img.png"/>
 
+ <br>
+ <br>
+ <br>
+ 
 - Sobre
- <img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/" width = 300px />
+<img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Sobre Img.png"/>
+
+ <br>
+ <br>
+ <br>
  
 - Funcionamento
-<img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/" width = 300px />
+<img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Funcionamento Img.png"/>
+
+ <br>
+ <br>
+ <br>
 
 - Desenvolvedores
-<img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/" width = 300px />
+<img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Desenvolvedores Img.png"/>
 
+ <br>
+ <br>
+ <br>
+ 
 - Download
-<img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/" width = 300px />
+<img src = "https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Download Img.png"/>
 
-<br>
+ <br>
 
 ----
 
@@ -65,7 +81,3 @@
   <h2> © M.E.R.LIN, Todos Os Direitos Reservados 2025 </h2>
   <h6>SP, São Paulo, Brasil</h6>
 </div>
-
-<br>
-
-----
