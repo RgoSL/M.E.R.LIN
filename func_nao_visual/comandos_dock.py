@@ -1,5 +1,5 @@
 # comandos_dock.py
-from lista_apps import AppList
+from func_nao_visual.lista_apps import AppList
 from eye_tracking.navegacao import EyeControl
 import threading
 class btns:
