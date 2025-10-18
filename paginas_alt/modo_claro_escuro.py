@@ -28,7 +28,7 @@ class modo_claro_escuro(CTkFrame):
         # Imagem Modo Claro
         claro = adicionar_imagem_texto(
             self,
-            caminho_img="images/placeholder.jpg",
+            caminho_img="assets/ImgsTemp/placeholder.jpg",
             cor="transparent",
             tamanho=150,
             espacamento=20,
@@ -41,7 +41,7 @@ class modo_claro_escuro(CTkFrame):
         # Imagem Modo Escuro
         escuro = adicionar_imagem_texto(
             self,
-            caminho_img="images/placeholder.jpg",
+            caminho_img="assets/ImgsTemp/placeholder.jpg",
             cor="transparent",
             tamanho=150,
             espacamento=20,

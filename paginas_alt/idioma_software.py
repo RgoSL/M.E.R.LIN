@@ -13,7 +13,7 @@ class idioma_software(CTkFrame):
         nav(self, controller, "M.E.R.LIN")
 
         self.logo = adicionar_imagem_texto(
-            self, caminho_img="images/placeholder.jpg", texto=" ", cor="transparent",
+            self, caminho_img="assets/ImgsTemp/placeholder.jpg", texto=" ", cor="transparent",
             tamanho=160, espacamento=10, cor_texto=None
         )
         self.logo.place(relx=0.2, rely=0.5, anchor="center")

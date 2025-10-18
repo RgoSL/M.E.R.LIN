@@ -16,11 +16,11 @@ def criar_containers(parent, variavel, opcoes=None, largura=400, altura=60, cor_
     """
     if opcoes is None:
         opcoes = {
-            "config": {"texto": "Configurações", "icone": "images/logoicon.ico"},
-            "ajustes": {"texto": "Ajustes", "icone": "images/logoicon.ico"},
-            "video": {"texto": "Assistente de Vídeo", "icone": "images/logoicon.ico"},
-            "imagem": {"texto": "Help", "icone": "images/logoicon.ico"},
-            "bloco de notas": {"texto": "Teste", "icone": "images/logoicon.ico"},
+            "config": {"texto": "Configurações", "icone": "assets/ImgsTemp/logoicon.ico"},
+            "ajustes": {"texto": "Ajustes", "icone": "assets/ImgsTemp/logoicon.ico"},
+            "video": {"texto": "Assistente de Vídeo", "icone": "assets/ImgsTemp/logoicon.ico"},
+            "imagem": {"texto": "Help", "icone": "assets/ImgsTemp/logoicon.ico"},
+            "bloco de notas": {"texto": "Teste", "icone": "assets/ImgsTemp/logoicon.ico"},
         }
 
     for i, (chave, dados) in enumerate(opcoes.items()):

@@ -22,7 +22,7 @@ class video_Assis(CTkFrame):
         frame = CTkFrame(quad, fg_color="white", corner_radius=15, border_color="#C58ADE", border_width=2)
         frame.place(relx=0.5, rely=0.5, relwidth=0.8, relheight=0.6, anchor=CENTER)
 
-        icone_voltar = CTkImage(Image.open("images/seta_esquerda.png"), size=(20, 20))
+        icone_voltar = CTkImage(Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20))
 
         # Botão de configurações
         btntst = CTkButton(

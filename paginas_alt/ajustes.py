@@ -41,13 +41,11 @@ class ajustes(CTkFrame):
             termos_de_uso.bind("<Button-1>", lambda e: self.controller.mostrar_pagina("termos_de_uso"))
           
 
-            icone_voltar = CTkImage(Image.open("images/seta_esquerda.png"), size=(20, 20))
-            icone_avanc = CTkImage(Image.open("images/seta_direita.png"), size=(20, 20))
+            icone_voltar = CTkImage(Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20))
+            icone_avanc = CTkImage(Image.open("assets/ImgsTemp/seta_direita.png"), size=(20, 20))
 
             btn_voltar = CTkButton(self, image=icone_voltar, text="", text_color="#E6C8FA", fg_color="#654E82",command=lambda: controller.mostrar_pagina("config"))
             btn_voltar.place(relx=0.07, rely=0.15, anchor=CENTER, relwidth=0.05, relheight=0.06)
-
-            icone_voltar = CTkImage(Image.open("images/seta_esquerda.png"), size=(20, 20))
 
             avanc = CTkButton(self, image=icone_avanc, text="", text_color="#E6C8FA", fg_color="#654E82",command=lambda: controller.mostrar_pagina("inicial"))
             avanc.place(relx=0.9, rely=0.15, anchor=CENTER, relwidth=0.05, relheight=0.06)

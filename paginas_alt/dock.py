@@ -49,9 +49,9 @@ def btns_dock(caminho, command = None):
     return Bot
 
 # Botões da Dock, Funcionalidade de Cada um Sendo Ativada por uma Lambda
-btns_dock("images/ImgsDock/LApps.png", command=lambda: abrir_lista_apps(Dock))
-btns_dock("images/ImgsDock/pacotes.png", command=lambda: btns.Btn_Pacotes())
-btns_dock("images/ImgsDock/navegador.png", command=lambda: btns.Btn_Navegador())
-btns_dock("images/ImgsDock/Fechar.png", command=lambda: btns.Btn_Fechar(Dock))
+btns_dock("assets/ImgsDock/LApps.png", command=lambda: abrir_lista_apps(Dock))
+btns_dock("assets/ImgsDock/pacotes.png", command=lambda: btns.Btn_Pacotes())
+btns_dock("assets/ImgsDock/navegador.png", command=lambda: btns.Btn_Navegador())
+btns_dock("assets/ImgsDock/Fechar.png", command=lambda: btns.Btn_Fechar(Dock))
 
 Dock.mainloop()

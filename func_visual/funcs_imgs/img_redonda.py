@@ -86,11 +86,11 @@ def configurar_imagens_no_frame(frame1, controller):
     
     # Lista de imagens para facilitar a adição
     imagens_dados = [
-        {"caminho": "images/placeholder.jpg", "texto": "Item 1"},
-        {"caminho": "images/placeholder.jpg", "texto": "Item 2"},  
-        {"caminho": "images/placeholder.jpg", "texto": "Item 3"},
-        {"caminho": "images/placeholder.jpg", "texto": "Item 4"},
-        {"caminho": "images/placeholder.jpg", "texto": "Item 5"},
+        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 1"},
+        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 2"},  
+        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 3"},
+        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 4"},
+        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 5"},
     ]
     
     # Adicionar imagens usando grid para melhor controle

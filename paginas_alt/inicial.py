@@ -39,7 +39,7 @@ class inicial(CTkFrame):
         content_frame = CTkFrame(frame1, fg_color="transparent")
         content_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-        icone_voltar = CTkImage(Image.open("images/seta_esquerda.png"), size=(20, 20))
+        icone_voltar = CTkImage(Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20))
 
         # Botão de configurações
         btntst = CTkButton(
