@@ -3,7 +3,10 @@ from customtkinter import *
 import subprocess
 
 # Import da Função que Busca Pelos Apps no Windows
-from scripts.windows.buscar_apps import *  
+from scripts.windows.buscar_apps import *
+
+# Import da Classe com o Teclado
+from func_nao_visual.tecladoCtk import *
 
 # Criação da Classe de Execução
 class AppList(CTkFrame):
@@ -21,6 +24,7 @@ class AppList(CTkFrame):
         search_entry = CTkEntry(top_frame, text_color = "#d9d9d9", border_color = "#F9B14F", textvariable = self.search_var)
         search_entry.pack(side = "left", fill = "x", expand = True, padx = 10)
         search_entry.bind("<KeyRelease>", self.update_list)
+        search_entry.bind("<FocusIn>", self.ativar_teclado)
         
 # Botão do Canto Superior Direito
         self.toggle_button = CTkButton(top_frame, text = "Favoritos ⭐", width = 100, fg_color = "#432D5D", hover_color = "#C58ADE", text_color = "#F9B14F", command = self.toggle_favorites)
@@ -96,3 +100,13 @@ def abrir_lista_apps(master):
     ListaApps.wm_attributes("-topmost", True)  
     app_list = AppList(ListaApps, apps)
     app_list.pack(fill = "both", expand = True, padx = 10, pady = 10) 
+    
+def ativar_teclado(self, event = None):
+    if hasattr(self, 'teclado') and self.teclado.winfo_exists():
+        self.teclado.destroy()
+    
+if __name__ == "__main__":
+    set_appearance_mode("System")  # "Dark", "Light" ou "System"
+    set_default_color_theme("blue")  # "blue", "dark-blue", "green"
+    app = AppList()
+    app.mainloop()
