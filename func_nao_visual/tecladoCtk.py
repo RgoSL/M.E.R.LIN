@@ -1,8 +1,8 @@
-import customtkinter as ctk
-import pyautogui
+from customtkinter import *
+import pyautogui as py
 import time
 
-class TecladoVarredura(ctk.CTk):
+class TecladoVarredura(CTk):
     def __init__(self):
         super().__init__()
         self.title("Teclado de Varredura")
@@ -19,14 +19,14 @@ class TecladoVarredura(ctk.CTk):
         self.historico = []
 
         # Entrada customizada
-        self.entrada = ctk.CTkEntry(self, width=600, height=35, font=('Arial', 14))
+        self.entrada = CTkEntry(self, width=600, height=35, font=('Arial', 14))
         self.entrada.pack(padx=10, pady=5)
 
-        botao_enviar = ctk.CTkButton(self, text="Digitar Texto", width=150, height=40, font=('Arial', 12),
+        botao_enviar = CTkButton(self, text="Digitar Texto", width=150, height=40, font=('Arial', 12),
                                      command=self.enviar_texto)
         botao_enviar.pack(pady=5)
 
-        self.frame_teclado = ctk.CTkFrame(self, fg_color="transparent")
+        self.frame_teclado = CTkFrame(self, fg_color="transparent")
         self.frame_teclado.pack(padx=10, pady=10)
 
         self.botoes = {}
@@ -50,7 +50,7 @@ class TecladoVarredura(ctk.CTk):
 
         row_offset = 0
         if layout != self.layout_completo:
-            botao_voltar = ctk.CTkButton(self.frame_teclado, text="Voltar", width=100, height=40,
+            botao_voltar = CTkButton(self.frame_teclado, text="Voltar", width=100, height=40,
                                          command=self.voltar)
             botao_voltar.grid(row=0, column=0, columnspan=max(len(row) for row in layout) + 1, padx=2, pady=2,
                               sticky="ew")
@@ -59,7 +59,7 @@ class TecladoVarredura(ctk.CTk):
 
         for r_idx, linha in enumerate(layout):
             for c_idx, tecla in enumerate(linha):
-                botao = ctk.CTkButton(self.frame_teclado, text=tecla, width=50, height=40,
+                botao = CTkButton(self.frame_teclado, text=tecla, width=50, height=40,
                                       command=lambda t=tecla: self.adicionar_a_entrada(t))
                 botao.grid(row=r_idx + row_offset, column=c_idx, padx=2, pady=2)
                 self.botoes[tecla] = botao
@@ -87,7 +87,7 @@ class TecladoVarredura(ctk.CTk):
         y2 = botao_fim.winfo_y() + botao_fim.winfo_height()
 
         padding = 5
-        self.borda_quadrante = ctk.CTkFrame(self.frame_teclado, fg_color="transparent", border_width=3,
+        self.borda_quadrante = CTkFrame(self.frame_teclado, fg_color="transparent", border_width=3,
                                            border_color="red")
         self.borda_quadrante.place(x=x1 - padding, y=y1 - padding, width=x2 - x1 + 2 * padding,
                                    height=y2 - y1 + 2 * padding)
@@ -137,13 +137,13 @@ class TecladoVarredura(ctk.CTk):
 
     def adicionar_a_entrada(self, tecla):
         if tecla == 'Backspace':
-            self.entrada.delete(len(self.entrada.get()) - 1, ctk.END)
+            self.entrada.delete(len(self.entrada.get()) - 1, END)
         elif tecla == 'Espaço':
-            self.entrada.insert(ctk.END, ' ')
+            self.entrada.insert(END, ' ')
         elif tecla == 'Enter':
             self.enviar_texto()
         else:
-            self.entrada.insert(ctk.END, tecla)
+            self.entrada.insert(END, tecla)
 
     def enviar_texto(self):
         texto_para_digitar = self.entrada.get()
@@ -152,9 +152,9 @@ class TecladoVarredura(ctk.CTk):
 
         self.withdraw()
         time.sleep(2)
-        pyautogui.write(texto_para_digitar, interval=0.05)
+        py.write(texto_para_digitar, interval=0.05)
         self.deiconify()
-        self.entrada.delete(0, ctk.END)
+        self.entrada.delete(0, END)
         self.focus_force()
 
     def voltar(self):
@@ -168,7 +168,7 @@ class TecladoVarredura(ctk.CTk):
 
 
 if __name__ == "__main__":
-    ctk.set_appearance_mode("System")  # "Dark", "Light" ou "System"
-    ctk.set_default_color_theme("blue")  # "blue", "dark-blue", "green"
+    set_appearance_mode("System")  
+    set_default_color_theme("blue")  
     app = TecladoVarredura()
     app.mainloop()
