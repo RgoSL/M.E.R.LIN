@@ -591,11 +591,13 @@ footer {
 .footer-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 2rem;
-  margin-bottom: 2rem;
+  flex-wrap: wrap; 
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 /* Fim da Class que Agrupa Todos os Elementos do Footer */
 
@@ -628,6 +630,11 @@ footer {
   font-size: 0.95rem;
   margin-bottom: 0.4rem;
   transition: color 0.3s ease;
+}
+
+.contato a {
+  display: block;
+  margin-bottom: 0.4rem;
 }
 
 .contato a:hover {
@@ -754,6 +761,7 @@ footer {
   .footer-container {
     flex-direction: column;
     text-align: center;
+    align-items: center;
   }
 } 
 
