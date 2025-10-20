@@ -59,7 +59,7 @@ class modo_claro_escuro(CTkFrame):
             text_color="white",
             fg_color="#654E82",
             corner_radius=10,
-            command=lambda: self.controller.mostrar_pagina("idioma_software")
+            command=lambda: self.controller.mostrar_pagina("configSo")
         )
         btn_selecionar.place(relx=0.5, rely=0.8, anchor=CENTER)
 

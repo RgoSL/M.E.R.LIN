@@ -1,7 +1,8 @@
 # Bibliotecas Utilizadas 
 from customtkinter import *
 from PIL import Image
-
+from func_visual.widgets.progress import progress_bar
+import os
 # Import da Barra de Progresso Padrão do Software
 
 
@@ -10,9 +11,7 @@ class configSo(CTkFrame):
     def __init__(self, master, controller=None):
         super().__init__(master)
         self.controller = controller
-
-        self.configure(fg_color="#FFFFFF")
-
+        
         # Mensagem da Página        
         self.label_msg = CTkLabel(
         self, text = "Selecione seu Sistema Operacional", text_color = "#000000", font = ("arial", 20, "bold"))
@@ -23,10 +22,12 @@ class configSo(CTkFrame):
         self, fg_color = "#FFFFFF", border_color = "#C58ADE", border_width = 2)
         self.Container_Sis.place(relx = 0.5, rely = 0.5, anchor = "center") 
 
+        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
         # Caminho de Cada Imagem de Sistema
-        caminho_win = r"D:/CÓDIGOS/ETEC/TCC/paginas merlin/assets/ImgsSo/IconWin.png"
-        caminho_lin = r"D:/CÓDIGOS/ETEC/TCC/paginas merlin/assets/ImgsSo/IconLin.png"
-        caminho_mac = r"D:/CÓDIGOS/ETEC/TCC/paginas merlin/assets/ImgsSo/IconMac.png"
+        caminho_win = os.path.join(BASE_DIR, "assets", "ImgsSo", "IconWin.png")
+        caminho_lin = os.path.join(BASE_DIR, "assets", "ImgsSo", "IconLin.png")
+        caminho_mac = os.path.join(BASE_DIR, "assets", "ImgsSo", "IconMac.png")
 
         # Padronização das Imagens
         tamanho_icones = (150, 150)
@@ -46,16 +47,19 @@ class configSo(CTkFrame):
         self.criar_card_so(self.grid_frame, self.img_mac, "macOS", 2, self.on_click_mac)
 
         # Barra de Progresso Temporária
-        self.progress_bar = CTkProgressBar(self, width = 300)
-        self.progress_bar.place(relx = 0.5, rely = 0.9, anchor = "center")
-        self.progress_bar.set(0.25)  # 25% preenchido
+        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.5)
+        self.barra.place(relx=0.5, rely=0.9, anchor="center")
 
         # Botões de Navegação
-        self.btn_esquerdo = CTkButton(self, text = "Voltar", text_color = "#FFFFFF", fg_color = "#654E82", bg_color = "transparent", corner_radius = 10,  height= 33, width= 103, hover_color = "#56397C")
+        self.btn_esquerdo = CTkButton(self, text = "Voltar", text_color = "#FFFFFF", fg_color = "#654E82", bg_color = "transparent", corner_radius = 10,  height= 33, width= 103, hover_color = "#56397C",command=lambda: controller.mostrar_pagina("modo_claro_escuro"))
         self.btn_esquerdo.place(relx=0.05, rely=0.9, anchor="w")
 
-        self.btn_direito = CTkButton(self, text = "Próximo", text_color = "#FFFFFF", fg_color = "#654E82", bg_color = "transparent", corner_radius = 10, height= 33, width= 103, hover_color = "#56397C") 
+        self.btn_direito = CTkButton(self, text = "Próximo", text_color = "#FFFFFF", fg_color = "#654E82", bg_color = "transparent", corner_radius = 10, height= 33, width= 103, hover_color = "#56397C", command=lambda: controller.mostrar_pagina("idioma_software")) 
         self.btn_direito.place(relx=0.95, rely=0.9, anchor="e")
+
+        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.5)
+        self.barra.place(relx=0.5, rely=0.9, anchor="center")
+
 
     # Função Para Padronizar as Imagens
     def ImgSis(self, src: str, tam: tuple = (100, 100)) -> CTkImage:
