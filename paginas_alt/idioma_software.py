@@ -37,7 +37,7 @@ class idioma_software(CTkFrame):
         self.btn_voltar = CTkButton(
             self, text="Voltar", font=("Bold", 15), text_color="white",
             bg_color="transparent", fg_color="#654E82", corner_radius=10,
-            command=lambda: controller.mostrar_pagina("modo_claro_escuro"), hover=False
+            command=lambda: controller.mostrar_pagina("configSo"), hover=False
         )
 
         self.btn_proximo = CTkButton(

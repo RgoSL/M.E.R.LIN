@@ -14,7 +14,7 @@ class configSo(CTkFrame):
         
         # Mensagem da Página        
         self.label_msg = CTkLabel(
-        self, text = "Selecione seu Sistema Operacional", text_color = "#000000", font = ("arial", 20, "bold"))
+        self, text = "Selecione seu Sistema Operacional", text_color =None, font = ("arial", 20, "bold"))
         self.label_msg.place(relx = 0.5, rely = 0.2, anchor = "center")
 
         # Container dos SOs

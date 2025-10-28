@@ -6,7 +6,7 @@ import keyboard
 import sys
 
 class EyeControl:
-    def __init__(self):
+    def __init__(self): 
         # Inicializa MediaPipe
         self.mp_face_mesh = mp.solutions.face_mesh
         self.face_mesh = self.mp_face_mesh.FaceMesh(max_num_faces=1, refine_landmarks=True)
