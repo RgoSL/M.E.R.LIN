@@ -2,6 +2,7 @@ from customtkinter import *
 from PIL import Image
 from func_visual.widgets.lista_comandos import criar_containers
 from func_visual.widgets.header import nav
+from scripts.windows.buscar_apps import get_windows_apps
 class comandos_coletanea(CTkFrame):
     def __init__(self,master,controller):
         super().__init__(master)
@@ -17,7 +18,8 @@ class comandos_coletanea(CTkFrame):
 
         quad.selecao = StringVar(value="")
 
-        criar_containers(quad,quad.selecao,cor_texto="black")
+        apps = get_windows_apps()  # retorna a lista real de apps do sistema
+        criar_containers(quad, quad.selecao, apps=apps, cor_texto="black")
 
         icone_voltar = CTkImage(Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20))
 
