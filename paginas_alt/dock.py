@@ -56,6 +56,6 @@ class Dock(CTkToplevel):
 
         # Botões da Dock, Funcionalidade de Cada um Sendo Ativada por uma Lambda
         btns_dock("assets/ImgsDock/LApps.png", command=lambda: carregar_apps_em_thread(self))
-        btns_dock("assets/ImgsDock/pacotes.png", command=lambda: btns.Btn_Pacotes())
+        btns_dock("assets/ImgsDock/pacotes.png", command=lambda: btns.Btn_Pacotes(self.controller))
         btns_dock("assets/ImgsDock/navegador.png", command=lambda: btns.Btn_Navegador())
         btns_dock("assets/ImgsDock/Fechar.png", command=lambda: btns.Btn_Fechar(self))

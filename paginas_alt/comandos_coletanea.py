@@ -19,7 +19,7 @@ class comandos_coletanea(CTkFrame):
         quad.selecao = StringVar(value="")
 
         apps = get_windows_apps()  # retorna a lista real de apps do sistema
-        criar_containers(quad, quad.selecao, apps=apps, cor_texto="black")
+        criar_containers(quad, quad.selecao, apps=apps, cor_texto="black", callback=self.enviar_para_pacotes)
 
         icone_voltar = CTkImage(Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20))
 
@@ -33,3 +33,6 @@ class comandos_coletanea(CTkFrame):
         )
 
         btntst.place(relx=0.07, rely=0.15, anchor="center", relwidth=0.05, relheight=0.06)
+    def enviar_para_pacotes(self, app):
+        from func_nao_visual.comandos_dock import btns
+        self.controller.app_selecionado = app

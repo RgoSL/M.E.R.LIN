@@ -35,7 +35,7 @@ class App(CTk):
         centralizar_janela(self, self.largura_janela, self.altura_janela)
         self.configure(fg_color="#2B2B2B")
         self.overrideredirect(True)  # remove borda nativa
-
+        self.app_selecionado = None
         # ===== Janela arredondada =====
         self.after(100, self.arredondar_janela)
 

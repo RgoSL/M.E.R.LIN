@@ -1,16 +1,9 @@
 from customtkinter import *
 from PIL import Image
 
-def criar_containers(parent, variavel, apps, largura=400, altura=60, cor_texto="#000000"):
+def criar_containers(parent, variavel, apps, largura=400, altura=60, cor_texto="#000000", callback=None):
     """
-    Cria containers para cada app da lista passada.
-    
-    :param parent: Frame ou janela onde os containers serão criados
-    :param variavel: StringVar para armazenar a seleção
-    :param apps: Lista de apps, cada app é um dict {"name": str, "command": str, "icon": str opcional}
-    :param largura: largura do frame
-    :param altura: altura do frame
-    :param cor_texto: cor do texto das opções
+    callback: função a ser chamada ao selecionar o app (ex.: enviar para pacotes)
     """
     for i, app in enumerate(apps):
         frame = CTkFrame(parent, corner_radius=10, fg_color="#FFFFFF",
@@ -19,7 +12,7 @@ def criar_containers(parent, variavel, apps, largura=400, altura=60, cor_texto="
         frame.grid_propagate(False)
         frame.grid_columnconfigure(1, weight=1)
 
-        # Ícone, se existir
+        # Ícone
         if "icon" in app and app["icon"]:
             try:
                 img = CTkImage(dark_image=Image.open(app["icon"]), size=(28, 28))
@@ -34,5 +27,7 @@ def criar_containers(parent, variavel, apps, largura=400, altura=60, cor_texto="
             .grid(row=0, column=1, padx=10, sticky="w")
 
         # RadioButton para seleção
-        CTkRadioButton(frame, text="", value=app["name"], variable=variavel,
-                       fg_color="#654E82").grid(row=0, column=2, padx=10, sticky="e")
+        rb = CTkRadioButton(frame, text="", value=app["name"], variable=variavel,
+                            fg_color="#654E82",
+                            command=lambda a=app: callback(a) if callback else None)
+        rb.grid(row=0, column=2, padx=10, sticky="e")
