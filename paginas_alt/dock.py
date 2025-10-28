@@ -5,6 +5,7 @@ from PIL import Image
 # Import das Classes com as Funcionalidades da Dock
 from func_nao_visual.lista_apps import abrir_lista_apps
 from func_nao_visual.comandos_dock import btns
+from func_nao_visual.lista_apps import carregar_apps_em_thread
 
 class Dock(CTkToplevel):
     def __init__(self, master, controller):
@@ -22,9 +23,10 @@ class Dock(CTkToplevel):
         largura_tela = self.winfo_screenwidth()
         largura_dock = 80
         altura_dock = 370
-        dock_x = largura_tela - largura_dock
-        dock_y = altura_tela/3
-        self.geometry(f"{largura_dock} x {altura_dock} + {dock_x} + {int(dock_y)}")
+        offset = 55
+        dock_x = largura_tela - largura_dock        # direita da tela
+        dock_y = altura_tela - altura_dock - offset        # inferior da tela
+        self.geometry(f"{largura_dock}x{altura_dock}+{dock_x}+{dock_y}")
 
         # Container Principal
         Frame = CTkFrame(self, bg_color="#654E82", fg_color = "#644C81", border_width = 1, border_color = "#f9b14f", corner_radius = 10)
@@ -53,7 +55,7 @@ class Dock(CTkToplevel):
             return Bot
 
         # Botões da Dock, Funcionalidade de Cada um Sendo Ativada por uma Lambda
-        btns_dock("assets/ImgsDock/LApps.png", command=lambda: abrir_lista_apps(Dock))
+        btns_dock("assets/ImgsDock/LApps.png", command=lambda: carregar_apps_em_thread(self))
         btns_dock("assets/ImgsDock/pacotes.png", command=lambda: btns.Btn_Pacotes())
         btns_dock("assets/ImgsDock/navegador.png", command=lambda: btns.Btn_Navegador())
-        btns_dock("assets/ImgsDock/Fechar.png", command=lambda: btns.Btn_Fechar(Dock))
+        btns_dock("assets/ImgsDock/Fechar.png", command=lambda: btns.Btn_Fechar(self))

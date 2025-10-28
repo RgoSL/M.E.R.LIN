@@ -151,7 +151,6 @@ def abrir_lista_apps(master, apps):
     ListaApps = CTkToplevel(master)
     ListaApps.geometry("400x600+100+100")
     ListaApps.title("Lista de Aplicativos - M.E.R.LIN")
-    ListaApps.iconbitmap("images\\logo.png")
     ListaApps.wm_attributes("-topmost", True)
     app_list = AppList(ListaApps, apps)
     app_list.pack(fill="both", expand=True, padx=10, pady=10)

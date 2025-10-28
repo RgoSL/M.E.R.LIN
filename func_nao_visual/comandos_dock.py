@@ -2,6 +2,7 @@
 from func_nao_visual.lista_apps import AppList
 from eye_tracking.navegacao import EyeControl
 import threading
+import sys
 class btns:
     @staticmethod
     def Btn_Lista():        
@@ -23,5 +24,5 @@ class btns:
     @staticmethod
     def Btn_Fechar(dock):
         dock.destroy()
-        dock.destroyWindow()
+        sys.exit()
 
