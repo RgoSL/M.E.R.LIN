@@ -1,6 +1,7 @@
 # comandos_dock.py
 from func_nao_visual.lista_apps import AppList
 from eye_tracking.navegacao import EyeControl
+from func_nao_visual.teclado_open import TecladoVarreduraTab
 import threading
 import sys
 import subprocess  # necessário para abrir apps
@@ -37,6 +38,11 @@ class btns:
         # Executa em uma thread separada para não travar o Tkinter
         t = threading.Thread(target=eye.start, daemon=True)
         t.start()
+    @staticmethod
+    def Btn_Teclado(dock_instance=None):
+        tclado = TecladoVarreduraTab()
+        tclado.deiconify()  # mostra a janela
+
 
     @staticmethod
     def Btn_Fechar(dock):
