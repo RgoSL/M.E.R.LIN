@@ -18,7 +18,7 @@ class TecladoVarreduraTab(CTk):
         self.title("Teclado de Varredura")
         self.resizable(False, False)
         self.attributes('-topmost', True)
-
+        set_default_color_theme("dark-blue")
         # Configurações de detecção
         self.cooldown = float(cooldown)
         self.ear_threshold = float(ear_threshold)
