@@ -40,7 +40,7 @@ class btns:
         t.start()
     @staticmethod
     def Btn_Teclado(dock_instance=None):
-        tclado = TecladoVarreduraTab()
+        tclado = TecladoVarreduraTab(dock_title=dock_instance.title())
         tclado.deiconify()  # mostra a janela
 
 
