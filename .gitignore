@@ -1,2 +1,4 @@
-#ignora o banco de dados do usuario em particular
 .db
+
+__pycache__/
+*.pyc
