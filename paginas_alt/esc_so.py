@@ -3,6 +3,7 @@ from customtkinter import *
 from PIL import Image
 from func_visual.widgets.progress import progress_bar
 import os
+from func_visual.widgets.header import nav
 # Import da Barra de Progresso Padrão do Software
 
 
@@ -11,7 +12,7 @@ class configSo(CTkFrame):
     def __init__(self, master, controller=None):
         super().__init__(master)
         self.controller = controller
-        
+        nav(self, controller, "M.E.R.LIN")
         # Mensagem da Página        
         self.label_msg = CTkLabel(
         self, text = "Selecione seu Sistema Operacional", text_color =None, font = ("arial", 20, "bold"))
