@@ -4,7 +4,7 @@ from eye_tracking.navegacao import EyeControl
 from func_nao_visual.teclado_open import TecladoVarreduraTab
 import threading
 import sys
-import subprocess  # necessário para abrir apps
+import subprocess  
 
 class btns:
     @staticmethod
@@ -31,17 +31,20 @@ class btns:
         else:
             print("Nenhum app selecionado")
 
+    eye_instance = None
     @staticmethod
     def Btn_Navegador():
-        # Cria a instância
-        eye = EyeControl()
-        # Executa em uma thread separada para não travar o Tkinter
-        t = threading.Thread(target=eye.start, daemon=True)
+        if btns.eye_instance and btns.eye_instance.running:
+            print("Já está rodando")
+            return
+
+        btns.eye_instance = EyeControl()
+        t = threading.Thread(target=btns.eye_instance.start, daemon=True)
         t.start()
     @staticmethod
     def Btn_Teclado(dock_instance=None):
         tclado = TecladoVarreduraTab(dock_title=dock_instance.title())
-        tclado.deiconify()  # mostra a janela
+        tclado.deiconify() 
 
 
     @staticmethod
