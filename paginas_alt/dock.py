@@ -12,6 +12,9 @@ class Dock(CTkToplevel):
         super().__init__(master)
         self.controller = controller
 
+        # Lista para navegação entre botões
+        self.botoes_dock = []
+        self.botao_selecionado = 0
 
         # Posicionamento da Dock
         self.overrideredirect(True)
@@ -38,7 +41,7 @@ class Dock(CTkToplevel):
             Btn = Btn.resize((150, 120))
             Btn = CTkImage(light_image = Btn, dark_image = Btn)
             
-        # Formato de Botão dos Icones da Dock
+            # Formato de Botão dos Icones da Dock
             Bot = CTkButton(
                 Frame,
                 image = Btn,
@@ -52,6 +55,9 @@ class Dock(CTkToplevel):
             )
             Bot.image = Btn
             Bot.pack(pady = 8)
+
+            # Passa os Botões da Dock Para uma Lista
+            self.botoes_dock.append(Bot)
             return Bot
 
         # Botões da Dock, Funcionalidade de Cada um Sendo Ativada por uma Lambda
@@ -60,3 +66,30 @@ class Dock(CTkToplevel):
         btns_dock("assets/ImgsDock/navegador.png", command=lambda: btns.Btn_Navegador())
         btns_dock("assets/ImgsDock/teclado.png", command=lambda: btns.Btn_Teclado(self))
         btns_dock("assets/ImgsDock/Fechar.png", command=lambda: btns.Btn_Fechar(self))
+
+        # Borda dos Botões Selecionados
+        def atualizar_selecao():
+            for i, botao in enumerate(self.botoes_dock):
+                if i == self.botao_selecionado:
+                    botao.configure(border_width=2, border_color="#f9b14f")
+                else:
+                    botao.configure(border_width=0)
+
+        atualizar_selecao()
+
+        # Chamada da Função de Seleção ao Pressionar o Tab
+        def navegar(event=None):
+            self.botao_selecionado = (self.botao_selecionado + 1) % len(self.botoes_dock)
+            atualizar_selecao()
+            return "break"  
+
+        # Função de Ativação do Botão Selecionado com o Enter
+        def ativar(event=None):
+            botao = self.botoes_dock[self.botao_selecionado]
+            botao.invoke()
+            return "break"
+
+        # Atribuição das Funções às Teclas
+        self.bind("<Tab>", navegar)
+        self.bind("<Return>", ativar)
+        self.focus_set()
