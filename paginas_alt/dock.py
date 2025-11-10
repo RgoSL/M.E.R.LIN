@@ -20,20 +20,25 @@ class Dock(CTkToplevel):
         super().__init__(master)
         self.controller = controller
 
+        # Instâncias Para Forçar o Foco na Dock
+        self.after(50, self.focus_force)
+        self.after(100, self.lift)
+        self.after(120, lambda: self.attributes("-topmost", True))
+
         # Propriedades de Atraso Para Evitar Muitas Ativações
         self.cooldown_tab = 0.6
         self.cooldown_enter = 0.6
         self.ultimo_tab = 0
         self.ultimo_enter = 0
 
-        # Lista que Armazena os Botões da Dock a Serem Percorridos
+        # Lista dos Botões da Dock a Serem Percorridos
         self.botoes_dock = []
         self.botao_selecionado = 0
 
-        # Posicionamento da Dock
+        # Estilização do Foco Inicial
         self.overrideredirect(True)
         self.attributes("-topmost", True)
-        self.wm_attributes("-transparentcolor", "#654E82") 
+        self.wm_attributes("-transparentcolor", "#654E82")
 
         altura_tela = self.winfo_screenheight()
         largura_tela = self.winfo_screenwidth()
@@ -44,9 +49,10 @@ class Dock(CTkToplevel):
         dock_y = altura_tela - altura_dock - offset
         self.geometry(f"{largura_dock}x{altura_dock}+{dock_x}+{dock_y}")
 
-        # Container Principal
-        Frame = CTkFrame(self, bg_color="#654E82", fg_color="#644C81",
-                         border_width=1, border_color="#f9b14f", corner_radius=10)
+        Frame = CTkFrame(
+            self, bg_color="#654E82", fg_color="#644C81",
+            border_width=1, border_color="#f9b14f", corner_radius=10
+        )
         Frame.pack(fill="both", expand=True)
 
         # Definição do Formato dos Botões da Dock
@@ -55,9 +61,11 @@ class Dock(CTkToplevel):
             Btn = Btn.resize((150, 120))
             Btn = CTkImage(light_image=Btn, dark_image=Btn)
 
-            Bot = CTkButton(Frame, image=Btn, text="", width=60, height=60,
-                            fg_color="#432D5D", hover_color="#C58ADE",
-                            corner_radius=10, command=command)
+            Bot = CTkButton(
+                Frame, image=Btn, text="", width=60, height=60,
+                fg_color="#432D5D", hover_color="#C58ADE",
+                corner_radius=10, command=command
+            )
             Bot.image = Btn
             Bot.pack(pady=8)
 
@@ -86,7 +94,7 @@ class Dock(CTkToplevel):
             self.botao_selecionado = (self.botao_selecionado + 1) % len(self.botoes_dock)
             atualizar_selecao()
             return "break"
-        
+
         # Função Para Ativar o Botão Selecionado
         def ativar(event=None):
             botao = self.botoes_dock[self.botao_selecionado]
@@ -98,20 +106,20 @@ class Dock(CTkToplevel):
         self.bind("<Return>", ativar)
         self.focus_set()
 
-        # Instância das Funções do Teclado Para uma Nova Função Baseada no Rastreio Ocular
-        self.func_navegar = navegar     
+        # Funções Usadas Como Gatilho dos Comandos
+        self.func_navegar = navegar
         self.func_ativar = ativar
 
         # Instância das Threads Para uma Função
         self.executando_visao = True
         threading.Thread(target=self._controle_olhos, daemon=True).start()
 
-    # Função Principal do Reconhecimento
     def _controle_olhos(self):
         print("[INFO] Iniciando reconhecimento ocular...")
+
         mp_face = mp.solutions.face_mesh.FaceMesh(
             max_num_faces=1,
-            refine_landmarks=False, 
+            refine_landmarks=False,
             static_image_mode=False,
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5
@@ -122,14 +130,11 @@ class Dock(CTkToplevel):
             print("[ERRO] Não foi possível acessar a câmera!")
             return
 
-        # Iniciando os Valores Condicionais
-        tempo_blink = 0
         tempo_direita = 0
+        tempo_esquerda = 0
 
-        # Loop de Ativação do Reconhecimento
         while self.executando_visao:
 
-            # Propriedades da Captura da Imagem
             ok, frame = cam.read()
             if not ok:
                 print("[ERRO] Falha ao ler frame da câmera.")
@@ -137,47 +142,44 @@ class Dock(CTkToplevel):
 
             h, w, _ = frame.shape
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
             result = mp_face.process(rgb)
+            agora = time.time()
 
             if result.multi_face_landmarks:
                 face = result.multi_face_landmarks[0].landmark
 
-                # Cálculo Para a Detecção de Piscadas
-                olho_sup = face[159].y * h
-                olho_inf = face[145].y * h
-                dist = abs(olho_sup - olho_inf)
-
-                agora = time.time() # Essa Váriavel Aumenta a Certeza de Qual foi o Último Botão Percorrido
-
-                # Condicional da Ativação do Enter
-                if dist < 3:
-                    tempo_blink += 1
-                    print(f"[DEBUG] Piscando... contador={tempo_blink}")
-                else:
-                                                    # Self com a Informação da Ultima Ação Ativada
-                    if tempo_blink > 2 and (agora - self.ultimo_enter) > self.cooldown_enter:
-                        print("[EVENTO] Enter gerado por piscada.")
-                        self.ultimo_enter = agora
-                        self.event_generate("<Return>")
-                    tempo_blink = 0
-
-                # Cálculo Para a Deteção da Direção do Olhar, no Caso Buscando Saber se Está Para a Direita
                 nariz_x = face[1].x
-
-                if nariz_x < 0.58:
+                print(f"[DEBUG] nariz_x: {nariz_x:.3f}")
+                
+                
+                if nariz_x >= 0.50:
                     tempo_direita += 1
-                    print(f"[DEBUG] Olhando para direita... contador={tempo_direita}")
+                    print(f"[DEBUG] → direita contador={tempo_direita}")
                 else:
-                    if tempo_direita > 8 and (agora - self.ultimo_tab) > self.cooldown_tab:
-                        print("[EVENTO] Tab gerado por olhar para a direita.")
+                    if tempo_direita > 6 and (agora - self.ultimo_tab) > self.cooldown_tab:
+                        print("[EVENTO] TAB disparado (olhar para DIREITA).")
                         self.ultimo_tab = agora
-                        self.event_generate("<Tab>")
+
+                        if self.focus_displayof() == self:
+                            self.after(0, self.func_navegar)
+                        self.after(50, self.focus_force)
+
                     tempo_direita = 0
 
-            else:
-                print("[DEBUG] Nenhum rosto detectado.")
-                
+                if nariz_x <= 0.38:
+                    tempo_esquerda += 1
+                    print(f"[DEBUG] ← esquerda contador={tempo_esquerda}")
+                else:
+                    if tempo_esquerda > 6 and (agora - self.ultimo_enter) > self.cooldown_enter:
+                        print("[EVENTO] ENTER disparado (olhar para ESQUERDA).")
+                        self.ultimo_enter = agora
+
+                        if self.focus_displayof() == self:
+                            self.after(0, self.func_ativar)
+                        self.after(50, self.focus_force)
+
+                    tempo_esquerda = 0
+
             cv2.imshow("Debug Olhos", frame)
             if cv2.waitKey(1) & 0xFF == 27:
                 break
