@@ -108,7 +108,7 @@ class Dock(CTkToplevel):
 
     # Função Principal do Reconhecimento
     def _controle_olhos(self):
-    
+        print("[INFO] Iniciando reconhecimento ocular...")
         mp_face = mp.solutions.face_mesh.FaceMesh(
             max_num_faces=1,
             refine_landmarks=False, 
@@ -119,7 +119,7 @@ class Dock(CTkToplevel):
 
         cam = cv2.VideoCapture(0)
         if not cam.isOpened():
-         
+            print("[ERRO] Não foi possível acessar a câmera!")
             return
 
         # Iniciando os Valores Condicionais
@@ -153,7 +153,7 @@ class Dock(CTkToplevel):
                 # Condicional da Ativação do Enter
                 if dist < 3:
                     tempo_blink += 1
-                   
+                    print(f"[DEBUG] Piscando... contador={tempo_blink}")
                 else:
                                                     # Self com a Informação da Ultima Ação Ativada
                     if tempo_blink > 2 and (agora - self.ultimo_enter) > self.cooldown_enter:
@@ -165,16 +165,24 @@ class Dock(CTkToplevel):
                 # Cálculo Para a Deteção da Direção do Olhar, no Caso Buscando Saber se Está Para a Direita
                 nariz_x = face[1].x
 
-                if nariz_x > 0.58:
+                if nariz_x < 0.58:
                     tempo_direita += 1
-                
+                    print(f"[DEBUG] Olhando para direita... contador={tempo_direita}")
                 else:
                     if tempo_direita > 8 and (agora - self.ultimo_tab) > self.cooldown_tab:
-                        
+                        print("[EVENTO] Tab gerado por olhar para a direita.")
                         self.ultimo_tab = agora
                         self.event_generate("<Tab>")
                     tempo_direita = 0
 
+            else:
+                print("[DEBUG] Nenhum rosto detectado.")
+                
+            cv2.imshow("Debug Olhos", frame)
+            if cv2.waitKey(1) & 0xFF == 27:
+                break
+
             time.sleep(0.04)
 
         cam.release()
+        cv2.destroyAllWindows()
