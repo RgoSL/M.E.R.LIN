@@ -1,16 +1,12 @@
-# Import das Bibliotecas Utilizadas
 from customtkinter import *
 import subprocess
 import threading
 import time
 
-# Import da Função que Busca Pelos Apps no Windows
 from scripts.windows.buscar_apps import *
 
-# Import da Classe com o Teclado
 from func_nao_visual.tecladoCtk import *
 
-# Criação da Classe de Execução
 class AppList(CTkFrame):
     def __init__(self, master, apps):
         super().__init__(master, fg_color="#654E82")
@@ -19,18 +15,19 @@ class AppList(CTkFrame):
         self.show_favorites = False
         self.debounce_job = None  
 
-        # Frame Superior
+        self.itens_navegaveis = []
+        self.index_atual = 0
+
         top_frame = CTkFrame(self, fg_color="#654E82")
         top_frame.pack(fill="x", pady=5)
 
-        # Barra de Pesquisa
         self.search_var = StringVar()
-        search_entry = CTkEntry(top_frame, text_color="#d9d9d9", border_color="#F9B14F", textvariable=self.search_var)
+        search_entry = CTkEntry(top_frame, text_color="#d9d9d9",
+                                border_color="#F9B14F", textvariable=self.search_var)
         search_entry.pack(side="left", fill="x", expand=True, padx=10)
         search_entry.bind("<KeyRelease>", self.update_list)
         search_entry.bind("<FocusIn>", self.ativar_teclado)
 
-        # Botão Favoritos
         self.toggle_button = CTkButton(
             top_frame,
             text="Favoritos ⭐",
@@ -42,7 +39,6 @@ class AppList(CTkFrame):
         )
         self.toggle_button.pack(side="right", padx=10)
 
-        # Área de Rolagem com a Lista de Apps
         self.scroll_frame = CTkScrollableFrame(
             self,
             fg_color="#654E82",
@@ -55,11 +51,13 @@ class AppList(CTkFrame):
         self.populate_list()
 
     def populate_list(self):
+        # Limpar tudo
         for widget in self.scroll_frame.winfo_children():
             widget.destroy()
 
-        # Criar widgets para cada app
-        for app in self.filtered_apps:
+        self.itens_navegaveis.clear()
+
+        for idx, app in enumerate(self.filtered_apps):
             app_frame = CTkFrame(self.scroll_frame, fg_color="#3A205A", corner_radius=10)
             app_frame.pack(fill="x", pady=5, padx=5)
 
@@ -87,13 +85,42 @@ class AppList(CTkFrame):
             )
             open_button.pack(side="right", padx=5)
 
-    # Debounce Para Bloquear as Sugestões da Barra
+            # Tornar navegável
+            self.itens_navegaveis.append({
+                "frame": app_frame,
+                "callback": self.criar_open_callback(app["command"])
+            })
+
+        self._destacar_item(0)
+
+    def _destacar_item(self, index):
+        for i, item in enumerate(self.itens_navegaveis):
+            if i == index:
+                item["frame"].configure(border_width=2, border_color="#F9B14F")
+            else:
+                item["frame"].configure(border_width=0)
+
+    def _navegar(self, event=None):
+        if len(self.itens_navegaveis) == 0:
+            return "break"
+
+        self.index_atual = (self.index_atual + 1) % len(self.itens_navegaveis)
+        self._destacar_item(self.index_atual)
+        return "break"
+
+    def _ativar(self, event=None):
+        if len(self.itens_navegaveis) == 0:
+            return "break"
+
+        item = self.itens_navegaveis[self.index_atual]
+        item["callback"]()
+        return "break"
+
     def update_list(self, event=None):
         if self.debounce_job:
             self.after_cancel(self.debounce_job)
         self.debounce_job = self.after(300, self._perform_filter)
 
-    # Executa o filtro da busca
     def _perform_filter(self):
         query = self.search_var.get().lower()
 
@@ -104,6 +131,7 @@ class AppList(CTkFrame):
 
         if filtrado != self.filtered_apps:
             self.filtered_apps = filtrado
+            self.index_atual = 0
             self.populate_list()
 
     def toggle_favorite(self, app):
@@ -136,7 +164,7 @@ class AppList(CTkFrame):
         if hasattr(self, 'teclado') and self.teclado.winfo_exists():
             self.teclado.destroy()
 
-# Função Para Usar as Threads
+
 def carregar_apps_em_thread(master):
     def run():
         try:
@@ -146,11 +174,19 @@ def carregar_apps_em_thread(master):
             print(f"Erro ao carregar apps: {e}")
     threading.Thread(target=run, daemon=True).start()
 
-# Criação da Janela de Lista
+
 def abrir_lista_apps(master, apps):
     ListaApps = CTkToplevel(master)
     ListaApps.geometry("400x600+100+100")
     ListaApps.title("Lista de Aplicativos - M.E.R.LIN")
     ListaApps.wm_attributes("-topmost", True)
+
     app_list = AppList(ListaApps, apps)
     app_list.pack(fill="both", expand=True, padx=10, pady=10)
+
+    # ✅ Binds corretos, na janela!
+    ListaApps.bind("<Tab>", lambda e: app_list._navegar())
+    ListaApps.bind("<Return>", lambda e: app_list._ativar())
+
+    # Garantir foco
+    ListaApps.after(50, ListaApps.focus_force)
