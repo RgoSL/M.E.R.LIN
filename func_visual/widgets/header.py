@@ -1,5 +1,6 @@
 from customtkinter import CTkFrame, CTkLabel, CENTER, CTkButton, CTkImage
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont, ImageTk
+import os
 
 def nav(self, controller, texto, logo_path=None):
     # Header principal
@@ -10,11 +11,29 @@ def nav(self, controller, texto, logo_path=None):
     logo_label = CTkLabel(header, image=image, text="")
     logo_label.place(relx=0.05, rely=0.5, anchor=CENTER)
 
-    # Título ao lado da logo
-    titulo = CTkLabel(header, text=texto, font=("Bold", 20), text_color="#E6C8FA")
-    titulo.place(relx=0.15, rely=0.5, anchor=CENTER) 
+    def criar_titulo_imagem(texto, tamanho, cor, padding=4):
+        fonte_path = os.path.join("assets", "Fonts", "GideonRoman-Regular.ttf")
+        fonte = ImageFont.truetype(fonte_path, tamanho)
+        
+        dummy_img = Image.new("RGBA", (1, 1))
+        draw = ImageDraw.Draw(dummy_img)
+        bbox = draw.textbbox((0, 0), texto, font=fonte)
+        largura_texto = bbox[2] - bbox[0]
+        altura_texto = bbox[3] - bbox[1]
+        
+        img = Image.new("RGBA", (largura_texto + padding*2, altura_texto + padding*2), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        draw.text((padding, padding), texto, font=fonte, fill=cor)
+        
+        return ImageTk.PhotoImage(img)
 
-    # Botão de fechar
-    close = CTkButton(header, text="X", font=("Bold", 20), text_color="#E6C8FA", 
-                      command=controller.destroy, fg_color="#48365E", hover_color="#332346")
+    titulo_img = criar_titulo_imagem(texto, tamanho=24, cor="#E6C8FA")
+    titulo_label = CTkLabel(header, image=titulo_img, text="")
+    titulo_label.image = titulo_img  # mantém referência
+    titulo_label.place(relx=0.15, rely=0.5, anchor=CENTER)
+
+    close = CTkButton(
+        header, text="X", font=("Bold", 20), text_color="#E6C8FA",
+        command=controller.destroy, fg_color="#48365E", hover_color="#332346"
+    )
     close.place(relx=0.95, rely=0.5, anchor=CENTER, relwidth=0.05, relheight=0.5)
