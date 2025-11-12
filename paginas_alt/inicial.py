@@ -41,9 +41,11 @@ class inicial(CTkFrame):
             text="Finalizar",
             fg_color="#654E82",
             bg_color="transparent",
+            font = ("Bold", 15),
+            hover_color=  "#56397C",
             command=self.closeOpenDock  # sem parênteses!
         )
-        finalizar.place(relx=0.7, rely=0.95, anchor="center", relwidth=0.3, relheight=0.09)
+        finalizar.place(relx=0.5, rely=0.93, anchor="center", relwidth=0.3, relheight=0.09)
 
         # Container para organizar elementos horizontalmente
         content_frame = CTkFrame(frame1, fg_color="transparent")
