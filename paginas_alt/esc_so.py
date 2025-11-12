@@ -1,27 +1,26 @@
-# Bibliotecas Utilizadas 
 from customtkinter import *
-from PIL import Image
-from func_visual.widgets.progress import progress_bar
+from PIL import Image, ImageDraw, ImageFont, ImageTk
 import os
+from func_visual.widgets.progress import progress_bar
 from func_visual.widgets.header import nav
-# Import da Barra de Progresso Padrão do Software
 
-
-# Função de Criação da Classe Dessa Tela
 class configSo(CTkFrame):
     def __init__(self, master, controller=None):
         super().__init__(master)
         self.controller = controller
         nav(self, controller, "M.E.R.LIN")
-        # Mensagem da Página        
-        self.label_msg = CTkLabel(
-        self, text = "Selecione seu Sistema Operacional", text_color =None, font = ("arial", 20, "bold"))
-        self.label_msg.place(relx = 0.5, rely = 0.2, anchor = "center")
+
+        # --------------------------
+        # Mensagem da Página com fonte GideonRoman
+        # --------------------------
+        self.label_msg_img = self.criar_texto_imagem("Selecione seu Sistema Operacional", tamanho=30, cor="#000000")
+        self.label_msg = CTkLabel(self, image=self.label_msg_img, text="")
+        self.label_msg.image = self.label_msg_img  # mantém referência
+        self.label_msg.place(relx=0.5, rely=0.2, anchor="center")
 
         # Container dos SOs
-        self.Container_Sis = CTkFrame(
-        self, fg_color = "#FFFFFF", border_color = "#C58ADE", border_width = 2)
-        self.Container_Sis.place(relx = 0.5, rely = 0.5, anchor = "center") 
+        self.Container_Sis = CTkFrame(self, fg_color="transparent")
+        self.Container_Sis.place(relx=0.5, rely=0.5, anchor="center") 
 
         BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -39,8 +38,8 @@ class configSo(CTkFrame):
         self.img_mac = self.ImgSis(caminho_mac, tamanho_icones)
 
         # Padronização dos "Cards"
-        self.grid_frame = CTkFrame(self.Container_Sis, fg_color = "transparent")
-        self.grid_frame.pack(padx = 40, pady = 20)
+        self.grid_frame = CTkFrame(self.Container_Sis, fg_color="transparent")
+        self.grid_frame.pack(padx=40, pady=20)
 
         # "Card" de Cada SO
         self.criar_card_so(self.grid_frame, self.img_windows, "Windows", 0, self.on_click_windows)
@@ -52,37 +51,72 @@ class configSo(CTkFrame):
         self.barra.place(relx=0.5, rely=0.9, anchor="center")
 
         # Botões de Navegação
-        self.btn_esquerdo = CTkButton(self, text = "Voltar", text_color = "#FFFFFF", fg_color = "#654E82", font=("Bold", 15), bg_color = "transparent", corner_radius = 10,  height= 36, width= 160, hover_color = "#56397C",command=lambda: controller.mostrar_pagina("modo_claro_escuro"))
+        self.btn_esquerdo = CTkButton(
+            self, text="Voltar", text_color="#FFFFFF", fg_color="#654E82",
+            font=("Bold", 15), bg_color="transparent", corner_radius=10,
+            height=36, width=160, hover_color="#56397C",
+            command=lambda: controller.mostrar_pagina("modo_claro_escuro")
+        )
         self.btn_esquerdo.place(relx=0.05, rely=0.9, anchor="w")
 
-        self.btn_direito = CTkButton(self, text = "Avançar", text_color = "#FFFFFF", fg_color = "#654E82", font=("Bold", 15), bg_color = "transparent", corner_radius = 10, height= 36, width= 160, hover_color = "#56397C", command=lambda: controller.mostrar_pagina("idioma_software")) 
+        self.btn_direito = CTkButton(
+            self, text="Avançar", text_color="#FFFFFF", fg_color="#654E82",
+            font=("Bold", 15), bg_color="transparent", corner_radius=10,
+            height=36, width=160, hover_color="#56397C",
+            command=lambda: controller.mostrar_pagina("idioma_software")
+        ) 
         self.btn_direito.place(relx=0.95, rely=0.9, anchor="e")
 
-        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.5)
-        self.barra.place(relx=0.5, rely=0.9, anchor="center")
-
+    # --------------------------
+    # Função para criar texto como imagem (GideonRoman)
+    # --------------------------
+    def criar_texto_imagem(self, texto, tamanho=24, cor="#000000", padding=4):
+        fonte_path = os.path.join("assets", "Fonts", "GideonRoman-Regular.ttf")
+        fonte = ImageFont.truetype(fonte_path, tamanho)
+        
+        # Calcula tamanho exato do texto
+        dummy_img = Image.new("RGBA", (1, 1))
+        draw = ImageDraw.Draw(dummy_img)
+        bbox = draw.textbbox((0, 0), texto, font=fonte)
+        largura_texto = bbox[2] - bbox[0]
+        altura_texto = bbox[3] - bbox[1]
+        
+        # Cria imagem final com padding extra
+        img = Image.new("RGBA", (largura_texto + padding*2, altura_texto + padding*2), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        draw.text((padding, padding), texto, font=fonte, fill=cor)
+        
+        return ImageTk.PhotoImage(img)
 
     # Função Para Padronizar as Imagens
     def ImgSis(self, src: str, tam: tuple = (100, 100)) -> CTkImage:
         img = Image.open(src)
         img_resized = img.resize(tam, Image.Resampling.LANCZOS)
-        return CTkImage(light_image = img_resized, dark_image = img_resized, size = tam)
+        return CTkImage(light_image=img_resized, dark_image=img_resized, size=tam)
 
-    # Função Para Padronizar a Criação dos "Cards"
+    # Função Para Padronizar a Criação dos "Cards" com GowunDodum
     def criar_card_so(self, master, imagem, nome, coluna, comando):
         frame = CTkFrame(master, fg_color="transparent")
-        frame.grid(row = 0, column = coluna, padx = 40, pady = 10)
+        frame.grid(row=0, column=coluna, padx=40, pady=10)
 
         # Botão que Torna a Imagem Clicável
         btn = CTkButton(
-    frame, image = imagem, text = "", width = 150, height = 150, fg_color = "transparent", hover_color = "#EEE0F4", command = comando)
+            frame, image=imagem, text="", width=150, height=150,
+            fg_color="transparent", hover_color="#C58ADE", command=comando
+        )
         btn.pack()
 
-        # Label que Fica Embaixo do Botão
-        label = CTkLabel(frame, text = nome, text_color = "#000000", font =("arial", 14, "bold"))
+        # Label que Fica Embaixo do Botão (GowunDodum)
+        fonte_path = os.path.join("assets", "Fonts", "GowunDodum-Regular.ttf")
+        label = CTkLabel(
+            frame, text=nome, text_color="#000",
+            font=(fonte_path, 14)
+        )
         label.pack(pady=5)
 
+    # --------------------------
     # Funções Temporárias Para Testar os Botões
+    # --------------------------
     def on_click_windows(self):
         print("Windows selecionado")
 
@@ -91,9 +125,3 @@ class configSo(CTkFrame):
 
     def on_click_mac(self):
         print("MacOS selecionado")
-
-    def voltar(self):
-        print("Voltando...")
-
-    def avancar(self):
-        print("Avançando...")
