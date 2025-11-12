@@ -52,15 +52,7 @@ class modo_claro_escuro(CTkFrame):
         escuro.place(relx=0.8, rely=0.5, anchor=CENTER)
 
         # Botão Avançar
-        btn_selecionar = CTkButton(
-            self,
-            text="Avançar",
-            font=("Arial", 15, "bold"),
-            text_color="white",
-            fg_color="#654E82",
-            corner_radius=10,
-            command=lambda: self.controller.mostrar_pagina("configSo")
-        )
+        btn_selecionar = CTkButton(self,text="Avançar", text_color = "#FFFFFF", font=("Bold", 15), fg_color = "#654E82", bg_color = "transparent", corner_radius = 10, height= 40, width= 143, hover_color = "#56397C", command=lambda: self.controller.mostrar_pagina("configSo"))
         btn_selecionar.place(relx=0.5, rely=0.8, anchor=CENTER)
 
         # Barra de progresso

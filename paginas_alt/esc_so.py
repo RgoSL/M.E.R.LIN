@@ -52,10 +52,10 @@ class configSo(CTkFrame):
         self.barra.place(relx=0.5, rely=0.9, anchor="center")
 
         # Botões de Navegação
-        self.btn_esquerdo = CTkButton(self, text = "Voltar", text_color = "#FFFFFF", fg_color = "#654E82", bg_color = "transparent", corner_radius = 10,  height= 33, width= 103, hover_color = "#56397C",command=lambda: controller.mostrar_pagina("modo_claro_escuro"))
+        self.btn_esquerdo = CTkButton(self, text = "Voltar", text_color = "#FFFFFF", fg_color = "#654E82", font=("Bold", 15), bg_color = "transparent", corner_radius = 10,  height= 36, width= 160, hover_color = "#56397C",command=lambda: controller.mostrar_pagina("modo_claro_escuro"))
         self.btn_esquerdo.place(relx=0.05, rely=0.9, anchor="w")
 
-        self.btn_direito = CTkButton(self, text = "Próximo", text_color = "#FFFFFF", fg_color = "#654E82", bg_color = "transparent", corner_radius = 10, height= 33, width= 103, hover_color = "#56397C", command=lambda: controller.mostrar_pagina("idioma_software")) 
+        self.btn_direito = CTkButton(self, text = "Avançar", text_color = "#FFFFFF", fg_color = "#654E82", font=("Bold", 15), bg_color = "transparent", corner_radius = 10, height= 36, width= 160, hover_color = "#56397C", command=lambda: controller.mostrar_pagina("idioma_software")) 
         self.btn_direito.place(relx=0.95, rely=0.9, anchor="e")
 
         self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.5)
@@ -97,17 +97,3 @@ class configSo(CTkFrame):
 
     def avancar(self):
         print("Avançando...")
-
-# Execução Local e Temporária Dessa Classe
-if __name__ == "__main__":
-    set_appearance_mode("dark")
-    set_default_color_theme("blue")
-
-    app = CTk()
-    app.geometry("900x600")
-    app.title("Tela de Configuração de Sistema")
-
-    tela_config = configSo(master=app)
-    tela_config.pack(fill="both", expand=True)
-
-    app.mainloop()

@@ -34,16 +34,13 @@ class idioma_software(CTkFrame):
 
         criar_lista_idiomas(self.quad, idiomas, callback=None)
 
-        self.btn_voltar = CTkButton(
-            self, text="Voltar", font=("Bold", 15), text_color="white",
-            bg_color="transparent", fg_color="#654E82", corner_radius=10,
-            command=lambda: controller.mostrar_pagina("configSo"), hover=False
-        )
+        self.btn_voltar = CTkButton(self, text="Voltar", font=("Bold", 15), height=40, width=60, text_color="#FFFFFF",bg_color="transparent", fg_color="#654E82", corner_radius=10, hover_color= "#56397C",
+                                    command=lambda: controller.mostrar_pagina("configSo"))
 
         self.btn_proximo = CTkButton(
-            self, text="Próximo", font=("Bold", 15), text_color="white",
-            bg_color="transparent", fg_color="#654E82", corner_radius=10,
-            command=lambda: controller.mostrar_pagina("config"), hover=False
+            self, text="Avançar", font=("Bold", 15), text_color="#FFFFFF", height=40, width=60,
+            bg_color="transparent", fg_color="#654E82", corner_radius=10, hover_color="#56397C",
+            command=lambda: controller.mostrar_pagina("config")
         )
 
         self.btn_voltar.place(relx=0.15, rely=0.9, anchor="center", relwidth=0.2, relheight=0.06)
