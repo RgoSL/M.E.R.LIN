@@ -38,6 +38,7 @@ class termos_de_uso(CTkFrame):
             image=icone_voltar,
             text="",
             fg_color="#654E82",
+            hover_color="#56397C",
             command=lambda: self.controller.mostrar_pagina("ajustes")
         )
 

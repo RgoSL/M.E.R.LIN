@@ -30,25 +30,25 @@ class ajustes(CTkFrame):
         # --- OptionMenus colados lado a lado ---
         self.OptionMenu5 = CTkOptionMenu(frame2, values=["Luz da Camera","Sim", "Não"],
                                          command=self.salvar_config, fg_color="#E6C8FA",
-                                         dropdown_fg_color="#654E82", text_color="black", button_color="#E6C8FA")
+                                         dropdown_fg_color="#654E82", text_color="black",button_hover_color="#56397C", button_color="#E6C8FA")
         self.OptionMenu5.set(luz_sel)
         self.OptionMenu5.place(relx=0.23, rely=0.3, anchor=W, relwidth=0.18, relheight=0.1)
 
         self.OptionMenu1 = CTkOptionMenu(frame2, values=["Resolução","1080p", "720p", "360p"],
                                          command=self.salvar_config, fg_color="#E6C8FA",
-                                         dropdown_fg_color="#654E82", text_color="black", button_color="#E6C8FA")
+                                         dropdown_fg_color="#654E82", text_color="black", button_hover_color="#56397C", button_color="#E6C8FA")
         self.OptionMenu1.set(resolucao_sel)
         self.OptionMenu1.place(relx=0.43, rely=0.3, anchor=W, relwidth=0.18, relheight=0.1)
 
         self.OptionMenu3 = CTkOptionMenu(frame2, values=["FPS","120 fps", "60 fps", "30 fps"],
                                          command=self.salvar_config, fg_color="#E6C8FA",
-                                         dropdown_fg_color="#654E82", text_color="black", button_color="#E6C8FA")
+                                         dropdown_fg_color="#654E82", text_color="black", button_hover_color="#56397C", button_color="#E6C8FA")
         self.OptionMenu3.set(fps_sel)
         self.OptionMenu3.place(relx=0.63, rely=0.3, anchor=W, relwidth=0.18, relheight=0.1)
 
         self.OptionMenu2 = CTkOptionMenu(frame2, values=["Idiomas","português", "Inglês", "Espanhol"],
                                          command=self.salvar_config, fg_color="#E6C8FA",
-                                         dropdown_fg_color="#654E82", text_color="black", button_color="#E6C8FA")
+                                         dropdown_fg_color="#654E82", text_color="black", button_hover_color="#56397C", button_color="#E6C8FA")
         self.OptionMenu2.set(idioma_sel)
         self.OptionMenu2.place(relx=0.23, rely=0.5, anchor=W, relwidth=0.58, relheight=0.1)
 
