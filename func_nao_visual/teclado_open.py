@@ -18,7 +18,6 @@ class TecladoVarreduraTab(CTk):
         self.title("Teclado de Varredura")
         self.resizable(False, False)
         self.attributes('-topmost', True)
-        set_default_color_theme("dark-blue")
         # Configurações de detecção
         self.cooldown = float(cooldown)
         self.ear_threshold = float(ear_threshold)
@@ -44,14 +43,14 @@ class TecladoVarreduraTab(CTk):
             ['Z','X','C','V','B','N','M',',','.','Espaço'],
         ]
 
-        self.entrada = CTkEntry(self, width=600, height=35, font=('Arial', 14))
+        self.entrada = CTkEntry(self, width=600, height=35, font=('Arial', 14), text_color = "#654E82", fg_color="#E6C8FA")
         self.entrada.pack(padx=10, pady=5)
 
-        botao_enviar = CTkButton(self, text="Digitar Texto", width=150, height=40, font=('Arial', 12),
+        botao_enviar = CTkButton(self, text="Digitar Texto", fg_color = "#432D5D",  hover_color= "#C58ADE", width=150, height=40, font=('Arial', 12),
                                  command=self.enviar_texto)
         botao_enviar.pack(pady=5)
 
-        self.frame_teclado = CTkFrame(self, fg_color="transparent")
+        self.frame_teclado = CTkFrame(self, fg_color="#654E82")
         self.frame_teclado.pack(padx=10, pady=10)
 
         self.botoes = []
@@ -86,7 +85,7 @@ class TecladoVarreduraTab(CTk):
         self.botoes.clear()
         for r_idx, linha in enumerate(self.layout_completo):
             for c_idx, tecla in enumerate(linha):
-                botao = CTkButton(self.frame_teclado, text=tecla, width=50, height=40,
+                botao = CTkButton(self.frame_teclado, text=tecla, text_color="#E6C8FA", fg_color="#432D5D", hover_color="#C58ADE", width=50, height=40,
                                   command=lambda t=tecla: self.adicionar_a_entrada(t))
                 botao.grid(row=r_idx, column=c_idx, padx=2, pady=2)
                 self.botoes.append(botao)
@@ -110,7 +109,7 @@ class TecladoVarreduraTab(CTk):
     def destacar_tecla(self, idx):
         if 0 <= idx < len(self.botoes):
             botao = self.botoes[idx]
-            botao.configure(border_width=3, border_color="red")
+            botao.configure(border_width=2, border_color="#F9B14F")
 
     def remover_destaque(self, idx):
         if 0 <= idx < len(self.botoes):
@@ -297,7 +296,6 @@ class TecladoVarreduraTab(CTk):
     def _on_closing(self):
         self._detector_running = False
         self.after(100, self.destroy)
-
 
 if __name__ == "__main__":
     app = TecladoVarreduraTab()
