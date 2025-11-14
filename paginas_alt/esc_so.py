@@ -13,7 +13,7 @@ class configSo(CTkFrame):
         # --------------------------
         # Mensagem da Página com fonte GideonRoman
         # --------------------------
-        self.label_msg_img = self.criar_texto_imagem("Selecione seu Sistema Operacional", tamanho=30, cor="#000000")
+        self.label_msg_img = self.criar_texto_imagem("Escolha a Base dos Seus Feitiços :", tamanho=30, cor="#000000")
         self.label_msg = CTkLabel(self, image=self.label_msg_img, text="")
         self.label_msg.image = self.label_msg_img  # mantém referência
         self.label_msg.place(relx=0.5, rely=0.2, anchor="center")

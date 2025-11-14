@@ -27,7 +27,7 @@ class modo_claro_escuro(CTkFrame):
         # 🖋️ Renderiza o título com PIL e a fonte GideonRoman
         # --------------------------
         self.titulo_label = self.criar_titulo_imagem(
-            texto="Modo Claro e Escuro",
+            texto="Estilo é Poder. Qual o Seu?",
             tamanho=30,
             cor="#FFFFFF",
             largura=700,

@@ -13,7 +13,7 @@ class config(CTkFrame):
         logo = adicionar_imagem_texto(
             self, 
             caminho_img="assets/ImgsTemp/placeholder.jpg", 
-            texto="Sua História começa aqui", 
+            texto="Sua História Começa Aqui", 
             cor="transparent", 
             tamanho=160, 
             espacamento=10,
@@ -25,7 +25,7 @@ class config(CTkFrame):
 
         nav(self,controller, "M.E.R.LIN")
 
-        label = CTkLabel(self, text="Escolha como se preparar", font=("Bold", 20), text_color=None, bg_color="transparent")
+        label = CTkLabel(self, text="Escolha Como se Preparar", font=("Bold", 20), text_color=None, bg_color="transparent")
         label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
         Label2 = CTkLabel(self, text="Tipo de Configuração:", font=("Bold", 18), text_color=None,bg_color="transparent")
@@ -37,7 +37,7 @@ class config(CTkFrame):
         frame_check = CTkFrame(self, fg_color="white", corner_radius=15, border_color="#C58ADE", border_width=2,bg_color="transparent")
         frame_check.place(relx=0.7, rely=0.45, relwidth=0.4, relheight=0.13, anchor=CENTER)
 
-        radio1 = CTkRadioButton(frame_check, text="Normal", font=("Bold", 15), text_color="black",
+        radio1 = CTkRadioButton(frame_check, text="Rápida", font=("Bold", 15), text_color="black",
                                 variable=radio_var, value=1, fg_color="#654E82")
         radio1.place(relx=0.2, rely=0.5, anchor=CENTER)
 
@@ -45,7 +45,7 @@ class config(CTkFrame):
         frame_check2 = CTkFrame(self, fg_color="white", corner_radius=15, border_color="#C58ADE", border_width=2,bg_color="transparent")
         frame_check2.place(relx=0.7, rely=0.6, relwidth=0.4, relheight=0.13, anchor=CENTER)
 
-        radio2 = CTkRadioButton(frame_check2, text="Avançada", font=("Bold", 15), text_color="black",
+        radio2 = CTkRadioButton(frame_check2, text="Personalizada", font=("Bold", 15), text_color="black",
                                 variable=radio_var, value=2, fg_color="#654E82")
         radio2.place(relx=0.2, rely=0.5, anchor=CENTER)
 

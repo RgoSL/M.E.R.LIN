@@ -19,7 +19,7 @@ class idioma_software(CTkFrame):
         self.logo.place(relx=0.2, rely=0.5, anchor="center")
 
         self.Txt_selecao = CTkLabel(
-            self, text="Selecione o idioma do software:",
+            self, text="Toda Magia Começa Pelas Palavras Certas",
             font=("Bold", 20), text_color=None, bg_color="transparent"
         )
         self.Txt_selecao.place(relx=0.57, rely=0.2, anchor="center")
@@ -53,7 +53,7 @@ class idioma_software(CTkFrame):
     def mudar_idioma(self, novo_idioma):
         # Atualiza textos principais
         self.Txt_selecao.configure(
-            text="Selecione o idioma do software:"
+            text="Idioma do Software :"
         )
         self.btn_voltar.configure(text="voltar")
         self.btn_proximo.configure(text="Próximo")
