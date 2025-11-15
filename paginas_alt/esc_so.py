@@ -55,7 +55,7 @@ class configSo(CTkFrame):
             self, text="Voltar", text_color="#FFFFFF", fg_color="#654E82",
             font=("Bold", 15), bg_color="transparent", corner_radius=10,
             height=36, width=160, hover_color="#56397C",
-            command=lambda: controller.mostrar_pagina("modo_claro_escuro")
+            command=lambda: controller.mostrar_pagina("idioma_software")
         )
         self.btn_esquerdo.place(relx=0.05, rely=0.9, anchor="w")
 
@@ -63,7 +63,7 @@ class configSo(CTkFrame):
             self, text="Avançar", text_color="#FFFFFF", fg_color="#654E82",
             font=("Bold", 15), bg_color="transparent", corner_radius=10,
             height=36, width=160, hover_color="#56397C",
-            command=lambda: controller.mostrar_pagina("idioma_software")
+            command=lambda: controller.mostrar_pagina("config")
         ) 
         self.btn_direito.place(relx=0.95, rely=0.9, anchor="e")
 

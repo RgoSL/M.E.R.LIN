@@ -50,9 +50,9 @@ class config(CTkFrame):
         radio2.place(relx=0.2, rely=0.5, anchor=CENTER)
 
         # Botões
-        btn_voltar = CTkButton(self, text="Voltar", font=("Bold", 15), text_color="#FFFFFF",bg_color="transparent", height=40, width=60, fg_color="#654E82",corner_radius=10, hover_color= "#56397C", command=lambda: controller.mostrar_pagina("idioma_software"))
+        btn_voltar = CTkButton(self, text="Voltar", font=("Bold", 15), text_color="#FFFFFF",bg_color="transparent", height=40, width=60, fg_color="#654E82",corner_radius=10, hover_color= "#56397C", command=lambda: controller.mostrar_pagina("configSo"))
         
-        btn_proximo = CTkButton(self, text="Avançar",  font=("Bold", 15), text_color="#FFFFFF",bg_color="transparent", height=40, width=60,fg_color="#654E82",corner_radius=10,  hover_color= "#56397C", command=lambda: controller.mostrar_pagina("ajustes"))
+        btn_proximo = CTkButton(self, text="Avançar",  font=("Bold", 15), text_color="#FFFFFF",bg_color="transparent", height=40, width=60,fg_color="#654E82",corner_radius=10,  hover_color= "#56397C", command=lambda: controller.mostrar_pagina("modo_claro_escuro"))
         
         btn_voltar.place(relx=0.15, rely=0.9, anchor=CENTER, relwidth=0.2, relheight=0.06)
         btn_proximo.place(relx=0.85, rely=0.9, anchor=CENTER, relwidth=0.2, relheight=0.06)

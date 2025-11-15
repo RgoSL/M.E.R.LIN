@@ -61,25 +61,45 @@ class modo_claro_escuro(CTkFrame):
         )
         escuro.place(relx=0.8, rely=0.5, anchor=CENTER)
 
-        # Botão Avançar (mantém GowunDodum)
-        btn_selecionar = CTkButton(
-            self,
-            text="Avançar",
-            text_color="#FFFFFF",
-            font=("GowunDodum", 17),
-            fg_color="#654E82",
-            bg_color="transparent",
-            corner_radius=10,
-            height=40,
-            width=143,
-            hover_color="#56397C",
-            command=lambda: self.controller.mostrar_pagina("configSo")
-        )
-        btn_selecionar.place(relx=0.5, rely=0.8, anchor=CENTER)
-
         # Barra de progresso
         self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.2)
         self.barra.place(relx=0.5, rely=0.9, anchor=CENTER)
+
+        # --------------------------
+        # Botões de Navegação (Voltar e Avançar)
+        # --------------------------
+
+        # Botão Voltar
+        btn_voltar = CTkButton(
+            self,
+            text="Voltar",
+            text_color="#FFFFFF",
+            fg_color="#654E82",
+            font=("GowunDodum", 17),
+            bg_color="transparent",
+            corner_radius=10,
+            height=36,
+            width=160,
+            hover_color="#56397C",
+            command=lambda: self.controller.mostrar_pagina("config")
+        )
+        btn_voltar.place(relx=0.05, rely=0.9, anchor="w")
+
+        # Botão Avançar (Repetição do botão anterior)
+        btn_avancar = CTkButton(
+            self,
+            text="Avançar",
+            text_color="#FFFFFF",
+            fg_color="#654E82",
+            font=("GowunDodum", 17),
+            bg_color="transparent",
+            corner_radius=10,
+            height=36,
+            width=160,
+            hover_color="#56397C",
+            command=lambda: self.controller.mostrar_pagina("ajustes")
+        )
+        btn_avancar.place(relx=0.95, rely=0.9, anchor="e")
 
 
     # ---------------------------------------

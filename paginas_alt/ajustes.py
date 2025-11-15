@@ -73,7 +73,7 @@ class ajustes(CTkFrame):
         icone_avanc = CTkImage(Image.open("assets/ImgsTemp/seta_direita.png"), size=(20, 20))
 
         btn_voltar = CTkButton(self, image=icone_voltar, text="", fg_color="#654E82", hover_color= "#56397C",
-                               command=lambda: controller.mostrar_pagina("config"))
+                               command=lambda: controller.mostrar_pagina("modo_claro_escuro"))
         btn_voltar.place(relx=0.07, rely=0.15, anchor=CENTER, relwidth=0.05, relheight=0.06)
 
         avanc = CTkButton(self, image=icone_avanc, text="", fg_color="#654E82", hover_color= "#56397C",

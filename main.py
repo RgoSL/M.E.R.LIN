@@ -11,6 +11,8 @@ from paginas_alt.modo_claro_escuro import modo_claro_escuro
 from paginas_alt.idioma_software import idioma_software
 from paginas_alt.comandos_coletanea import comandos_coletanea
 from paginas_alt.esc_so import configSo
+from paginas_alt.impressao import bemVindo
+
 def centralizar_janela(janela, largura, altura):
     largura_tela = janela.winfo_screenwidth()
     altura_tela = janela.winfo_screenheight()
@@ -52,10 +54,10 @@ class App(CTk):
 
         # ===== Inicialização das páginas =====
         self.frames = {}
-        for PageClass in (
-            inicial, config, video_Assis, ajustes,
-            termos_de_uso, modo_claro_escuro, idioma_software, comandos_coletanea, configSo
-        ):
+        pages = [
+            idioma_software, configSo, config, modo_claro_escuro, ajustes, inicial
+        ]
+        for PageClass in pages:
             page_name = PageClass.__name__
             try:
                 frame = PageClass(self.main_frame, self)
@@ -64,7 +66,8 @@ class App(CTk):
             except Exception as e:
                 print(f"Erro ao inicializar página {page_name}: {e}")
 
-        self.mostrar_pagina("modo_claro_escuro")
+        # Exibe a primeira página da lista
+        self.mostrar_pagina(pages[0].__name__)
         self.maximized = False  # estado da janela
 
     # ====================== Funções de arredondamento e arraste ======================
@@ -128,4 +131,4 @@ class App(CTk):
 # ====================== Inicialização ======================
 if __name__ == "__main__":
     app = App()
-    app.mainloop()  
+    app.mainloop()
