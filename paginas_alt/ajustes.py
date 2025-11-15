@@ -65,7 +65,7 @@ class ajustes(CTkFrame):
         termos_de_uso.bind("<Button-1>", lambda e: self.controller.mostrar_pagina("termos_de_uso"))
 
         # --- Barra de Progresso ---
-        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.5)  # A barra será visível
+        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=1)  # A barra será visível
         self.barra.place(relx=0.5, rely=0.9, anchor=CENTER)  # Posicionando abaixo da info_label
 
         # --- Botões de navegação ---

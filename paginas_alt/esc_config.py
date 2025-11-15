@@ -58,5 +58,5 @@ class config(CTkFrame):
         btn_proximo.place(relx=0.85, rely=0.9, anchor=CENTER, relwidth=0.2, relheight=0.06)
 
         # Barra de progresso
-        self.barra = progress_bar(self,cor_progresso="#C58ADE",modo="determinate",valor=0.8)
+        self.barra = progress_bar(self,cor_progresso="#C58ADE",modo="determinate",valor=0.5)
         self.barra.place(relx=0.5, rely=0.9, anchor=CENTER)

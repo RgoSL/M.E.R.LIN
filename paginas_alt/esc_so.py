@@ -47,7 +47,7 @@ class configSo(CTkFrame):
         self.criar_card_so(self.grid_frame, self.img_mac, "macOS", 2, self.on_click_mac)
 
         # Barra de Progresso Temporária
-        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.5)
+        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.3)
         self.barra.place(relx=0.5, rely=0.9, anchor="center")
 
         # Botões de Navegação
