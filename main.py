@@ -55,7 +55,7 @@ class App(CTk):
         # ===== Inicialização das páginas =====
         self.frames = {}
         pages = [
-            idioma_software, configSo, config, modo_claro_escuro, ajustes, inicial
+            idioma_software, configSo, config, modo_claro_escuro, ajustes, inicial, termos_de_uso
         ]
         for PageClass in pages:
             page_name = PageClass.__name__
