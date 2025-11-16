@@ -40,6 +40,6 @@ class bemVindo(CTkFrame):
             fg_color="#654E82", 
             corner_radius=10,  
             hover_color="#56397C",
-            command=lambda: controller.mostrar_pagina("")  
+            command=lambda: controller.mostrar_pagina("idioma_software")  
         )
         self.btn_iniciar.place(relx=0.5, rely=0.9, anchor="center")

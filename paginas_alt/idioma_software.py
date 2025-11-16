@@ -35,7 +35,7 @@ class idioma_software(CTkFrame):
         criar_lista_idiomas(self.quad, idiomas, callback=None)
 
         self.btn_voltar = CTkButton(self, text="Voltar", font=("Bold", 15), height=40, width=60, text_color="#FFFFFF",bg_color="transparent", fg_color="#654E82", corner_radius=10, hover_color= "#56397C",
-                                    command=lambda: controller.mostrar_pagina(""))
+                                    command=lambda: controller.mostrar_pagina("bemVindo"))
 
         self.btn_proximo = CTkButton(
             self, text="Avançar", font=("Bold", 15), text_color="#FFFFFF", height=40, width=60,

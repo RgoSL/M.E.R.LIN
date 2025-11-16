@@ -11,6 +11,7 @@ from paginas_alt.modo_claro_escuro import modo_claro_escuro
 from paginas_alt.idioma_software import idioma_software
 from paginas_alt.comandos_coletanea import comandos_coletanea
 from paginas_alt.esc_so import configSo
+from paginas_alt.impressao import bemVindo
 
 def centralizar_janela(janela, largura, altura):
     largura_tela = janela.winfo_screenwidth()
@@ -54,7 +55,7 @@ class App(CTk):
         # ===== Inicialização das páginas =====
         self.frames = {}
         pages = [
-           idioma_software, configSo, config, modo_claro_escuro, ajustes, inicial, termos_de_uso
+           bemVindo, idioma_software, configSo, config, modo_claro_escuro, ajustes, inicial, termos_de_uso
         ]
         for PageClass in pages:
             page_name = PageClass.__name__
