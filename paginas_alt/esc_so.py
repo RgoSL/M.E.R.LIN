@@ -53,7 +53,7 @@ class configSo(CTkFrame):
         # Botões de Navegação
         self.btn_esquerdo = CTkButton(
             self, text="Voltar", text_color="#FFFFFF", fg_color="#654E82",
-            font=("Bold", 15), bg_color="transparent", corner_radius=10,
+            font=("Gideon Roman", 20), bg_color="transparent", corner_radius=10,
             height=36, width=160, hover_color="#56397C",
             command=lambda: controller.mostrar_pagina("idioma_software")
         )
@@ -61,7 +61,7 @@ class configSo(CTkFrame):
 
         self.btn_direito = CTkButton(
             self, text="Avançar", text_color="#FFFFFF", fg_color="#654E82",
-            font=("Bold", 15), bg_color="transparent", corner_radius=10,
+            font=("Gideon Roman", 20), bg_color="transparent", corner_radius=10,
             height=36, width=160, hover_color="#56397C",
             command=lambda: controller.mostrar_pagina("config")
         ) 

@@ -1,8 +1,9 @@
 from customtkinter import *
-from PIL import Image, ImageOps, ImageDraw, ImageFilter
+from PIL import Image, ImageOps, ImageDraw, ImageFilter, ImageFont
 
 def adicionar_imagem_texto(parent, caminho_img, texto=" ", cor="transparent", 
                    tamanho=100, espacamento=30, cor_texto="white", comando=None):
+
     # Container para imagem + texto
     container = CTkFrame(parent, fg_color=cor, corner_radius=8)
     
@@ -26,10 +27,16 @@ def adicionar_imagem_texto(parent, caminho_img, texto=" ", cor="transparent",
         label_img.image = ctk_img
         label_img.pack(pady=(10, espacamento))
         
-        # Label do texto
+        # Label do texto - AGORA COM GIDEON ROMAN
         label_texto = None
         if texto:
-            label_texto = CTkLabel(container, text=texto, font=("Arial", 12), text_color=cor_texto, bg_color=cor)
+            label_texto = CTkLabel(
+                container,
+                text=texto,
+                font=("Gideon Roman", 22),   # ← Aplicação da fonte
+                text_color=cor_texto,
+                bg_color=cor
+            )
             label_texto.pack(pady=(0, 10))
         
         # Bind do clique para quando a imagem carregar
@@ -42,8 +49,13 @@ def adicionar_imagem_texto(parent, caminho_img, texto=" ", cor="transparent",
     except Exception as e:
         print(f"Erro ao carregar imagem {caminho_img}: {e}")
         # Container de erro
-        label_erro = CTkLabel(container, text=f"Erro\n{texto}" if texto else "Erro",
-                              font=("Arial", 10), text_color="red", bg_color=cor)
+        label_erro = CTkLabel(
+            container, 
+            text=f"Erro\n{texto}" if texto else "Erro",
+            font=("Gideon Roman", 12),   # Erro também com mesma fonte
+            text_color="red",
+            bg_color=cor
+        )
         label_erro.pack(expand=True, fill="both", padx=10, pady=10)
         if comando:
             container.bind("<Button-1>", lambda e: comando())

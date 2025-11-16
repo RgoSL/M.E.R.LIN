@@ -49,7 +49,7 @@ class bemVindo(CTkFrame):
         self.btn_iniciar = CTkButton(
             self, 
             text="Iniciar", 
-            font=("Bold", 20), 
+            font=("Gideon Roman", 20, "bold"),
             height=36, 
             width=160,  
             text_color="#FFFFFF", 

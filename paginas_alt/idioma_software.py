@@ -88,27 +88,24 @@ class idioma_software(CTkFrame):
         criar_lista_idiomas(self.quad, idiomas, callback=None)
 
         self.btn_voltar = CTkButton(
-            self, text="Voltar", font=("Bold", 15), height=40, width=60,
+            self, text="Voltar", font=("Gideon Roman", 20), height=40, width=60,
             text_color="#FFFFFF", bg_color="transparent",
             fg_color="#654E82", corner_radius=10, hover_color= "#56397C",
             command=lambda: controller.mostrar_pagina("bemVindo")
         )
 
         self.btn_proximo = CTkButton(
-            self, text="Avançar", font=("Bold", 15), text_color="#FFFFFF",
+            self, text="Avançar", font=("Gideon Roman", 20), text_color="#FFFFFF",
             height=40, width=60, bg_color="transparent",
             fg_color="#654E82", corner_radius=10, hover_color="#56397C",
             command=lambda: controller.mostrar_pagina("configSo")
         )
 
-        self.btn_voltar.place(relx=0.15, rely=0.9, anchor="center",
-                              relwidth=0.2, relheight=0.06)
-        self.btn_proximo.place(relx=0.85, rely=0.9, anchor="center",
-                               relwidth=0.2, relheight=0.06)
+        self.btn_voltar.place(relx=0.15, rely=0.9, anchor="center", relwidth=0.2, relheight=0.06)
+        self.btn_proximo.place(relx=0.85, rely=0.9, anchor="center", relwidth=0.2, relheight=0.06)
 
         # Barra de progresso
-        self.barra = progress_bar(self, cor_progresso="#C58ADE",
-                                  modo="determinate", valor=0.1)
+        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.1)
         self.barra.place(relx=0.5, rely=0.9, anchor="center")
 
     def mudar_idioma(self, novo_idioma):
