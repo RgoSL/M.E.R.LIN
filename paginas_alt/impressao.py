@@ -1,5 +1,5 @@
 from customtkinter import *
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont, ImageTk
 from func_visual.funcs_imgs.imagem import adicionar_imagem_texto
 from func_visual.widgets.header import nav
 
@@ -9,14 +9,31 @@ class bemVindo(CTkFrame):
         self.controller = controller
 
         nav(self, controller, "M.E.R.LIN")
-        
+
+        img = Image.new("RGBA", (1000, 140), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+
+        fonte_personalizada = ImageFont.truetype(
+            "assets/fonts/GideonRoman-Regular.ttf", 40)
+
+        texto_titulo = "Bem-Vindo(a) ao M.E.R.LIN"
+
+        draw.text(
+            (10, 10),
+            texto_titulo,
+            font=fonte_personalizada,
+            fill="#654E82"
+        )
+
+        self.img_titulo_tk = ImageTk.PhotoImage(img)
+
         self.titulo = CTkLabel(
-            self, text="Bem-Vindo(a) ao M.E.R.LIN", 
-            font=("Bold", 30), 
-            text_color="#654E82", 
+            self,
+            image=self.img_titulo_tk,
+            text="",
             bg_color="transparent"
         )
-        self.titulo.place(relx=0.5, rely=0.2, anchor="center")
+        self.titulo.place(relx=0.8, rely=0.25, anchor="center")
 
         self.imagem = adicionar_imagem_texto(
             self, 

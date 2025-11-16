@@ -16,13 +16,13 @@ class inicial(CTkFrame):
         # Título
         Titulo = CTkLabel(
             self,
-            text="Seus Controles",
-            font=("Arial", 20, "bold"),
+            text="Seus Feitiços",
+            font=("Gideon Roman", 30, "bold"),
             text_color=None,
             anchor="center",
             justify="center"
         )
-        Titulo.place(relx=0.5, rely=0.15, anchor=CENTER)
+        Titulo.place(relx=0.5, rely=0.2, anchor=CENTER)
 
         # Frame com rolagem horizontal
         frame1 = CTkScrollableFrame(
@@ -35,15 +35,15 @@ class inicial(CTkFrame):
         )
         frame1.place(relx=0.5, rely=0.6, relwidth=0.8, relheight=0.5, anchor=CENTER)
 
-        # 🔹 Botão Finalizar — chama a função ao clicar
+        # Botão Finalizar
         finalizar = CTkButton(
             self,
             text="Finalizar",
             fg_color="#654E82",
             bg_color="transparent",
-            font = ("Bold", 15),
-            hover_color=  "#56397C",
-            command=self.closeOpenDock  # sem parênteses!
+            font=("Gideon Roman", 20, "bold"),
+            hover_color="#56397C",
+            command=self.closeOpenDock
         )
         finalizar.place(relx=0.5, rely=0.93, anchor="center", relwidth=0.3, relheight=0.09)
 
@@ -59,6 +59,7 @@ class inicial(CTkFrame):
             image=icone_voltar,
             text="",
             fg_color="#654E82",
+            hover_color="#56397C",
             command=lambda: self.controller.mostrar_pagina("ajustes")
         )
         btntst.place(relx=0.07, rely=0.15, anchor="center", relwidth=0.05, relheight=0.06)
@@ -75,11 +76,9 @@ class inicial(CTkFrame):
         mouse_scroll(frame1)
         configurar_imagens_no_frame(frame1, self.controller)
 
-    # 🔹 Função que fecha a página e abre a Dock
+    # Função que fecha a página e abre a Dock
     def closeOpenDock(self):
-        
         self.controller.withdraw()
 
-        # Abre apenas a Dock (como janela independente)
         from paginas_alt.dock import Dock
         Dock(self.controller, self.controller)

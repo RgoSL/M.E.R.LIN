@@ -1,5 +1,5 @@
 from customtkinter import *
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont, ImageTk
 import os
 from func_visual.funcs_imgs.imagem import adicionar_imagem_texto
 from func_visual.widgets.progress import progress_bar
@@ -25,11 +25,62 @@ class config(CTkFrame):
 
         nav(self,controller, "M.E.R.LIN")
 
-        label = CTkLabel(self, text="Escolha Como se Preparar", font=("Bold", 20), text_color=None, bg_color="transparent")
-        label.place(relx=0.5, rely=0.15, anchor=CENTER)
+        # ==========================================
+        # TÍTULO PRINCIPAL COM FONTE GIDEON ROMAN
+        # ==========================================
+        img_title = Image.new("RGBA", (900, 120), (0, 0, 0, 0))
+        draw_title = ImageDraw.Draw(img_title)
 
-        Label2 = CTkLabel(self, text="Tipo de Configuração:", font=("Bold", 18), text_color=None,bg_color="transparent")
-        Label2.place(relx=0.62, rely=0.35, anchor=CENTER)
+        fonte_titulo = ImageFont.truetype(
+            "assets/fonts/GideonRoman-Regular.ttf", 30)
+
+        texto_titulo = "Escolha Como se Preparar"
+
+        draw_title.text(
+            (10, 10),
+            texto_titulo,
+            font=fonte_titulo,
+            fill="#654E82"
+        )
+
+        self.img_title_tk = ImageTk.PhotoImage(img_title)
+
+        self.label = CTkLabel(
+            self,
+            image=self.img_title_tk,
+            text="",
+            bg_color="transparent"
+        )
+        self.label.place(relx=0.83, rely=0.23, anchor=CENTER)
+
+        # ==========================================
+        # SUBTÍTULO COM FONTE GIDEON ROMAN
+        # ==========================================
+        img_sub = Image.new("RGBA", (700, 80), (0, 0, 0, 0))
+        draw_sub = ImageDraw.Draw(img_sub)
+
+        fonte_sub = ImageFont.truetype(
+            "assets/fonts/GideonRoman-Regular.ttf", 17
+        )
+
+        texto_sub = "Tipo de Configuração:"
+
+        draw_sub.text(
+            (10, 5),
+            texto_sub,
+            font=fonte_sub,
+            fill="#654E82"
+        )
+
+        self.img_sub_tk = ImageTk.PhotoImage(img_sub)
+
+        self.Label2 = CTkLabel(
+            self,
+            image=self.img_sub_tk,
+            text="",
+            bg_color="transparent"
+        )
+        self.Label2.place(relx=0.93, rely=0.38, anchor=CENTER)
 
         radio_var = IntVar()
 
@@ -47,7 +98,7 @@ class config(CTkFrame):
 
         radio2 = CTkRadioButton(frame_check2, text="Personalizada", font=("Bold", 15), text_color="black",
                                 variable=radio_var, value=2, fg_color="#654E82")
-        radio2.place(relx=0.2, rely=0.5, anchor=CENTER)
+        radio2.place(relx=0.23, rely=0.5, anchor=CENTER)
 
         # Botões
         btn_voltar = CTkButton(self, text="Voltar", font=("Bold", 15), text_color="#FFFFFF",bg_color="transparent", height=40, width=60, fg_color="#654E82",corner_radius=10, hover_color= "#56397C", command=lambda: controller.mostrar_pagina("configSo"))
