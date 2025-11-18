@@ -1,5 +1,6 @@
-from customtkinter import CTkLabel
 import os
+
+from customtkinter import CTkLabel
 
 idiomas = {
     "pt": "Português",
@@ -8,10 +9,14 @@ idiomas = {
 }
 
 pares_disponiveis = [
-    ("pt", "en"), ("en", "pt"),
-    ("pt", "es"), ("es", "pt"),
-    ("en", "es"), ("es", "en")
+    ("pt", "en"),
+    ("en", "pt"),
+    ("pt", "es"),
+    ("es", "pt"),
+    ("en", "es"),
+    ("es", "en"),
 ]
+
 
 def criar_lista_idiomas(frame, idiomas, callback, padding_y=10):
     labels = []
@@ -22,7 +27,7 @@ def criar_lista_idiomas(frame, idiomas, callback, padding_y=10):
             fg_color="#FFFFFF",
             text_color="black",
             corner_radius=5,
-            anchor="w"
+            anchor="w",
         )
         label.bind("<Button-1>", lambda e, c=codigo: callback(c))
         label.pack(pady=(0, padding_y), anchor="w", padx=5)
