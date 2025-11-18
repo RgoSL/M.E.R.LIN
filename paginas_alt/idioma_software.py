@@ -9,7 +9,7 @@ class idioma_software(CTkFrame):
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
-        self.idioma_atual = "pt"  # idioma padrão
+        self.idioma_atual = "pt"  
 
         nav(self, controller, "M.E.R.LIN")
 
@@ -19,9 +19,6 @@ class idioma_software(CTkFrame):
         )
         self.logo.place(relx=0.2, rely=0.5, anchor="center")
 
-        # ==========================================
-        # TEXTO PRINCIPAL ESTILIZADO COM FONTE REAL
-        # ==========================================
         img = Image.new("RGBA", (1200, 120), (0, 0, 0, 0))
         draw = ImageDraw.Draw(img)
 
@@ -47,9 +44,6 @@ class idioma_software(CTkFrame):
         )
         self.Txt_selecao.place(relx=0.87, rely=0.23, anchor="center")
 
-        # ==========================================
-        # SUBTÍTULO ACIMA DA LISTA DE IDIOMAS
-        # ==========================================
         img2 = Image.new("RGBA", (700, 80), (0, 0, 0, 0))
         draw2 = ImageDraw.Draw(img2)
 
@@ -74,9 +68,6 @@ class idioma_software(CTkFrame):
         )
         self.subtitulo.place(relx=0.84, rely=0.38, anchor="center")
 
-        # ==========================================
-        # QUADRO DE IDIOMAS
-        # ==========================================
         self.quad = CTkScrollableFrame(
             self, fg_color="white", corner_radius=15,
             border_color="#C58ADE", border_width=2,
@@ -104,7 +95,6 @@ class idioma_software(CTkFrame):
         self.btn_voltar.place(relx=0.15, rely=0.9, anchor="center", relwidth=0.2, relheight=0.06)
         self.btn_proximo.place(relx=0.85, rely=0.9, anchor="center", relwidth=0.2, relheight=0.06)
 
-        # Barra de progresso
         self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.1)
         self.barra.place(relx=0.5, rely=0.9, anchor="center")
 

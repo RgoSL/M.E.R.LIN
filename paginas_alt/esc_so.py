@@ -10,12 +10,9 @@ class configSo(CTkFrame):
         self.controller = controller
         nav(self, controller, "M.E.R.LIN")
 
-        # --------------------------
-        # Mensagem da Página com fonte GideonRoman
-        # --------------------------
         self.label_msg_img = self.criar_texto_imagem("Escolha a Base dos Seus Feitiços :", tamanho=30, cor="#000000")
         self.label_msg = CTkLabel(self, image=self.label_msg_img, text="")
-        self.label_msg.image = self.label_msg_img  # mantém referência
+        self.label_msg.image = self.label_msg_img 
         self.label_msg.place(relx=0.5, rely=0.2, anchor="center")
 
         # Container dos SOs
@@ -67,21 +64,16 @@ class configSo(CTkFrame):
         ) 
         self.btn_direito.place(relx=0.95, rely=0.9, anchor="e")
 
-    # --------------------------
-    # Função para criar texto como imagem (GideonRoman)
-    # --------------------------
     def criar_texto_imagem(self, texto, tamanho=24, cor="#000000", padding=4):
         fonte_path = os.path.join("assets", "Fonts", "GideonRoman-Regular.ttf")
         fonte = ImageFont.truetype(fonte_path, tamanho)
         
-        # Calcula tamanho exato do texto
         dummy_img = Image.new("RGBA", (1, 1))
         draw = ImageDraw.Draw(dummy_img)
         bbox = draw.textbbox((0, 0), texto, font=fonte)
         largura_texto = bbox[2] - bbox[0]
         altura_texto = bbox[3] - bbox[1]
         
-        # Cria imagem final com padding extra
         img = Image.new("RGBA", (largura_texto + padding*2, altura_texto + padding*2), (0, 0, 0, 0))
         draw = ImageDraw.Draw(img)
         draw.text((padding, padding), texto, font=fonte, fill=cor)
@@ -94,7 +86,7 @@ class configSo(CTkFrame):
         img_resized = img.resize(tam, Image.Resampling.LANCZOS)
         return CTkImage(light_image=img_resized, dark_image=img_resized, size=tam)
 
-    # Função Para Padronizar a Criação dos "Cards" com GowunDodum
+    # Função Para Padronizar a Criação dos "Cards"
     def criar_card_so(self, master, imagem, nome, coluna, comando):
         frame = CTkFrame(master, fg_color="transparent")
         frame.grid(row=0, column=coluna, padx=40, pady=10)
@@ -106,7 +98,7 @@ class configSo(CTkFrame):
         )
         btn.pack()
 
-        # Label que Fica Embaixo do Botão (GowunDodum)
+        # Label que Fica Embaixo do Botão 
         fonte_path = os.path.join("assets", "Fonts", "GowunDodum-Regular.ttf")
         label = CTkLabel(
             frame, text=nome, text_color="#000",
@@ -114,9 +106,7 @@ class configSo(CTkFrame):
         )
         label.pack(pady=5)
 
-    # --------------------------
     # Funções Temporárias Para Testar os Botões
-    # --------------------------
     def on_click_windows(self):
         print("Windows selecionado")
 

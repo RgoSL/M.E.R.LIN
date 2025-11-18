@@ -18,12 +18,11 @@ class comandos_coletanea(CTkFrame):
 
         quad.selecao = StringVar(value="")
 
-        apps = get_windows_apps()  # retorna a lista real de apps do sistema
+        apps = get_windows_apps() 
         criar_containers(quad, quad.selecao, apps=apps, cor_texto="black", callback=self.enviar_para_pacotes)
 
         icone_voltar = CTkImage(Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20))
 
-        # Botão de configurações
         btntst = CTkButton(
             self,
             image=icone_voltar,

@@ -24,7 +24,6 @@ class video_Assis(CTkFrame):
 
         icone_voltar = CTkImage(Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20))
 
-        # Botão de configurações
         btntst = CTkButton(
             self,
             image=icone_voltar,
@@ -34,5 +33,3 @@ class video_Assis(CTkFrame):
         )
 
         btntst.place(relx=0.07, rely=0.15, anchor="center", relwidth=0.05, relheight=0.06)
-    
-        

@@ -26,8 +26,8 @@ class TecladoVarreduraTab(CTk):
         self.frame_teclado.pack(padx=10, pady=10)
 
         self.botoes = []
-        self.indice_tab = 0  # índice da tecla selecionada
-        self.tab_direcao = 1  # 1 = direita, -1 = esquerda
+        self.indice_tab = 0 
+        self.tab_direcao = 1  
         self.carregar_teclas()
 
         # Bind do Tab e setas
@@ -40,7 +40,6 @@ class TecladoVarreduraTab(CTk):
         self.destacar_tecla(self.indice_tab)
 
     def carregar_teclas(self):
-        """Cria os botões do teclado."""
         for widget in self.frame_teclado.winfo_children():
             widget.destroy()
 
@@ -53,35 +52,29 @@ class TecladoVarreduraTab(CTk):
                 self.botoes.append(botao)
 
     def tab_seguinte(self, event=None):
-        """Avança a seleção do Tab de acordo com a direção atual."""
         self.remover_destaque(self.indice_tab)
         self.indice_tab += self.tab_direcao
 
-        # Loop circular
         if self.indice_tab >= len(self.botoes):
             self.indice_tab = 0
         elif self.indice_tab < 0:
             self.indice_tab = len(self.botoes) - 1
 
         self.destacar_tecla(self.indice_tab)
-        return "break"  # evita comportamento padrão do Tab
+        return "break"  
 
     def mudar_direcao(self, direcao):
-        """Muda a direção do Tab (-1 = esquerda, 1 = direita)."""
         self.tab_direcao = direcao
 
     def destacar_tecla(self, idx):
-        """Adiciona destaque visual na tecla selecionada."""
         botao = self.botoes[idx]
         botao.configure(border_width=3, border_color="red")
 
     def remover_destaque(self, idx):
-        """Remove destaque da tecla anterior."""
         botao = self.botoes[idx]
         botao.configure(border_width=0)
 
     def confirmar_tecla(self, event=None):
-        """Executa o comando da tecla selecionada."""
         tecla = self.botoes[self.indice_tab].cget("text")
         self.adicionar_a_entrada(tecla)
 

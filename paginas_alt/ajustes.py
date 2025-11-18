@@ -31,7 +31,6 @@ class ajustes(CTkFrame):
         menu_w = 0.20
         fonte_itens = ("Arial", 17)
 
-        # OPTION MENU FIX — sem border_width
         opt_cfg = {
             "command": self.salvar_config,
             "fg_color": "#E6C8FA",

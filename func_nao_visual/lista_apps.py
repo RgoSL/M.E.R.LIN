@@ -51,7 +51,6 @@ class AppList(CTkFrame):
         self.populate_list()
 
     def populate_list(self):
-        # Limpar tudo
         for widget in self.scroll_frame.winfo_children():
             widget.destroy()
 
@@ -85,7 +84,6 @@ class AppList(CTkFrame):
             )
             open_button.pack(side="right", padx=5)
 
-            # Tornar navegável
             self.itens_navegaveis.append({
                 "frame": app_frame,
                 "callback": self.criar_open_callback(app["command"])
@@ -184,9 +182,7 @@ def abrir_lista_apps(master, apps):
     app_list = AppList(ListaApps, apps)
     app_list.pack(fill="both", expand=True, padx=10, pady=10)
 
-    # ✅ Binds corretos, na janela!
     ListaApps.bind("<Tab>", lambda e: app_list._navegar())
     ListaApps.bind("<Return>", lambda e: app_list._ativar())
 
-    # Garantir foco
     ListaApps.after(50, ListaApps.focus_force)

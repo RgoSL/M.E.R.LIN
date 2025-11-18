@@ -4,16 +4,13 @@ from func_visual.funcs_imgs.img_redonda import configurar_imagens_no_frame
 from func_nao_visual.mouse_scroll import mouse_scroll
 from func_visual.widgets.header import nav
 
-
 class inicial(CTkFrame):
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
 
-        # Cabeçalho
         nav(self, controller, "M.E.R.LIN")
 
-        # Título
         Titulo = CTkLabel(
             self,
             text="Seus Feitiços",
@@ -24,7 +21,6 @@ class inicial(CTkFrame):
         )
         Titulo.place(relx=0.5, rely=0.2, anchor=CENTER)
 
-        # Frame com rolagem horizontal
         frame1 = CTkScrollableFrame(
             self,
             fg_color="#654E82",
@@ -35,7 +31,6 @@ class inicial(CTkFrame):
         )
         frame1.place(relx=0.5, rely=0.6, relwidth=0.8, relheight=0.5, anchor=CENTER)
 
-        # Botão Finalizar
         finalizar = CTkButton(
             self,
             text="Finalizar",
@@ -46,14 +41,11 @@ class inicial(CTkFrame):
             command=self.closeOpenDock
         )
         finalizar.place(relx=0.5, rely=0.93, anchor="center", relwidth=0.3, relheight=0.09)
-
-        # Container para organizar elementos horizontalmente
         content_frame = CTkFrame(frame1, fg_color="transparent")
         content_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
         icone_voltar = CTkImage(Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20))
 
-        # Botão de configurações
         btntst = CTkButton(
             self,
             image=icone_voltar,
@@ -64,11 +56,9 @@ class inicial(CTkFrame):
         )
         btntst.place(relx=0.07, rely=0.15, anchor="center", relwidth=0.05, relheight=0.06)
 
-        # Para centralizar melhor e com espaçamento adequado
         images_frame = CTkFrame(frame1, fg_color="transparent")
         images_frame.pack(expand=True, fill="both")
 
-        # Configurar peso das colunas para centralização
         images_frame.grid_columnconfigure(0, weight=1)
         images_frame.grid_columnconfigure(1, weight=1)
         images_frame.grid_rowconfigure(0, weight=1)
@@ -76,7 +66,6 @@ class inicial(CTkFrame):
         mouse_scroll(frame1)
         configurar_imagens_no_frame(frame1, self.controller)
 
-    # Função que fecha a página e abre a Dock
     def closeOpenDock(self):
         self.controller.withdraw()
 

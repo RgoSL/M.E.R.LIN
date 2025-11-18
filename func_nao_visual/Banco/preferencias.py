@@ -3,11 +3,9 @@
 # Import das Bibliotecas Utilizadas
 import sqlite3
 
-# --- Cria ou conecta ao banco ---
 def conectar():
     return sqlite3.connect("banco_de_dados.db")
 
-# --- Cria tabela se não existir ---
 def criar_tabela():
     conn = conectar()
     cursor = conn.cursor()
@@ -23,11 +21,10 @@ def criar_tabela():
     conn.commit()
     conn.close()
 
-# --- Salva os ajustes selecionados ---
 def salvar_ajustes(resolucao, idioma, fps, luz_camera):
     conn = conectar()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM ajustes")  # remove anteriores (mantém 1 config)
+    cursor.execute("DELETE FROM ajustes") 
     cursor.execute("""
         INSERT INTO ajustes (resolucao, idioma, fps, luz_camera)
         VALUES (?, ?, ?, ?)
@@ -35,7 +32,6 @@ def salvar_ajustes(resolucao, idioma, fps, luz_camera):
     conn.commit()
     conn.close()
 
-# --- Carrega ajustes salvos ---
 def carregar_ajustes():
     conn = conectar()
     cursor = conn.cursor()

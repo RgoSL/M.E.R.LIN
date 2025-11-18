@@ -1,4 +1,3 @@
-# comandos_dock.py
 from func_nao_visual.lista_apps import AppList
 from eye_tracking.navegacao import EyeControl
 from func_nao_visual.teclado_open import TecladoVarreduraTab
@@ -16,7 +15,6 @@ class btns:
         app = controller.app_selecionado
         if app:
             print("Pacotes recebeu:", app["name"])
-            # Abrir o app
             try:
                 command = app.get("command")
                 if command:
