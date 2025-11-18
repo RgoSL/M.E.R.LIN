@@ -1,23 +1,33 @@
-import sys
-import time
-import threading
 import math
 import queue
+import sys
+import threading
+import time
+
 import cv2
 import mediapipe as mp
 import pyautogui as py
+import pygetwindow as gw
 from customtkinter import *
-import pygetwindow as gw  
+
 
 class TecladoVarreduraTab(CTk):
-    def __init__(self, cooldown=0.2, ear_threshold=0.20,
-                 both_eyes_time=0.25, right_eye_time=0.50, close_app_time=2.0,
-                 surprise_open_time=0.25, cam_index=0,dock_title=None):
+    def __init__(
+        self,
+        cooldown=0.2,
+        ear_threshold=0.20,
+        both_eyes_time=0.25,
+        right_eye_time=0.50,
+        close_app_time=2.0,
+        surprise_open_time=0.25,
+        cam_index=0,
+        dock_title=None,
+    ):
         super().__init__()
         self.dock_title = dock_title
         self.title("Teclado de Varredura")
         self.resizable(False, False)
-        self.attributes('-topmost', True)
+        self.attributes("-topmost", True)
         self.cooldown = float(cooldown)
         self.ear_threshold = float(ear_threshold)
         self.both_eyes_time = float(both_eyes_time)
@@ -33,17 +43,32 @@ class TecladoVarreduraTab(CTk):
         self._action_queue = queue.Queue()
 
         self.layout_completo = [
-            ['1','2','3','4','5','6','7','8','9','0','Backspace'],
-            ['Q','W','E','R','T','Y','U','I','O','P'],
-            ['A','S','D','F','G','H','J','K','L','Digitar Texto'],
-            ['Z','X','C','V','B','N','M',',','.','Espaço'],
+            ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Backspace"],
+            ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+            ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Digitar Texto"],
+            ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "Espaço"],
         ]
 
-        self.entrada = CTkEntry(self, width=600, height=35, font=('Arial', 14), text_color = "#654E82", fg_color="#E6C8FA")
+        self.entrada = CTkEntry(
+            self,
+            width=600,
+            height=35,
+            font=("Arial", 14),
+            text_color="#654E82",
+            fg_color="#E6C8FA",
+        )
         self.entrada.pack(padx=10, pady=5)
 
-        botao_enviar = CTkButton(self, text="Digitar Texto", fg_color = "#432D5D",  hover_color= "#C58ADE", width=150, height=40, font=('Arial', 12),
-                                 command=self.enviar_texto)
+        botao_enviar = CTkButton(
+            self,
+            text="Digitar Texto",
+            fg_color="#432D5D",
+            hover_color="#C58ADE",
+            width=150,
+            height=40,
+            font=("Arial", 12),
+            command=self.enviar_texto,
+        )
         botao_enviar.pack(pady=5)
 
         self.frame_teclado = CTkFrame(self, fg_color="#654E82")
@@ -74,8 +99,16 @@ class TecladoVarreduraTab(CTk):
         self.botoes.clear()
         for r_idx, linha in enumerate(self.layout_completo):
             for c_idx, tecla in enumerate(linha):
-                botao = CTkButton(self.frame_teclado, text=tecla, text_color="#E6C8FA", fg_color="#432D5D", hover_color="#C58ADE", width=50, height=40,
-                                  command=lambda t=tecla: self.adicionar_a_entrada(t))
+                botao = CTkButton(
+                    self.frame_teclado,
+                    text=tecla,
+                    text_color="#E6C8FA",
+                    fg_color="#432D5D",
+                    hover_color="#C58ADE",
+                    width=50,
+                    height=40,
+                    command=lambda t=tecla: self.adicionar_a_entrada(t),
+                )
                 botao.grid(row=r_idx, column=c_idx, padx=2, pady=2)
                 self.botoes.append(botao)
 
@@ -110,13 +143,13 @@ class TecladoVarreduraTab(CTk):
         self.adicionar_a_entrada(tecla)
 
     def adicionar_a_entrada(self, tecla):
-        if tecla == 'Backspace':
+        if tecla == "Backspace":
             texto = self.entrada.get()
             if texto:
-                self.entrada.delete(len(texto)-1, END)
-        elif tecla == 'Espaço':
-            self.entrada.insert(END, ' ')
-        elif tecla == 'Digitar Texto':
+                self.entrada.delete(len(texto) - 1, END)
+        elif tecla == "Espaço":
+            self.entrada.insert(END, " ")
+        elif tecla == "Digitar Texto":
             self.enviar_texto()
         else:
             self.entrada.insert(END, tecla)
@@ -129,7 +162,7 @@ class TecladoVarreduraTab(CTk):
         try:
             janelas = gw.getAllWindows()
             for win in janelas:
-                if win.title and win.title not in [self.title(), self.dock_title]:  
+                if win.title and win.title not in [self.title(), self.dock_title]:
                     win.activate()
                     time.sleep(0.2)
                     break
@@ -145,15 +178,19 @@ class TecladoVarreduraTab(CTk):
 
     def _detector_loop(self):
         mp_face_mesh = mp.solutions.face_mesh
-        face_mesh = mp_face_mesh.FaceMesh(max_num_faces=1, refine_landmarks=True,
-                                          min_detection_confidence=0.5, min_tracking_confidence=0.5)
+        face_mesh = mp_face_mesh.FaceMesh(
+            max_num_faces=1,
+            refine_landmarks=True,
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5,
+        )
         cap = cv2.VideoCapture(self.cam_index, cv2.CAP_DSHOW)
         if not cap.isOpened():
             print(f"Erro: não foi possível abrir a câmera index {self.cam_index}")
             return
 
         RIGHT_EYE = [33, 160, 158, 133, 153, 144]
-        LEFT_EYE  = [362, 385, 387, 263, 373, 380]
+        LEFT_EYE = [362, 385, 387, 263, 373, 380]
 
         right_closed_since = None
         both_closed_since = None
@@ -166,7 +203,7 @@ class TecladoVarreduraTab(CTk):
                     time.sleep(0.01)
                     continue
 
-                small = cv2.resize(frame, (0,0), fx=0.6, fy=0.6)
+                small = cv2.resize(frame, (0, 0), fx=0.6, fy=0.6)
                 img_rgb = cv2.cvtColor(small, cv2.COLOR_BGR2RGB)
                 results = face_mesh.process(img_rgb)
                 h, w = small.shape[:2]
@@ -186,20 +223,22 @@ class TecladoVarreduraTab(CTk):
                         time.sleep(0.001)
                         continue
 
-                    def euclid(a,b):
-                        return math.hypot(a[0]-b[0], a[1]-b[1])
+                    def euclid(a, b):
+                        return math.hypot(a[0] - b[0], a[1] - b[1])
 
-                    def ear(p1,p2,p3,p4,p5,p6):
-                        vertical = euclid(p2,p6)+euclid(p3,p5)
-                        horizontal = euclid(p1,p4)
-                        return vertical/(2*horizontal) if horizontal != 0 else 1.0
+                    def ear(p1, p2, p3, p4, p5, p6):
+                        vertical = euclid(p2, p6) + euclid(p3, p5)
+                        horizontal = euclid(p1, p4)
+                        return vertical / (2 * horizontal) if horizontal != 0 else 1.0
 
                     right_ear = ear(*r_points)
                     left_ear = ear(*l_points)
-                    ear_avg = (right_ear + left_ear)/2
+                    ear_avg = (right_ear + left_ear) / 2
 
                 now = time.time()
-                both_closed = right_ear < self.ear_threshold and left_ear < self.ear_threshold
+                both_closed = (
+                    right_ear < self.ear_threshold and left_ear < self.ear_threshold
+                )
 
                 if both_closed:
                     if close_app_since is None:
@@ -212,7 +251,7 @@ class TecladoVarreduraTab(CTk):
                         continue
                 else:
                     close_app_since = None
-                    
+
                 if both_closed:
                     if both_closed_since is None:
                         both_closed_since = now
@@ -267,6 +306,7 @@ class TecladoVarreduraTab(CTk):
     def _on_closing(self):
         self._detector_running = False
         self.after(100, self.destroy)
+
 
 if __name__ == "__main__":
     app = TecladoVarreduraTab()

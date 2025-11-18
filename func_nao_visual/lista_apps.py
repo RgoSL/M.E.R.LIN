@@ -1,11 +1,12 @@
-from customtkinter import *
 import subprocess
 import threading
 import time
 
+from customtkinter import *
 from scripts.windows.buscar_apps import *
 
 from func_nao_visual.tecladoCtk import *
+
 
 class AppList(CTkFrame):
     def __init__(self, master, apps):
@@ -13,7 +14,7 @@ class AppList(CTkFrame):
         self.apps = apps
         self.filtered_apps = apps
         self.show_favorites = False
-        self.debounce_job = None  
+        self.debounce_job = None
 
         self.itens_navegaveis = []
         self.index_atual = 0
@@ -22,8 +23,12 @@ class AppList(CTkFrame):
         top_frame.pack(fill="x", pady=5)
 
         self.search_var = StringVar()
-        search_entry = CTkEntry(top_frame, text_color="#d9d9d9",
-                                border_color="#F9B14F", textvariable=self.search_var)
+        search_entry = CTkEntry(
+            top_frame,
+            text_color="#d9d9d9",
+            border_color="#F9B14F",
+            textvariable=self.search_var,
+        )
         search_entry.pack(side="left", fill="x", expand=True, padx=10)
         search_entry.bind("<KeyRelease>", self.update_list)
         search_entry.bind("<FocusIn>", self.ativar_teclado)
@@ -35,7 +40,7 @@ class AppList(CTkFrame):
             fg_color="#432D5D",
             hover_color="#C58ADE",
             text_color="#F9B14F",
-            command=self.toggle_favorites
+            command=self.toggle_favorites,
         )
         self.toggle_button.pack(side="right", padx=10)
 
@@ -44,7 +49,7 @@ class AppList(CTkFrame):
             fg_color="#654E82",
             label_text="Aplicativos",
             label_fg_color="#200B3A",
-            scrollbar_button_color="#F9B14F"
+            scrollbar_button_color="#F9B14F",
         )
         self.scroll_frame.pack(fill="both", expand=True, padx=10, pady=5)
 
@@ -57,7 +62,9 @@ class AppList(CTkFrame):
         self.itens_navegaveis.clear()
 
         for idx, app in enumerate(self.filtered_apps):
-            app_frame = CTkFrame(self.scroll_frame, fg_color="#3A205A", corner_radius=10)
+            app_frame = CTkFrame(
+                self.scroll_frame, fg_color="#3A205A", corner_radius=10
+            )
             app_frame.pack(fill="x", pady=5, padx=5)
 
             label = CTkLabel(app_frame, text=app["name"], anchor="w")
@@ -70,7 +77,7 @@ class AppList(CTkFrame):
                 fg_color="#432D5D",
                 hover_color="#C58ADE",
                 text_color="#F9B14F",
-                command=self.criar_toggle_callback(app)
+                command=self.criar_toggle_callback(app),
             )
             fav_button.pack(side="right", padx=5)
 
@@ -80,14 +87,16 @@ class AppList(CTkFrame):
                 width=60,
                 fg_color="#432D5D",
                 hover_color="#C58ADE",
-                command=self.criar_open_callback(app["command"])
+                command=self.criar_open_callback(app["command"]),
             )
             open_button.pack(side="right", padx=5)
 
-            self.itens_navegaveis.append({
-                "frame": app_frame,
-                "callback": self.criar_open_callback(app["command"])
-            })
+            self.itens_navegaveis.append(
+                {
+                    "frame": app_frame,
+                    "callback": self.criar_open_callback(app["command"]),
+                }
+            )
 
         self._destacar_item(0)
 
@@ -123,7 +132,9 @@ class AppList(CTkFrame):
         query = self.search_var.get().lower()
 
         if self.show_favorites:
-            filtrado = [a for a in self.apps if a["favorite"] and query in a["name"].lower()]
+            filtrado = [
+                a for a in self.apps if a["favorite"] and query in a["name"].lower()
+            ]
         else:
             filtrado = [a for a in self.apps if query in a["name"].lower()]
 
@@ -159,7 +170,7 @@ class AppList(CTkFrame):
         return lambda: self.open_app(command)
 
     def ativar_teclado(self, event=None):
-        if hasattr(self, 'teclado') and self.teclado.winfo_exists():
+        if hasattr(self, "teclado") and self.teclado.winfo_exists():
             self.teclado.destroy()
 
 
@@ -170,6 +181,7 @@ def carregar_apps_em_thread(master):
             master.after(0, lambda: abrir_lista_apps(master, apps))
         except Exception as e:
             print(f"Erro ao carregar apps: {e}")
+
     threading.Thread(target=run, daemon=True).start()
 
 

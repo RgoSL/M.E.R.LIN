@@ -1,19 +1,22 @@
 # Import das Bibliotecas Utilizadas
+import os
+import threading
+
 from customtkinter import *
 from PIL import Image
-import threading
-import os
+
 os.environ["GLOG_minloglevel"] = "3"
 os.environ["ABSL_LOGGING"] = "0"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
-import cv2
-import mediapipe as mp
 import time
 
-# Import das Classes com as Funcionalidades da Dock
-from func_nao_visual.lista_apps import abrir_lista_apps
+import cv2
+import mediapipe as mp
 from func_nao_visual.comandos_dock import btns
-from func_nao_visual.lista_apps import carregar_apps_em_thread
+# Import das Classes com as Funcionalidades da Dock
+from func_nao_visual.lista_apps import (abrir_lista_apps,
+                                        carregar_apps_em_thread)
+
 
 class Dock(CTkToplevel):
     def __init__(self, master, controller):
@@ -50,8 +53,12 @@ class Dock(CTkToplevel):
         self.geometry(f"{largura_dock}x{altura_dock}+{dock_x}+{dock_y}")
 
         Frame = CTkFrame(
-            self, bg_color="#654E82", fg_color="#644C81",
-            border_width=1, border_color="#f9b14f", corner_radius=10
+            self,
+            bg_color="#654E82",
+            fg_color="#644C81",
+            border_width=1,
+            border_color="#f9b14f",
+            corner_radius=10,
         )
         Frame.pack(fill="both", expand=True)
 
@@ -62,9 +69,15 @@ class Dock(CTkToplevel):
             Btn = CTkImage(light_image=Btn, dark_image=Btn)
 
             Bot = CTkButton(
-                Frame, image=Btn, text="", width=60, height=60,
-                fg_color="#432D5D", hover_color="#C58ADE",
-                corner_radius=10, command=command
+                Frame,
+                image=Btn,
+                text="",
+                width=60,
+                height=60,
+                fg_color="#432D5D",
+                hover_color="#C58ADE",
+                corner_radius=10,
+                command=command,
             )
             Bot.image = Btn
             Bot.pack(pady=8)
@@ -73,8 +86,13 @@ class Dock(CTkToplevel):
             return Bot
 
         # Botões da Dock
-        btns_dock("assets/ImgsDock/LApps.png", command=lambda: carregar_apps_em_thread(self))
-        btns_dock("assets/ImgsDock/pacotes.png", command=lambda: btns.Btn_Pacotes(self.controller))
+        btns_dock(
+            "assets/ImgsDock/LApps.png", command=lambda: carregar_apps_em_thread(self)
+        )
+        btns_dock(
+            "assets/ImgsDock/pacotes.png",
+            command=lambda: btns.Btn_Pacotes(self.controller),
+        )
         btns_dock("assets/ImgsDock/navegador.png", command=lambda: btns.Btn_Navegador())
         btns_dock("assets/ImgsDock/teclado.png", command=lambda: btns.Btn_Teclado(self))
         btns_dock("assets/ImgsDock/Fechar.png", command=lambda: btns.Btn_Fechar(self))
@@ -91,7 +109,9 @@ class Dock(CTkToplevel):
 
         # Função de Seleção dos Botões
         def navegar(event=None):
-            self.botao_selecionado = (self.botao_selecionado + 1) % len(self.botoes_dock)
+            self.botao_selecionado = (self.botao_selecionado + 1) % len(
+                self.botoes_dock
+            )
             atualizar_selecao()
             return "break"
 
@@ -122,7 +142,7 @@ class Dock(CTkToplevel):
             refine_landmarks=False,
             static_image_mode=False,
             min_detection_confidence=0.5,
-            min_tracking_confidence=0.5
+            min_tracking_confidence=0.5,
         )
 
         cam = cv2.VideoCapture(0)
@@ -150,13 +170,15 @@ class Dock(CTkToplevel):
 
                 nariz_x = face[1].x
                 print(f"[DEBUG] nariz_x: {nariz_x:.3f}")
-                
-                
+
                 if nariz_x >= 0.50:
                     tempo_direita += 1
                     print(f"[DEBUG] → direita contador={tempo_direita}")
                 else:
-                    if tempo_direita > 6 and (agora - self.ultimo_tab) > self.cooldown_tab:
+                    if (
+                        tempo_direita > 6
+                        and (agora - self.ultimo_tab) > self.cooldown_tab
+                    ):
                         print("[EVENTO] TAB disparado (olhar para DIREITA).")
                         self.ultimo_tab = agora
 
@@ -170,7 +192,10 @@ class Dock(CTkToplevel):
                     tempo_esquerda += 1
                     print(f"[DEBUG] ← esquerda contador={tempo_esquerda}")
                 else:
-                    if tempo_esquerda > 6 and (agora - self.ultimo_enter) > self.cooldown_enter:
+                    if (
+                        tempo_esquerda > 6
+                        and (agora - self.ultimo_enter) > self.cooldown_enter
+                    ):
                         print("[EVENTO] ENTER disparado (olhar para ESQUERDA).")
                         self.ultimo_enter = agora
 

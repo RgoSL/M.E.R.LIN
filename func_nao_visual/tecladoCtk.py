@@ -1,6 +1,8 @@
-from customtkinter import *
-import pyautogui as py
 import time
+
+import pyautogui as py
+from customtkinter import *
+
 
 class TecladoVarreduraTab(CTk):
     def __init__(self):
@@ -9,25 +11,31 @@ class TecladoVarreduraTab(CTk):
         self.resizable(False, False)
 
         self.layout_completo = [
-            ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'],
-            ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-            ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Digitar Texto'],
-            ['Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', 'Espaço'],
+            ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Backspace"],
+            ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+            ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Digitar Texto"],
+            ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "Espaço"],
         ]
 
-        self.entrada = CTkEntry(self, width=600, height=35, font=('Arial', 14))
+        self.entrada = CTkEntry(self, width=600, height=35, font=("Arial", 14))
         self.entrada.pack(padx=10, pady=5)
 
-        botao_enviar = CTkButton(self, text="Digitar Texto", width=150, height=40, font=('Arial', 12),
-                                 command=self.enviar_texto)
+        botao_enviar = CTkButton(
+            self,
+            text="Digitar Texto",
+            width=150,
+            height=40,
+            font=("Arial", 12),
+            command=self.enviar_texto,
+        )
         botao_enviar.pack(pady=5)
 
         self.frame_teclado = CTkFrame(self, fg_color="transparent")
         self.frame_teclado.pack(padx=10, pady=10)
 
         self.botoes = []
-        self.indice_tab = 0 
-        self.tab_direcao = 1  
+        self.indice_tab = 0
+        self.tab_direcao = 1
         self.carregar_teclas()
 
         # Bind do Tab e setas
@@ -46,8 +54,13 @@ class TecladoVarreduraTab(CTk):
         self.botoes.clear()
         for r_idx, linha in enumerate(self.layout_completo):
             for c_idx, tecla in enumerate(linha):
-                botao = CTkButton(self.frame_teclado, text=tecla, width=50, height=40,
-                                  command=lambda t=tecla: self.adicionar_a_entrada(t))
+                botao = CTkButton(
+                    self.frame_teclado,
+                    text=tecla,
+                    width=50,
+                    height=40,
+                    command=lambda t=tecla: self.adicionar_a_entrada(t),
+                )
                 botao.grid(row=r_idx, column=c_idx, padx=2, pady=2)
                 self.botoes.append(botao)
 
@@ -61,7 +74,7 @@ class TecladoVarreduraTab(CTk):
             self.indice_tab = len(self.botoes) - 1
 
         self.destacar_tecla(self.indice_tab)
-        return "break"  
+        return "break"
 
     def mudar_direcao(self, direcao):
         self.tab_direcao = direcao
@@ -79,11 +92,11 @@ class TecladoVarreduraTab(CTk):
         self.adicionar_a_entrada(tecla)
 
     def adicionar_a_entrada(self, tecla):
-        if tecla == 'Backspace':
+        if tecla == "Backspace":
             self.entrada.delete(len(self.entrada.get()) - 1, END)
-        elif tecla == 'Espaço':
-            self.entrada.insert(END, ' ')
-        elif tecla == 'Digitar Texto':
+        elif tecla == "Espaço":
+            self.entrada.insert(END, " ")
+        elif tecla == "Digitar Texto":
             self.enviar_texto()
         else:
             self.entrada.insert(END, tecla)

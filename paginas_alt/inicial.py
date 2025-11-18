@@ -1,8 +1,9 @@
 from customtkinter import *
-from PIL import Image
-from func_visual.funcs_imgs.img_redonda import configurar_imagens_no_frame
 from func_nao_visual.mouse_scroll import mouse_scroll
+from func_visual.funcs_imgs.img_redonda import configurar_imagens_no_frame
 from func_visual.widgets.header import nav
+from PIL import Image
+
 
 class inicial(CTkFrame):
     def __init__(self, master, controller):
@@ -17,7 +18,7 @@ class inicial(CTkFrame):
             font=("Gideon Roman", 30, "bold"),
             text_color=None,
             anchor="center",
-            justify="center"
+            justify="center",
         )
         Titulo.place(relx=0.5, rely=0.2, anchor=CENTER)
 
@@ -27,7 +28,7 @@ class inicial(CTkFrame):
             corner_radius=15,
             orientation="horizontal",
             scrollbar_button_color="#F9B14F",
-            scrollbar_button_hover_color="#F9B14F"
+            scrollbar_button_hover_color="#F9B14F",
         )
         frame1.place(relx=0.5, rely=0.6, relwidth=0.8, relheight=0.5, anchor=CENTER)
 
@@ -38,13 +39,17 @@ class inicial(CTkFrame):
             bg_color="transparent",
             font=("Gideon Roman", 20, "bold"),
             hover_color="#56397C",
-            command=self.closeOpenDock
+            command=self.closeOpenDock,
         )
-        finalizar.place(relx=0.5, rely=0.93, anchor="center", relwidth=0.3, relheight=0.09)
+        finalizar.place(
+            relx=0.5, rely=0.93, anchor="center", relwidth=0.3, relheight=0.09
+        )
         content_frame = CTkFrame(frame1, fg_color="transparent")
         content_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-        icone_voltar = CTkImage(Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20))
+        icone_voltar = CTkImage(
+            Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(20, 20)
+        )
 
         btntst = CTkButton(
             self,
@@ -52,9 +57,11 @@ class inicial(CTkFrame):
             text="",
             fg_color="#654E82",
             hover_color="#56397C",
-            command=lambda: self.controller.mostrar_pagina("ajustes")
+            command=lambda: self.controller.mostrar_pagina("ajustes"),
         )
-        btntst.place(relx=0.07, rely=0.15, anchor="center", relwidth=0.05, relheight=0.06)
+        btntst.place(
+            relx=0.07, rely=0.15, anchor="center", relwidth=0.05, relheight=0.06
+        )
 
         images_frame = CTkFrame(frame1, fg_color="transparent")
         images_frame.pack(expand=True, fill="both")
@@ -70,4 +77,5 @@ class inicial(CTkFrame):
         self.controller.withdraw()
 
         from paginas_alt.dock import Dock
+
         Dock(self.controller, self.controller)

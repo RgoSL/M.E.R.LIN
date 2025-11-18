@@ -1,13 +1,16 @@
-from func_nao_visual.lista_apps import AppList
-from eye_tracking.navegacao import EyeControl
-from func_nao_visual.teclado_open import TecladoVarreduraTab
-import threading
+import subprocess
 import sys
-import subprocess  
+import threading
+
+from eye_tracking.navegacao import EyeControl
+
+from func_nao_visual.lista_apps import AppList
+from func_nao_visual.teclado_open import TecladoVarreduraTab
+
 
 class btns:
     @staticmethod
-    def Btn_Lista():        
+    def Btn_Lista():
         AppList()
 
     @staticmethod
@@ -30,6 +33,7 @@ class btns:
             print("Nenhum app selecionado")
 
     eye_instance = None
+
     @staticmethod
     def Btn_Navegador():
         if btns.eye_instance and btns.eye_instance.running:
@@ -39,11 +43,11 @@ class btns:
         btns.eye_instance = EyeControl()
         t = threading.Thread(target=btns.eye_instance.start, daemon=True)
         t.start()
+
     @staticmethod
     def Btn_Teclado(dock_instance=None):
         tclado = TecladoVarreduraTab(dock_title=dock_instance.title())
-        tclado.deiconify() 
-
+        tclado.deiconify()
 
     @staticmethod
     def Btn_Fechar(dock):

@@ -1,4 +1,4 @@
-from customtkinter import CTkFrame, CTkLabel, CTkButton
+from customtkinter import CTkButton, CTkFrame, CTkLabel
 
 PALETA_CLARA = {
     "bg": "#FFFFFF",
@@ -7,7 +7,7 @@ PALETA_CLARA = {
     "texto_header": "#E6C8FA",
     "botao": "#654E82",
     "texto_botao": "#FFFFFF",
-    "progresso": "#C58ADE"
+    "progresso": "#C58ADE",
 }
 
 PALETA_ESCURO = {
@@ -17,8 +17,9 @@ PALETA_ESCURO = {
     "texto_header": "#E6C8FA",
     "botao": "#3A3A3A",
     "texto_botao": "#FFFFFF",
-    "progresso": "#9C5CC1"
+    "progresso": "#9C5CC1",
 }
+
 
 def aplicar_tema(frame, paleta):
     frame.configure(fg_color=paleta["bg"])
@@ -32,8 +33,10 @@ def aplicar_tema(frame, paleta):
             widget.configure(fg_color=paleta["botao"], text_color=paleta["texto_botao"])
         aplicar_tema(widget, paleta)
 
+
 def tema_claro(frame):
     aplicar_tema(frame, PALETA_CLARA)
+
 
 def tema_escuro(frame):
     aplicar_tema(frame, PALETA_ESCURO)

@@ -1,11 +1,13 @@
-import cv2
-import mediapipe as mp
-import pyautogui
-import time
-import keyboard
+import queue
 import sys
 import threading
-import queue
+import time
+
+import cv2
+import keyboard
+import mediapipe as mp
+import pyautogui
+
 
 class EyeControl:
     def __init__(self, cam_index=0, width=640, height=360, frame_skip=2):
@@ -54,10 +56,18 @@ class EyeControl:
         self.worker_thread = None
 
     def eye_aspect_ratio(self, landmarks, eye_indices, w, h):
-        coords = [(int(landmarks[i].x * w), int(landmarks[i].y * h)) for i in eye_indices]
-        A = ((coords[1][1] - coords[5][1]) ** 2 + (coords[1][0] - coords[5][0]) ** 2) ** 0.5
-        B = ((coords[2][1] - coords[4][1]) ** 2 + (coords[2][0] - coords[4][0]) ** 2) ** 0.5
-        C = ((coords[0][1] - coords[3][1]) ** 2 + (coords[0][0] - coords[3][0]) ** 2) ** 0.5
+        coords = [
+            (int(landmarks[i].x * w), int(landmarks[i].y * h)) for i in eye_indices
+        ]
+        A = (
+            (coords[1][1] - coords[5][1]) ** 2 + (coords[1][0] - coords[5][0]) ** 2
+        ) ** 0.5
+        B = (
+            (coords[2][1] - coords[4][1]) ** 2 + (coords[2][0] - coords[4][0]) ** 2
+        ) ** 0.5
+        C = (
+            (coords[0][1] - coords[3][1]) ** 2 + (coords[0][0] - coords[3][0]) ** 2
+        ) ** 0.5
         return (A + B) / (2.0 * C)
 
     def toggle_actions(self):
@@ -75,7 +85,9 @@ class EyeControl:
 
     def worker_process(self):
         print("Worker de inferência iniciado.")
-        with self.mp_face_mesh.FaceMesh(max_num_faces=1, refine_landmarks=True) as face_mesh:
+        with self.mp_face_mesh.FaceMesh(
+            max_num_faces=1, refine_landmarks=True
+        ) as face_mesh:
             while self.running:
                 try:
                     frame = self.frame_queue.get(timeout=0.5)
@@ -103,10 +115,20 @@ class EyeControl:
             right_ear = self.eye_aspect_ratio(landmarks, self.RIGHT_EYE, w, h)
             ear_avg = (left_ear + right_ear) / 2
 
-            left_eye_vert = (landmarks[self.LEFT_TOP].y - landmarks[self.LEFT_BOTTOM].y) * h
-            right_eye_vert = (landmarks[self.RIGHT_TOP].y - landmarks[self.RIGHT_BOTTOM].y) * h
-            left_closed = left_ear < self.EAR_THRESHOLD_CLOSED and left_eye_vert < self.VERTICAL_THRESHOLD
-            right_closed = right_ear < self.EAR_THRESHOLD_CLOSED and right_eye_vert < self.VERTICAL_THRESHOLD
+            left_eye_vert = (
+                landmarks[self.LEFT_TOP].y - landmarks[self.LEFT_BOTTOM].y
+            ) * h
+            right_eye_vert = (
+                landmarks[self.RIGHT_TOP].y - landmarks[self.RIGHT_BOTTOM].y
+            ) * h
+            left_closed = (
+                left_ear < self.EAR_THRESHOLD_CLOSED
+                and left_eye_vert < self.VERTICAL_THRESHOLD
+            )
+            right_closed = (
+                right_ear < self.EAR_THRESHOLD_CLOSED
+                and right_eye_vert < self.VERTICAL_THRESHOLD
+            )
 
             nose_y = landmarks[1].y * h
             center_zone_top = h * 0.45
@@ -122,7 +144,11 @@ class EyeControl:
                     self.both_closed_start = current_time
                 duration_closed = current_time - self.both_closed_start
 
-                if duration_closed >= self.CLOSE_DURATION and self.can_act() and duration_closed < self.DISABLE_DURATION:
+                if (
+                    duration_closed >= self.CLOSE_DURATION
+                    and self.can_act()
+                    and duration_closed < self.DISABLE_DURATION
+                ):
                     pyautogui.press("tab")
                     print("TAB pressionado")
                     self.last_action_time = current_time
@@ -140,7 +166,10 @@ class EyeControl:
                 if right_closed and not left_closed:
                     if self.right_closed_start is None:
                         self.right_closed_start = current_time
-                    elif current_time - self.right_closed_start >= self.CLOSE_DURATION and self.can_act():
+                    elif (
+                        current_time - self.right_closed_start >= self.CLOSE_DURATION
+                        and self.can_act()
+                    ):
                         pyautogui.press("enter")
                         print("ENTER com olho direito!")
                         self.last_action_time = current_time
@@ -151,7 +180,10 @@ class EyeControl:
                 if left_closed and not right_closed:
                     if self.left_closed_start is None:
                         self.left_closed_start = current_time
-                    elif current_time - self.left_closed_start >= self.CLOSE_DURATION and self.can_act():
+                    elif (
+                        current_time - self.left_closed_start >= self.CLOSE_DURATION
+                        and self.can_act()
+                    ):
                         pyautogui.press("backspace")
                         print("BACKSPACE com olho esquerdo!")
                         self.last_action_time = current_time
@@ -162,7 +194,10 @@ class EyeControl:
             if ear_avg > self.EAR_THRESHOLD_OPEN:
                 if self.eyes_open_start is None:
                     self.eyes_open_start = current_time
-                elif current_time - self.eyes_open_start >= self.OPEN_DURATION and self.can_act():
+                elif (
+                    current_time - self.eyes_open_start >= self.OPEN_DURATION
+                    and self.can_act()
+                ):
                     pyautogui.press("f6")
                     print("F6 com olhos bem abertos!")
                     self.last_action_time = current_time
@@ -184,7 +219,9 @@ class EyeControl:
 
         self.running = True
         self.worker_thread = threading.current_thread()
-        self.cap = cv2.VideoCapture(self.cam_index, cv2.CAP_DSHOW if sys.platform.startswith("win") else 0)
+        self.cap = cv2.VideoCapture(
+            self.cam_index, cv2.CAP_DSHOW if sys.platform.startswith("win") else 0
+        )
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
 
@@ -205,7 +242,11 @@ class EyeControl:
                 frame_count += 1
 
                 current_time = time.time()
-                if keyboard.is_pressed("ctrl") and keyboard.is_pressed("alt") and current_time - self.last_toggle_time > self.toggle_debounce:
+                if (
+                    keyboard.is_pressed("ctrl")
+                    and keyboard.is_pressed("alt")
+                    and current_time - self.last_toggle_time > self.toggle_debounce
+                ):
                     self.toggle_actions()
                     self.last_toggle_time = current_time
 
@@ -221,8 +262,15 @@ class EyeControl:
                 except queue.Empty:
                     display_frame = frame
 
-                cv2.putText(display_frame, f"Ações Ativas: {self.actions_active}", (10, 30),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
+                cv2.putText(
+                    display_frame,
+                    f"Ações Ativas: {self.actions_active}",
+                    (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.8,
+                    (0, 0, 255),
+                    2,
+                )
 
                 cv2.imshow("Olho Detector", display_frame)
 
@@ -249,4 +297,4 @@ class EyeControl:
             self.cap = None
 
         cv2.destroyAllWindows()
-        time.sleep(0.3) 
+        time.sleep(0.3)

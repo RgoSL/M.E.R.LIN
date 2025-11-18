@@ -1,24 +1,24 @@
-from customtkinter import *
-from PIL import Image, ImageDraw, ImageFont, ImageTk
-import tkinter.font as tkfont
 import os
+import tkinter.font as tkfont
 
+from customtkinter import *
 from func_visual.funcs_imgs.imagem import adicionar_imagem_texto
-from func_visual.widgets.progress import progress_bar
-from func_visual.modos.ui_mode import alternar_modo  
+from func_visual.modos.ui_mode import alternar_modo
 from func_visual.widgets.header import nav
+from func_visual.widgets.progress import progress_bar
+from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 
 class modo_claro_escuro(CTkFrame):
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
-        
+
         try:
             self.debug_fonts()
         except Exception as e:
             print("⚠️ Erro ao achar a fonte:", e)
-        
+
         nav(self, controller, "M.E.R.LIN")
 
         self.titulo_label = self.criar_titulo_imagem(
@@ -26,7 +26,7 @@ class modo_claro_escuro(CTkFrame):
             tamanho=30,
             cor="#FFFFFF",
             largura=700,
-            altura=120
+            altura=120,
         )
         self.titulo_label.place(relx=0.5, rely=0.2, anchor="center")
 
@@ -38,7 +38,7 @@ class modo_claro_escuro(CTkFrame):
             espacamento=20,
             texto="Tema Claro",
             cor_texto=None,
-            comando=self.trocar_modo
+            comando=self.trocar_modo,
         )
         claro.place(relx=0.2, rely=0.5, anchor=CENTER)
 
@@ -50,12 +50,14 @@ class modo_claro_escuro(CTkFrame):
             espacamento=20,
             texto="Tema Escuro",
             cor_texto=None,
-            comando=self.trocar_modo
+            comando=self.trocar_modo,
         )
         escuro.place(relx=0.8, rely=0.5, anchor=CENTER)
 
         # Barra de progresso
-        self.barra = progress_bar(self, cor_progresso="#C58ADE", modo="determinate", valor=0.8)
+        self.barra = progress_bar(
+            self, cor_progresso="#C58ADE", modo="determinate", valor=0.8
+        )
         self.barra.place(relx=0.5, rely=0.9, anchor=CENTER)
 
         btn_voltar = CTkButton(
@@ -69,7 +71,7 @@ class modo_claro_escuro(CTkFrame):
             height=36,
             width=160,
             hover_color="#56397C",
-            command=lambda: self.controller.mostrar_pagina("config")
+            command=lambda: self.controller.mostrar_pagina("config"),
         )
         btn_voltar.place(relx=0.05, rely=0.9, anchor="w")
 
@@ -84,7 +86,7 @@ class modo_claro_escuro(CTkFrame):
             height=36,
             width=160,
             hover_color="#56397C",
-            command=lambda: self.controller.mostrar_pagina("ajustes")
+            command=lambda: self.controller.mostrar_pagina("ajustes"),
         )
         btn_avancar.place(relx=0.95, rely=0.9, anchor="e")
 
@@ -106,7 +108,7 @@ class modo_claro_escuro(CTkFrame):
         img_tk = ImageTk.PhotoImage(img)
 
         label_img = CTkLabel(self, image=img_tk, text="")
-        label_img.image = img_tk  
+        label_img.image = img_tk
 
         return label_img
 
@@ -115,12 +117,15 @@ class modo_claro_escuro(CTkFrame):
         Gideon = os.path.join(font_src, "GideonRoman-Regular.ttf")
         Gowun = os.path.join(font_src, "GowunDodum-Regular.ttf")
 
-        self.tk.call("font", "create", "GideonRoman", "-family", "GideonRoman", "-size", 12)
-        self.tk.call("font", "create", "GowunDodum", "-family", "GowunDodum", "-size", 12)
-
+        self.tk.call(
+            "font", "create", "GideonRoman", "-family", "GideonRoman", "-size", 12
+        )
+        self.tk.call(
+            "font", "create", "GowunDodum", "-family", "GowunDodum", "-size", 12
+        )
 
     def trocar_modo(self):
-        alternar_modo()  
+        alternar_modo()
 
         modo_atual = get_appearance_mode()
         self.cor_fundo = "#FFFFFF" if modo_atual == "Light" else "#2B2B2B"
