@@ -57,21 +57,19 @@ Este repositório reúne os itens mais importantes para o desenvolvimento do nos
 <!-- IMAGENS DAS TELAS DO SOFTWARE -->
 ## Visual do Projeto
 
-Confira o resultado do projeto 
-
-<div style="text-align: center;">
-    <img src="" alt="Tela" style="display: block; margin: 0 auto;">
-    <p style="text-align: center;"><strong>Nome da Tela</strong></p>
+  <div style="text-align: center;" align = center>
+    <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Telas/Configura%C3%A7%C3%A3o.png" width="500px" height="400px" alt="Configurações" style="display: block; margin: 0 auto;">
+    <p style="text-align: center;" align = center><strong>Tela de Configuração</strong></p>
 </div>
 
-<div style="text-align: center;">
-    <img src="" alt="Tela" style="display: block; margin: 0 auto;">
-    <p style="text-align: center;"><strong>Nome da Tela</strong></p>
+<div style="text-align: center;" align = center>
+    <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Telas/Home.png" alt="Boas-Vindas" width="500px" height="400px" style="display: block; margin: 0 auto;">
+    <p style="text-align: center;" align = center><strong>Tela de Boas-Vindas</strong></p>
 </div>
 
-<div style="text-align: center;">
-    <img src="" alt="Tela" style="display: block; margin: 0 auto;">
-    <p style="text-align: center;"><strong>Nome da Tela</strong></p>
+<div style="text-align: center;" align = center>
+    <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Telas/Temas.png" alt="Modos de Cor"  width="500px" height="400px" style="display: block; margin: 0 auto;">
+    <p style="text-align: center;" align = center><strong>Tela de Temas</strong></p>
 </div>
 
 <br>
