@@ -14,7 +14,7 @@ O projeto busca promover acessibilidade digital, autonomia e inclusão, permitin
 <!-- OBJETIVO DESSE REPOSITÓRIO -->
 ## Visão Geral do Projeto
 
-Este repositório reúne os itens mais importantes para o desenvolvimento do nosso Trabalho de Conclusão de Curso.
+> Este repositório reúne os itens mais importantes para o desenvolvimento do nosso Trabalho de Conclusão de Curso.
 
 <br>
 
@@ -38,11 +38,14 @@ Este repositório reúne os itens mais importantes para o desenvolvimento do nos
 <!-- LISTA DE FUNCIONALIDADES -->
 ## Funcionalidades Principais
 
--  **Funcionalidade 1:**  Descrição.
--  **Funcionalidade 2:**  Descrição.
--  **Funcionalidade 3:**  Descrição.
--  **Funcionalidade 4:**  Descrição.
-
+- **Teclado Integrado:** O M.E.R.LIN conta com um teclado integrado que facilita a expressão do usuário e auxilia na navegação.
+  
+- **Abertura de Apps:** Mesmo com limitações motoras, o sistema permite acessar e abrir aplicativos no computador.
+  
+- **Múltiplas Tarefas Simultâneas:** Por meio de um sistema de “pacotes”, o M.E.R.LIN torna mais prática a execução de várias atividades ao mesmo tempo.
+  
+- **Navegação Web:** Utilizando o controle ocular, o usuário pode navegar na internet por meio de navegadores como Google Chrome ou Microsoft Edge.
+  
 <br>
 
 <!-- REPRESENTAÇÃO DE COMO ORGANIZAMOS O CÓDIGO -->
