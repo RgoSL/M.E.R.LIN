@@ -3,7 +3,6 @@ from PIL import Image, ImageDraw, ImageFont, ImageTk
 import os
 
 def nav(self, controller, texto, logo_path=None):
-    # Header principal
     header = CTkFrame(self, fg_color="#654E82", corner_radius=0)
     header.place(relx=0, rely=0, relwidth=1, relheight=0.1)
     
@@ -29,7 +28,7 @@ def nav(self, controller, texto, logo_path=None):
 
     titulo_img = criar_titulo_imagem(texto, tamanho=24, cor="#E6C8FA")
     titulo_label = CTkLabel(header, image=titulo_img, text="")
-    titulo_label.image = titulo_img  # mantém referência
+    titulo_label.image = titulo_img 
     titulo_label.place(relx=0.15, rely=0.5, anchor=CENTER)
 
     close = CTkButton(

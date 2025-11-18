@@ -2,9 +2,6 @@ from customtkinter import *
 from PIL import Image
 
 def criar_containers(parent, variavel, apps, largura=400, altura=60, cor_texto="#000000", callback=None):
-    """
-    callback: função a ser chamada ao selecionar o app (ex.: enviar para pacotes)
-    """
     for i, app in enumerate(apps):
         frame = CTkFrame(parent, corner_radius=10, fg_color="#FFFFFF",
                          width=largura, height=altura, border_color="#C58ADE", border_width=2)
@@ -12,7 +9,6 @@ def criar_containers(parent, variavel, apps, largura=400, altura=60, cor_texto="
         frame.grid_propagate(False)
         frame.grid_columnconfigure(1, weight=1)
 
-        # Ícone
         if "icon" in app and app["icon"]:
             try:
                 img = CTkImage(dark_image=Image.open(app["icon"]), size=(28, 28))
@@ -22,11 +18,9 @@ def criar_containers(parent, variavel, apps, largura=400, altura=60, cor_texto="
         else:
             CTkLabel(frame, text="❓").grid(row=0, column=0, padx=10, pady=10)
 
-        # Nome do app
         CTkLabel(frame, text=app["name"], anchor="w", font=("Bold", 16), text_color=cor_texto)\
             .grid(row=0, column=1, padx=10, sticky="w")
 
-        # RadioButton para seleção
         rb = CTkRadioButton(frame, text="", value=app["name"], variable=variavel,
                             fg_color="#654E82",
                             command=lambda a=app: callback(a) if callback else None)
