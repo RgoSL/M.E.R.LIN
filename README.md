@@ -13,6 +13,8 @@
 - Facilitar o acesso para quem deseja conhecer o produto antes de instalar.
 
 - Servir como material de apoio para demonstrar empenho no projeto.
+  
+- Facilitar o acesso às gravações das apresentações do M.E.R.LIN. (Footer)
 
 <br>
 
