@@ -3,34 +3,49 @@ import os
 from customtkinter import CTkFrame, CTkImage, CTkLabel
 from PIL import Image, ImageDraw, ImageFilter, ImageOps
 
-
 def imagem_redonda(
     parent,
     caminho,
     tamanho,
     texto="",
-    cor_fundo="transparent",
+    cor_fundo="#FFFFFF",
     espacamento_texto=10,
     comando=None,
+    borda=3, 
 ):
     container = CTkFrame(parent, fg_color=cor_fundo, corner_radius=8)
 
     try:
         imagem = Image.open(caminho).convert("RGBA")
-        imagem = ImageOps.fit(imagem, (tamanho, tamanho), Image.Resampling.LANCZOS)
 
-        scale = 4
-        big_size = (tamanho * scale, tamanho * scale)
-        mask = Image.new("L", big_size, 0)
-        draw = ImageDraw.Draw(mask)
-        draw.ellipse((0, 0) + big_size, fill=255)
-        mask = mask.filter(ImageFilter.GaussianBlur(2))
-        mask = mask.resize((tamanho, tamanho), Image.Resampling.LANCZOS)
+        imagem = ImageOps.fit(
+            imagem,
+            (tamanho - borda * 2, tamanho - borda * 2),
+            Image.Resampling.LANCZOS,
+        )
 
-        imagem.putalpha(mask)
+        mask_img = Image.new("L", imagem.size, 0)
+        draw_img = ImageDraw.Draw(mask_img)
+        draw_img.ellipse(
+            (0, 0, imagem.size[0], imagem.size[1]),
+            fill=255
+        )
+        imagem.putalpha(mask_img)
+
+        final_img = Image.new("RGBA", (tamanho, tamanho), (255, 255, 255, 0))
+        draw_border = ImageDraw.Draw(final_img)
+
+        draw_border.ellipse(
+            (0, 0, tamanho, tamanho),
+            fill="#F9B14F" 
+        )
+
+        final_img.paste(imagem, (borda, borda), imagem)
 
         ctk_img = CTkImage(
-            dark_image=imagem, light_image=imagem, size=(tamanho, tamanho)
+            light_image=final_img,
+            dark_image=final_img,
+            size=(tamanho, tamanho)
         )
 
         label_img = CTkLabel(
@@ -48,14 +63,14 @@ def imagem_redonda(
                 container,
                 text=texto,
                 font=("Arial", 12),
-                text_color= "#C58ADE",
+                text_color="#C58ADE",
                 bg_color=cor_fundo,
             )
             label_texto.pack(pady=(0, 10))
 
             if comando:
                 label_texto.bind("<Button-1>", lambda e: comando())
-
+                
         if comando:
             label_img.bind("<Button-1>", lambda e: comando())
             container.bind("<Button-1>", lambda e: comando())
@@ -72,7 +87,6 @@ def imagem_redonda(
         label_erro.pack(expand=True, fill="both", padx=10, pady=10)
 
     return container
-
 
 def configurar_imagens_no_frame(frame1, controller):
     for widget in frame1.winfo_children():
@@ -101,7 +115,6 @@ def configurar_imagens_no_frame(frame1, controller):
         )
 
         img_container.grid(row=0, column=i, padx=150, pady=10, sticky="n")
-
         container_imagens.grid_columnconfigure(i, weight=0)
 
     container_imagens.grid_columnconfigure(len(imagens_dados), weight=1)
