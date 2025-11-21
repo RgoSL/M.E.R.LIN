@@ -13,7 +13,7 @@ class configSo(CTkFrame):
         nav(self, controller, "M.E.R.LIN")
 
         self.label_msg_img = self.criar_texto_imagem(
-            "Escolha a Base dos Seus Feitiços :", tamanho=30, cor="#000000"
+            "Escolha a Base dos Seus Feitiços :", tamanho=30, cor="#654E82"
         )
         self.label_msg = CTkLabel(self, image=self.label_msg_img, text="")
         self.label_msg.image = self.label_msg_img
@@ -134,7 +134,7 @@ class configSo(CTkFrame):
 
         # Label que Fica Embaixo do Botão
         fonte_path = os.path.join("assets", "Fonts", "GowunDodum-Regular.ttf")
-        label = CTkLabel(frame, text=nome, text_color="#000", font=(fonte_path, 14))
+        label = CTkLabel(frame, text=nome, text_color="#654E82", font=(fonte_path, 14))
         label.pack(pady=5)
 
     # Funções Temporárias Para Testar os Botões

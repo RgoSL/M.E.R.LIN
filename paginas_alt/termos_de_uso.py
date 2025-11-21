@@ -15,7 +15,7 @@ class termos_de_uso(CTkFrame):
         img_titulo = Image.new("RGBA", (600, 100), (0, 0, 0, 0))
         draw_titulo = ImageDraw.Draw(img_titulo)
         fonte_gideon = ImageFont.truetype("assets/fonts/GideonRoman-Regular.ttf", 40)
-        draw_titulo.text((10, 10), "Nossas Regras", font=fonte_gideon, fill="#FFFFFF")
+        draw_titulo.text((10, 10), "Nossas Regras", font=fonte_gideon, fill="#654E82")
         img_tk_titulo = ImageTk.PhotoImage(img_titulo)
 
         Titulo = CTkLabel(self, image=img_tk_titulo, text="", anchor="center")

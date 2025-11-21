@@ -36,7 +36,7 @@ class bemVindo(CTkFrame):
             cor="transparent",
             tamanho=230,
             espacamento=30,
-            cor_texto=None,
+            cor_texto="#654E82"
         )
         self.imagem.place(relx=0.5, rely=0.55, anchor="center")
 

@@ -9,7 +9,7 @@ def adicionar_imagem_texto(
     cor="transparent",
     tamanho=100,
     espacamento=30,
-    cor_texto="white",
+    cor_texto="#654E82",
     comando=None,
 ):
 

@@ -24,7 +24,7 @@ class modo_claro_escuro(CTkFrame):
         self.titulo_label = self.criar_titulo_imagem(
             texto="Estilo é Poder. Qual o Seu?",
             tamanho=30,
-            cor="#FFFFFF",
+            cor="#654E82",
             largura=700,
             altura=120,
         )
@@ -37,7 +37,7 @@ class modo_claro_escuro(CTkFrame):
             tamanho=150,
             espacamento=20,
             texto="Tema Claro",
-            cor_texto=None,
+            cor_texto="#654E82",
             comando=self.trocar_modo,
         )
         claro.place(relx=0.2, rely=0.5, anchor=CENTER)
@@ -49,7 +49,7 @@ class modo_claro_escuro(CTkFrame):
             tamanho=150,
             espacamento=20,
             texto="Tema Escuro",
-            cor_texto=None,
+            cor_texto="#654E82",
             comando=self.trocar_modo,
         )
         escuro.place(relx=0.8, rely=0.5, anchor=CENTER)

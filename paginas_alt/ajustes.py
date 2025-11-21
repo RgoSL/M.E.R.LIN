@@ -18,7 +18,7 @@ class ajustes(CTkFrame):
         nav(self, controller, "M.E.R.LIN")
 
         titulo = CTkLabel(
-            self, text="Ajustes", font=("Gideon Roman", 30), text_color="white"
+            self, text="Ajustes", font=("Gideon Roman", 30), text_color="#654E82"
         )
         titulo.place(relx=0.5, rely=0.2, anchor=CENTER)
 

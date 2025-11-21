@@ -16,7 +16,7 @@ class inicial(CTkFrame):
             self,
             text="Seus Feitiços",
             font=("Gideon Roman", 30, "bold"),
-            text_color=None,
+            text_color="#654E82",
             anchor="center",
             justify="center",
         )
