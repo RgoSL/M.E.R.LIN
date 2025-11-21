@@ -28,6 +28,13 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #ffffff !important;
+  }
+}
+
 /* Fim do Reset CSS */
 
 /* Começo dos Efeitos Para Melhorar o AOS */
