@@ -82,11 +82,11 @@ def configurar_imagens_no_frame(frame1, controller):
     container_imagens.pack(fill="both", expand=True, padx=60, pady=20)
 
     imagens_dados = [
-        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 1"},
-        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 2"},
-        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 3"},
-        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 4"},
-        {"caminho": "assets/ImgsTemp/placeholder.jpg", "texto": "Item 5"},
+        {"caminho": "assets/ImgsConfig/Icone1.png", "texto": "Item 1"},
+        {"caminho": "assets/ImgsConfig/Icone2.png", "texto": "Item 2"},
+        {"caminho": "assets/ImgsConfig/Icone3.png", "texto": "Item 3"},
+        {"caminho": "assets/ImgsConfig/Icone4.png", "texto": "Item 4"},
+        {"caminho": "assets/ImgsConfig/Icone5.png", "texto": "Item 5"},
     ]
 
     for i, dados in enumerate(imagens_dados):

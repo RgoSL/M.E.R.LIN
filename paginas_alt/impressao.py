@@ -31,7 +31,7 @@ class bemVindo(CTkFrame):
 
         self.imagem = adicionar_imagem_texto(
             self,
-            caminho_img="assets/ImgsTemp/placeholder.jpg",
+            caminho_img="assets/ImgsConfig/BemVindoImg.png",
             texto="Configurando o Poder",
             cor="transparent",
             tamanho=230,
