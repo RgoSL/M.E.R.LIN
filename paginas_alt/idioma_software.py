@@ -16,7 +16,7 @@ class idioma_software(CTkFrame):
 
         self.logo = adicionar_imagem_texto(
             self,
-            caminho_img="assets/ImgsConfig/IdiomaImg.png",
+            caminho_img_dark="assets/ImgsConfig/idiomaImg.png",
             texto=" ",
             cor="transparent",
             tamanho=160,
