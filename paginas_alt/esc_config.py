@@ -14,7 +14,8 @@ class config(CTkFrame):
 
         logo = adicionar_imagem_texto(
             self,
-            caminho_img_dark="assets/ImgsConfig/ModoConfigImg.png",
+            caminho_img_dark="assets/ImgsConfig/ModoEscuroConfigImg.png",
+            caminho_img_light="assets/ImgsConfig/ModoConfigImg.png",
             texto="",
             cor="transparent",
             tamanho=160,
