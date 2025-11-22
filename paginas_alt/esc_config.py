@@ -61,6 +61,16 @@ class config(CTkFrame):
 
         radio_var = IntVar()
 
+
+        def avanc():
+            escolha = radio_var.get()
+
+            if escolha == 1:
+                self.closeOpenDock()
+
+            elif escolha == 2:
+                self.controller.mostrar_pagina("ajustes")
+        
         frame_check = CTkFrame(
             self,
             fg_color="white",
@@ -132,7 +142,7 @@ class config(CTkFrame):
             fg_color="#654E82",
             corner_radius=10,
             hover_color="#56397C",
-            command=lambda: controller.mostrar_pagina("modo_claro_escuro"),
+            command=avanc,
         )
 
         btn_voltar.place(
@@ -146,3 +156,9 @@ class config(CTkFrame):
             self, cor_progresso="#C58ADE", modo="determinate", valor=0.5
         )
         self.barra.place(relx=0.5, rely=0.9, anchor=CENTER)
+    def closeOpenDock(self):
+        self.controller.withdraw()
+
+        from paginas_alt.dock import Dock
+
+        Dock(self.controller, self.controller)
