@@ -70,6 +70,20 @@ class config(CTkFrame):
 
             elif escolha == 2:
                 self.controller.mostrar_pagina("ajustes")
+
+            else:
+                from CTkMessagebox import CTkMessagebox
+
+                CTkMessagebox(
+                    title="Atenção!!!",
+                    message="Por favor, Escolha entre uma das duas opções.",
+                    icon="warning",
+                    option_1="OK",
+                    fade_in_duration=50,
+                    fg_color="#654E82",
+                    bg_color="#654E82",
+                    button_color="#F9B14F",
+                )
         
         frame_check = CTkFrame(
             self,
