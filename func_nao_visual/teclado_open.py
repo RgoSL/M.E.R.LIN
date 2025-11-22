@@ -10,7 +10,6 @@ import pyautogui as py
 import pygetwindow as gw
 from customtkinter import *
 
-
 class TecladoVarreduraTab(CTk):
     def __init__(
         self,
@@ -35,13 +34,11 @@ class TecladoVarreduraTab(CTk):
         self.close_app_time = float(close_app_time)
         self.surprise_open_time = float(surprise_open_time)
         self.cam_index = cam_index
-
         self.ultimo_acao_t = 0.0
         self._detector_running = True
         self.eyes_open_start = None
-
         self._action_queue = queue.Queue()
-
+        self.widget_destino = None
         self.layout_completo = [
             ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Backspace"],
             ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -158,6 +155,20 @@ class TecladoVarreduraTab(CTk):
         texto_para_digitar = self.entrada.get()
         if not texto_para_digitar:
             return
+
+        if self.widget_destino is not None:
+            try:
+                if hasattr(self.widget_destino, "winfo_exists") and self.widget_destino.winfo_exists():
+                    try:
+                        self.widget_destino.insert(END, texto_para_digitar)
+                        self.entrada.delete(0, END)
+                        return
+                    except Exception as e:
+                        print("Erro ao digitar no widget destino:", e)
+                else:
+                    self.widget_destino = None
+            except Exception as e:
+                print("Erro verificando widget_destino:", e)
 
         try:
             janelas = gw.getAllWindows()
@@ -306,7 +317,6 @@ class TecladoVarreduraTab(CTk):
     def _on_closing(self):
         self._detector_running = False
         self.after(100, self.destroy)
-
 
 if __name__ == "__main__":
     app = TecladoVarreduraTab()

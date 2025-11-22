@@ -4,9 +4,9 @@ import time
 
 from customtkinter import *
 from scripts.windows.buscar_apps import *
-
 from func_nao_visual.tecladoCtk import *
 
+from func_nao_visual.teclado_open import *
 
 class AppList(CTkFrame):
     def __init__(self, master, apps):
@@ -16,8 +16,11 @@ class AppList(CTkFrame):
         self.show_favorites = False
         self.debounce_job = None
 
+        self.ultimo_widget_focado = None
+
         self.itens_navegaveis = []
         self.index_atual = 0
+        self.janela = None 
 
         top_frame = CTkFrame(self, fg_color="#654E82")
         top_frame.pack(fill="x", pady=5)
@@ -32,6 +35,8 @@ class AppList(CTkFrame):
         search_entry.pack(side="left", fill="x", expand=True, padx=10)
         search_entry.bind("<KeyRelease>", self.update_list)
         search_entry.bind("<FocusIn>", self.ativar_teclado)
+
+        search_entry.bind("<Button-1>", self._focar_campo_pesquisa) 
 
         self.toggle_button = CTkButton(
             top_frame,
@@ -54,6 +59,48 @@ class AppList(CTkFrame):
         self.scroll_frame.pack(fill="both", expand=True, padx=10, pady=5)
 
         self.populate_list()
+
+    def _focar_campo_pesquisa(self, event=None):
+        try:
+            self.ultimo_widget_focado = event.widget
+        except Exception:
+            self.ultimo_widget_focado = None
+
+        self.abrir_teclado_varredura(event)
+
+    def abrir_teclado_varredura(self, event=None):
+        widget_dest = None
+        if event is not None and hasattr(event, "widget"):
+            widget_dest = event.widget
+        elif self.ultimo_widget_focado is not None:
+            widget_dest = self.ultimo_widget_focado
+
+        if self.janela is None or not self.janela.winfo_exists(): 
+            self.janela = TecladoVarreduraTab() 
+
+            if widget_dest is not None:
+                try:
+                    self.janela.widget_destino = widget_dest
+                except Exception as e:
+                    print("Erro ao setar widget_destino no teclado:", e)
+
+            self.janela.protocol("WM_DELETE_WINDOW", self.fechar_janela)  
+            self.janela.mainloop()  
+        else:
+            if widget_dest is not None:
+                try:
+                    self.janela.widget_destino = widget_dest
+                except Exception as e:
+                    print("Erro ao atualizar widget_destino no teclado:", e)
+            try:
+                self.janela.focus_force()
+            except Exception:
+                pass
+            print("Teclado já está aberto.")
+
+    def fechar_janela(self):
+        self.janela = None
+        print("Teclado fechado.")
 
     def populate_list(self):
         for widget in self.scroll_frame.winfo_children():
@@ -173,7 +220,6 @@ class AppList(CTkFrame):
         if hasattr(self, "teclado") and self.teclado.winfo_exists():
             self.teclado.destroy()
 
-
 def carregar_apps_em_thread(master):
     def run():
         try:
@@ -184,17 +230,13 @@ def carregar_apps_em_thread(master):
 
     threading.Thread(target=run, daemon=True).start()
 
-
 def abrir_lista_apps(master, apps):
     ListaApps = CTkToplevel(master)
     ListaApps.geometry("400x600+100+100")
     ListaApps.title("Lista de Aplicativos - M.E.R.LIN")
     ListaApps.wm_attributes("-topmost", True)
-
     app_list = AppList(ListaApps, apps)
     app_list.pack(fill="both", expand=True, padx=10, pady=10)
-
     ListaApps.bind("<Tab>", lambda e: app_list._navegar())
     ListaApps.bind("<Return>", lambda e: app_list._ativar())
-
     ListaApps.after(50, ListaApps.focus_force)
