@@ -128,8 +128,6 @@ class App(CTk):
                     widget.configure(fg_color=bg_cor, text_color=texto_cor)
                 except:
                     pass
-
-
 if __name__ == "__main__":
     app = App()
     app.mainloop()
