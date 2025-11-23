@@ -48,15 +48,6 @@ O projeto busca promover acessibilidade digital, autonomia e inclusão, permitin
   
 <br>
 
-<!-- REPRESENTAÇÃO DE COMO ORGANIZAMOS O CÓDIGO -->
-##  Estrutura do Projeto
-
-```
-
-```
-
-<br>
-
 <!-- IMAGENS DAS TELAS DO SOFTWARE -->
 ## Visual do Projeto
 
@@ -129,29 +120,11 @@ O projeto busca promover acessibilidade digital, autonomia e inclusão, permitin
 ## Equipe Responsável
 
 <div align="center">
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/emycspri">
-         <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Emily.jpg" height="290px;" width="300px;" alt="Foto do Membro"/><br />
-        <b>Emily Cristina</b><br />
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/joaopedrosantanamotalol">
-          <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Mota.png" height="290px; "width="300px;" alt="Foto do Membro"/><br />
-        <b>João Mota</b><br />
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/RgoSL">
-        <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Rodrigo.jpg" height="290px;  width=300px;" alt="Foto do Membro"/><br />
-        <b>Rodrigo Lima</b><br />
-      </a>
-    </td>
-  </tr>
-</table>
+  <img src="https://github.com/RgoSL/M.E.R.LIN/blob/Documentation/README/Equipe%20M.E.R.LIN.jpg" height="400px;" width=900px alt="Foto do Membro" style="display:inline-block; margin: 0 15px;" />
+  <br />
+  <a href="https://github.com/joaopedrosantanamotalol" target="_blank"><b>João Mota</b></a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <a href="https://github.com/RgoSL" target="_blank">Rodrigo Lima</b></a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+  <a href="https://github.com/emycspri" target="_blank"><b>Emily Cristina</b></a>
 </div>
 
 <br>
