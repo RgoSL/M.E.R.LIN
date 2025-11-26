@@ -5,8 +5,8 @@ from func_nao_visual.Banco.preferencias import (carregar_ajustes, criar_tabela,
                                                 salvar_ajustes)
 from func_visual.widgets.header import nav
 from func_visual.widgets.progress import progress_bar
+from func_visual.widgets.i18n import i18n
 from PIL import Image
-
 
 class ajustes(CTkFrame):
     def __init__(self, master, controller):
@@ -17,10 +17,13 @@ class ajustes(CTkFrame):
 
         nav(self, controller, "M.E.R.LIN")
 
-        titulo = CTkLabel(
-            self, text="Ajustes", font=("Gideon Roman", 30), text_color="#654E82"
+        self.titulo = CTkLabel(
+            self, 
+            text=i18n.t("titulo_ajustes"), 
+            font=("Gideon Roman", 30), 
+            text_color="#654E82"
         )
-        titulo.place(relx=0.5, rely=0.2, anchor=CENTER)
+        self.titulo.place(relx=0.5, rely=0.2, anchor=CENTER)
 
         frame2 = CTkFrame(self, fg_color="#654E82", corner_radius=20)
         frame2.place(relx=0.5, rely=0.62, relwidth=0.82, relheight=0.58, anchor=CENTER)
@@ -83,25 +86,31 @@ class ajustes(CTkFrame):
             relx=0.23, rely=0.48, anchor=W, relwidth=0.68, relheight=menu_h
         )
 
-        camera = CTkLabel(
-            frame2, text="Câmera", font=("Arial", 17), text_color="#E6C8FA"
+        self.label_camera = CTkLabel(
+            frame2, 
+            text=i18n.t("ajuste_camera"), 
+            font=("Arial", 17), 
+            text_color="#E6C8FA"
         )
-        camera.place(relx=0.12, rely=0.23, anchor=W)
+        self.label_camera.place(relx=0.12, rely=0.23, anchor=W)
 
-        lingua = CTkLabel(
-            frame2, text="Língua", font=("Arial", 17), text_color="#E6C8FA"
+        self.label_lingua = CTkLabel(
+            frame2, 
+            text=i18n.t("ajuste_lingua"), 
+            font=("Arial", 17), 
+            text_color="#E6C8FA"
         )
-        lingua.place(relx=0.12, rely=0.44, anchor=W)
+        self.label_lingua.place(relx=0.12, rely=0.44, anchor=W)
 
-        termos_de_uso = CTkLabel(
+        self.label_termos = CTkLabel(
             frame2,
-            text="Termos de Uso",
+            text=i18n.t("ajuste_termos"),
             font=("Arial", 16),
             text_color="#E6C8FA",
             cursor="hand2",
         )
-        termos_de_uso.place(relx=0.15, rely=0.9, anchor=CENTER)
-        termos_de_uso.bind(
+        self.label_termos.place(relx=0.15, rely=0.9, anchor=CENTER)
+        self.label_termos.bind(
             "<Button-1>", lambda e: self.controller.mostrar_pagina("termos_de_uso")
         )
 
@@ -109,8 +118,7 @@ class ajustes(CTkFrame):
             self, cor_progresso="#C58ADE", modo="determinate", valor=1
         )
         self.barra.place(relx=0.5, rely=0.95, anchor=CENTER)
-
-        # ICONES COMO CTkImage (corrige DPI + hover completo)
+        
         icone_voltar = CTkImage(
             Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(26, 26)
         )
@@ -141,6 +149,15 @@ class ajustes(CTkFrame):
             command=lambda: controller.mostrar_pagina("inicial"),
         )
         avanc.place(relx=0.9, rely=0.20, anchor=CENTER)
+
+    def atualizar_idioma(self):
+        self.titulo.configure(text=i18n.t("titulo_ajustes"))
+        
+        self.label_camera.configure(text=i18n.t("ajuste_camera"))
+        self.label_lingua.configure(text=i18n.t("ajuste_lingua"))
+        self.label_termos.configure(text=i18n.t("ajuste_termos"))
+        
+        print(f"✓ Página ajustes atualizada para idioma: {i18n.idioma_atual}")
 
     def salvar_config(self, _=None):
         salvar_ajustes(
