@@ -144,8 +144,8 @@ class I18nManager:
                 "subtitulo_config": "Tipo de Configuración",
                 
                 # Chaves Para Trocar as Opções da Tela de Modo de Configuração
-                "config_rpd": "Rápida",
-                "config_per": "Personalizada",
+                "config_rpd": "Rápido",
+                "config_per": "Costumbre",
                 
                 # Chaves Para Trocar as Opções do AlertCTK na Tela de Modo de Configuração
                 "alerta": "¡Atención!",
