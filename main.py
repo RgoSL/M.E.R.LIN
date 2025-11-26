@@ -1,4 +1,7 @@
 import ctypes
+import json
+import os
+import locale
 
 from customtkinter import *
 
@@ -13,6 +16,7 @@ from paginas_alt.modo_claro_escuro import modo_claro_escuro
 from paginas_alt.termos_de_uso import termos_de_uso
 from paginas_alt.video_assis import video_Assis
 
+from func_visual.widgets.i18n import i18n
 
 def centralizar_janela(janela, largura, altura):
     largura_tela = janela.winfo_screenwidth()
@@ -21,16 +25,14 @@ def centralizar_janela(janela, largura, altura):
     y = int((altura_tela / 2) - (altura / 2))
     janela.geometry(f"{largura}x{altura}+{x}+{y}")
 
-
 def cor_atual():
-
     modo = get_appearance_mode()
     return "#FFFFFF" if modo == "Light" else "#2B2B2B"
-
-
 class App(CTk):
     def __init__(self):
         super().__init__()
+
+        self.carregar_idioma_inicial()
 
         set_appearance_mode("dark")
         self.largura_janela = 800
@@ -49,9 +51,11 @@ class App(CTk):
         self.title_bar.pack(fill="x", side="top")
 
         self.title_label = CTkLabel(
-            self.title_bar, text="Minha Aplicação", fg_color="#1E1E1E"
+            self.title_bar, text="M.E.R.LIN", fg_color="#1E1E1E"
         )
         self.title_label.pack(side="left", padx=10)
+
+        i18n.registrar_observer(self)
 
         self.frames = {}
         pages = [
@@ -63,18 +67,67 @@ class App(CTk):
             ajustes,
             inicial,
             termos_de_uso,
+            comandos_coletanea,
+            video_Assis,
         ]
+        
         for PageClass in pages:
             page_name = PageClass.__name__
             try:
                 frame = PageClass(self.main_frame, self)
                 self.frames[page_name] = frame
                 frame.place(relx=0, rely=0, relwidth=1, relheight=1)
+                
+                if hasattr(frame, 'atualizar_idioma'):
+                    i18n.registrar_observer(frame)
+                    print(f"Página {page_name} registrada para atualizações de idioma")
+                else:
+                    print(f"Página {page_name} não possui método atualizar_idioma()")
+                    
             except Exception as e:
                 print(f"Erro ao inicializar página {page_name}: {e}")
 
         self.mostrar_pagina(pages[0].__name__)
         self.maximized = False
+
+    def carregar_idioma_inicial(self):
+        try:
+            config_path = "config/preferencias.json"
+            
+            if os.path.exists(config_path):
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                    idioma_salvo = config.get('idioma')
+                    
+                    if idioma_salvo and idioma_salvo in ['pt', 'en', 'es']:
+                        i18n.mudar_idioma(idioma_salvo)
+                        print(f"Idioma carregado das preferências: {idioma_salvo}")
+                        return
+            
+            idioma_sistema = self.detectar_idioma_sistema()
+            i18n.mudar_idioma(idioma_sistema)
+            print(f"Idioma do sistema detectado: {idioma_sistema}")
+            
+        except Exception as e:
+            print(f"Erro ao carregar idioma: {e}")
+            i18n.mudar_idioma("pt")
+            print("Usando idioma padrão: pt")
+    
+    def detectar_idioma_sistema(self):
+        try:
+            idioma_sistema = locale.getdefaultlocale()[0]
+            
+            if idioma_sistema:
+                codigo = idioma_sistema[:2].lower()
+                
+                if codigo in ["pt", "en", "es"]:
+                    return codigo
+            
+            return "pt"
+            
+        except Exception as e:
+            print(f"Erro ao detectar idioma do sistema: {e}")
+            return "pt"
 
     def arredondar_janela(self):
         try:
@@ -94,6 +147,13 @@ class App(CTk):
     def mostrar_pagina(self, nome):
         if nome in self.frames:
             self.frames[nome].tkraise()
+            print(f"Mostrando página: {nome}")
+        else:
+            print(f"Página '{nome}' não encontrada!")
+
+    def atualizar_idioma(self):
+        self.title_label.configure(text=i18n.t("titulo_app"))
+        print(f"App principal atualizada para idioma: {i18n.idioma_atual}")
 
     def atualizar_tema(self):
         modo = get_appearance_mode()
@@ -103,7 +163,10 @@ class App(CTk):
             nova_cor = "#2B2B2B"
 
         for frame in self.frames.values():
-            frame.configure(fg_color=nova_cor)
+            try:
+                frame.configure(fg_color=nova_cor)
+            except:
+                pass
 
         self.main_frame.configure(fg_color=nova_cor)
         self.title_bar.configure(fg_color="#1E1E1E")
@@ -122,12 +185,55 @@ class App(CTk):
         self.main_frame.configure(fg_color=bg_cor)
 
         for frame in self.frames.values():
-            frame.configure(fg_color=bg_cor)
-            for widget in frame.winfo_children():
-                try:
-                    widget.configure(fg_color=bg_cor, text_color=texto_cor)
-                except:
-                    pass
+            try:
+                frame.configure(fg_color=bg_cor)
+                for widget in frame.winfo_children():
+                    try:
+                        widget.configure(fg_color=bg_cor, text_color=texto_cor)
+                    except:
+                        pass
+            except:
+                pass
+
+    def mudar_idioma_manual(self, codigo_idioma):
+        if codigo_idioma in ['pt', 'en', 'es']:
+            i18n.mudar_idioma(codigo_idioma)
+            self.salvar_preferencia_idioma(codigo_idioma)
+            print(f"Idioma alterado para: {codigo_idioma}")
+        else:
+            print(f"Idioma '{codigo_idioma}' não suportado")
+
+    def salvar_preferencia_idioma(self, codigo_idioma):
+        try:
+            config_path = "config/preferencias.json"
+            
+            os.makedirs(os.path.dirname(config_path), exist_ok=True)
+            
+            if os.path.exists(config_path):
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+            else:
+                config = {}
+            
+            config['idioma'] = codigo_idioma
+            
+            with open(config_path, 'w', encoding='utf-8') as f:
+                json.dump(config, f, indent=4, ensure_ascii=False)
+                
+            print(f"Preferência de idioma salva: {codigo_idioma}")
+            
+        except Exception as e:
+            print(f"Erro ao salvar preferência de idioma: {e}")
+
+    def __del__(self):
+        try:
+            i18n.remover_observer(self)
+            for frame in self.frames.values():
+                if hasattr(frame, 'atualizar_idioma'):
+                    i18n.remover_observer(frame)
+        except:
+            pass
+
 if __name__ == "__main__":
     app = App()
     app.mainloop()
