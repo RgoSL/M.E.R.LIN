@@ -7,7 +7,6 @@ from eye_tracking.navegacao import EyeControl
 from func_nao_visual.lista_apps import AppList
 from func_nao_visual.teclado_open import TecladoVarreduraTab
 
-
 class btns:
     @staticmethod
     def Btn_Lista():
@@ -48,6 +47,10 @@ class btns:
     def Btn_Teclado(dock_instance=None):
         tclado = TecladoVarreduraTab(dock_title=dock_instance.title())
         tclado.deiconify()
+
+    @staticmethod
+    def Btn_Ajustar(controller, pagina="ajustes"):
+        controller.mostrar_pagina(pagina)
 
     @staticmethod
     def Btn_Fechar(dock):

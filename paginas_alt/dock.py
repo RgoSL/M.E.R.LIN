@@ -1,22 +1,24 @@
-# Import das Bibliotecas Utilizadas
-import os
-import threading
+# Bibliotecas Utilizadas
+import os # Simplificação do Subprocess Sendo Utilizado Para Comandar Operações do Sistema
+import threading # Otimiza o Código Controlando o uso do Processamento do PC
+from customtkinter import * # Para Interfaces Gráficas
+from PIL import Image # Para Tratamento, Manipulação e Aplicação de Imagens
 
-from customtkinter import *
-from PIL import Image
-
+# Métodos Especificos da Biblioteca os Para Proibir Logs no Terminal(Mensagens de Erro)
 os.environ["GLOG_minloglevel"] = "3"
 os.environ["ABSL_LOGGING"] = "0"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
-import time
 
-import cv2
-import mediapipe as mp
+# Bibliotecas Utilizadas
+import time # Controla Tempo de Duração e Ativação de Funções
+import cv2 # Import do OpenCV
+import mediapipe as mp # Import do MediaPipe Instanciado em um Objeto
+
+# Import da Classe Das Funções Dos Botões na Dock
 from func_nao_visual.comandos_dock import btns
-# Import das Classes com as Funcionalidades da Dock
-from func_nao_visual.lista_apps import (abrir_lista_apps,
-                                        carregar_apps_em_thread)
 
+# Import Dos Componentes Integrados do M.E.R.LIN
+from func_nao_visual.lista_apps import (abrir_lista_apps, carregar_apps_em_thread)
 
 class Dock(CTkToplevel):
     def __init__(self, master, controller):
@@ -46,7 +48,7 @@ class Dock(CTkToplevel):
         altura_tela = self.winfo_screenheight()
         largura_tela = self.winfo_screenwidth()
         largura_dock = 80
-        altura_dock = 370
+        altura_dock = 446
         offset = 55
         dock_x = largura_tela - largura_dock
         dock_y = altura_tela - altura_dock - offset
@@ -85,17 +87,42 @@ class Dock(CTkToplevel):
             self.botoes_dock.append(Bot)
             return Bot
 
-        # Botões da Dock
-        btns_dock(
-            "assets/ImgsDock/LApps.png", command=lambda: carregar_apps_em_thread(self)
-        )
-        btns_dock(
+        # Botões Presentes na Dock
+        
+        btns_dock( # Botão que Chama a Lista de Apps
+            "assets/ImgsDock/LApps.png", 
+            command=lambda: 
+                carregar_apps_em_thread(self)
+                )
+        
+        btns_dock( # Botão que Executa um Pacote
             "assets/ImgsDock/pacotes.png",
-            command=lambda: btns.Btn_Pacotes(self.controller),
-        )
-        btns_dock("assets/ImgsDock/navegador.png", command=lambda: btns.Btn_Navegador())
-        btns_dock("assets/ImgsDock/teclado.png", command=lambda: btns.Btn_Teclado(self))
-        btns_dock("assets/ImgsDock/Fechar.png", command=lambda: btns.Btn_Fechar(self))
+            command=lambda: 
+                btns.Btn_Pacotes(self.controller)
+                )
+        
+        btns_dock( # Botão que Abre o Navegador 
+            "assets/ImgsDock/navegador.png",
+            command=lambda: 
+                btns.Btn_Navegador()
+                )
+        
+        btns_dock( # Botão que Ativa o Teclado Integrado
+            "assets/ImgsDock/teclado.png", 
+            command=lambda:
+                btns.Btn_Teclado(self)
+                )
+    
+        btns_dock(
+            "assets/ImgsDock/ajustes.png",
+            command=lambda: btns.Btn_Ajustar(self.controller, "ajustes") 
+                )
+
+        
+        btns_dock( # Botão que Fecha a Dock e Encerra o M.E.R.LIN
+            "assets/ImgsDock/Fechar.png", 
+            command=lambda: btns.Btn_Fechar(self)
+            )
 
         # Função Para Aplicar Borda no Botão Selecionado
         def atualizar_selecao():
