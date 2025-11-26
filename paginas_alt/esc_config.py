@@ -180,6 +180,7 @@ class config(CTkFrame):
                 fg_color="#654E82",
                 bg_color="#654E82",
                 button_color="#F9B14F",
+                button_hover_color= "#ECA541" ,
             )
 
     def closeOpenDock(self):

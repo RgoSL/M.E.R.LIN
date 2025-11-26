@@ -28,7 +28,7 @@ class inicial(CTkFrame):
             corner_radius=15,
             orientation="horizontal",
             scrollbar_button_color="#F9B14F",
-            scrollbar_button_hover_color="#F9B14F",
+            scrollbar_button_hover_color="#ECA541",
         )
         frame1.place(relx=0.5, rely=0.6, relwidth=0.8, relheight=0.5, anchor=CENTER)
 
