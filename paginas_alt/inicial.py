@@ -1,10 +1,9 @@
 from customtkinter import *
 from func_nao_visual.mouse_scroll import mouse_scroll
-from func_visual.funcs_imgs.img_redonda import configurar_imagens_no_frame
+from func_visual.funcs_imgs.img_redonda import configurar_imagens_no_frame, atualizar_textos_imagens
 from func_visual.widgets.header import nav
 from func_visual.widgets.i18n import i18n
 from PIL import Image
-
 
 class inicial(CTkFrame):
     def __init__(self, master, controller):
@@ -71,16 +70,21 @@ class inicial(CTkFrame):
         images_frame.grid_columnconfigure(0, weight=1)
         images_frame.grid_columnconfigure(1, weight=1)
         images_frame.grid_rowconfigure(0, weight=1)
-        
+
         mouse_scroll(self.frame1)
-        configurar_imagens_no_frame(self.frame1, self.controller)
+
+        self.container_imagens = configurar_imagens_no_frame(self.frame1, self.controller)
 
     def atualizar_idioma(self):
+
         self.titulo.configure(text=i18n.t("titulo_inicial"))
         
         self.btn_finalizar.configure(text=i18n.t("finalizar"))
         
-        print(f"✓ Página inicial atualizada para idioma: {i18n.idioma_atual}")
+        if hasattr(self, 'container_imagens'):
+            atualizar_textos_imagens(self.container_imagens)
+        
+        print(f"Página inicial atualizada para idioma: {i18n.idioma_atual}")
 
     def closeOpenDock(self):
         self.controller.withdraw()
