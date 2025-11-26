@@ -75,8 +75,8 @@ class config(CTkFrame):
                 from CTkMessagebox import CTkMessagebox
 
                 CTkMessagebox(
-                    title="Atenção!!!",
-                    message="Por favor, Escolha entre uma das duas opções.",
+                    title="Atenção!",
+                    message="Por favor, escolha uma das opções",
                     icon="warning",
                     option_1="OK",
                     fade_in_duration=50,

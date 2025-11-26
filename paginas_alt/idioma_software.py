@@ -98,7 +98,7 @@ class idioma_software(CTkFrame):
             "assets/fonts/GideonRoman-Regular.ttf", 30
         )
         
-        texto = i18n.t("titulo_principal")
+        texto = i18n.t("titulo_idiomas")
         draw.text((10, 10), texto, font=fonte_personalizada, fill="#654E82")
         
         self.txt_selecao_img = ImageTk.PhotoImage(img)
