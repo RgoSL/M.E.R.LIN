@@ -1,11 +1,11 @@
 import os
-
 from customtkinter import *
-from func_nao_visual.Banco.preferencias import (carregar_ajustes, criar_tabela,
-                                                salvar_ajustes)
+
+from func_nao_visual.Banco.preferencias import (carregar_ajustes, criar_tabela, salvar_ajustes)
 from func_visual.widgets.header import nav
 from func_visual.widgets.progress import progress_bar
 from func_visual.widgets.i18n import i18n
+
 from PIL import Image
 
 class ajustes(CTkFrame):
@@ -33,19 +33,16 @@ class ajustes(CTkFrame):
         if dados:
             resolucao_sel, idioma_sel, fps_sel, luz_sel = dados
         else:
-            resolucao_sel, idioma_sel, fps_sel, luz_sel = (
-                "Resolução",
-                "Idiomas",
-                "FPS",
-                "Luz da Camera",
-            )
+            resolucao_sel = "1080p"
+            idioma_sel = self.obter_nome_idioma_atual() 
+            fps_sel = "60 fps"
+            luz_sel = "Sim"
 
         menu_h = 0.12
         menu_w = 0.20
         fonte_itens = ("Arial", 17)
 
         opt_cfg = {
-            "command": self.salvar_config,
             "fg_color": "#E6C8FA",
             "dropdown_fg_color": "#654E82",
             "text_color": "black",
@@ -55,7 +52,10 @@ class ajustes(CTkFrame):
         }
 
         self.OptionMenu5 = CTkOptionMenu(
-            frame2, values=["Luz da Camera", "Sim", "Não"], **opt_cfg
+            frame2, 
+            values=[], 
+            command=self.salvar_config_camera,
+            **opt_cfg
         )
         self.OptionMenu5.set(luz_sel)
         self.OptionMenu5.place(
@@ -63,7 +63,10 @@ class ajustes(CTkFrame):
         )
 
         self.OptionMenu1 = CTkOptionMenu(
-            frame2, values=["Resolução", "1080p", "720p", "360p"], **opt_cfg
+            frame2, 
+            values=[], 
+            command=self.salvar_config_camera,
+            **opt_cfg
         )
         self.OptionMenu1.set(resolucao_sel)
         self.OptionMenu1.place(
@@ -71,7 +74,10 @@ class ajustes(CTkFrame):
         )
 
         self.OptionMenu3 = CTkOptionMenu(
-            frame2, values=["FPS", "120 fps", "60 fps", "30 fps"], **opt_cfg
+            frame2, 
+            values=[], 
+            command=self.salvar_config_camera,
+            **opt_cfg
         )
         self.OptionMenu3.set(fps_sel)
         self.OptionMenu3.place(
@@ -79,12 +85,17 @@ class ajustes(CTkFrame):
         )
 
         self.OptionMenu2 = CTkOptionMenu(
-            frame2, values=["Idiomas", "Português", "Inglês", "Espanhol"], **opt_cfg
+            frame2, 
+            values=[], 
+            command=self.ao_mudar_idioma,
+            **opt_cfg
         )
         self.OptionMenu2.set(idioma_sel)
         self.OptionMenu2.place(
             relx=0.23, rely=0.48, anchor=W, relwidth=0.68, relheight=menu_h
         )
+
+        self.atualizar_option_menus()
 
         self.label_camera = CTkLabel(
             frame2, 
@@ -118,7 +129,7 @@ class ajustes(CTkFrame):
             self, cor_progresso="#C58ADE", modo="determinate", valor=1
         )
         self.barra.place(relx=0.5, rely=0.95, anchor=CENTER)
-        
+
         icone_voltar = CTkImage(
             Image.open("assets/ImgsTemp/seta_esquerda.png"), size=(26, 26)
         )
@@ -150,6 +161,61 @@ class ajustes(CTkFrame):
         )
         avanc.place(relx=0.9, rely=0.20, anchor=CENTER)
 
+    def obter_nome_idioma_atual(self):
+
+        mapeamento = {
+            "pt": i18n.t("ajustes_idiomas1"), 
+            "en": i18n.t("ajustes_idiomas2"),  
+            "es": i18n.t("ajustes_idiomas3"), 
+        }
+        return mapeamento.get(i18n.idioma_atual, i18n.t("ajustes_idiomas1"))
+
+    def obter_codigo_idioma(self, nome_idioma):
+
+        mapeamentos = {
+            "Português": "pt",
+            "Portuguese": "pt",
+            "Portugués": "pt",
+            
+            "Inglês": "en",
+            "English": "en",
+            "Inglés": "en",
+            
+            "Espanhol": "es",
+            "Spanish": "es",
+            "Español": "es",
+        }
+        
+        return mapeamentos.get(nome_idioma, "pt")
+
+    def atualizar_option_menus(self):
+        valores_luz = [i18n.t("ajustes_cam"), i18n.t("ajustes_sim"), i18n.t("ajustes_nao")]
+        self.OptionMenu5.configure(values=valores_luz)
+        
+        valores_resolucao = [i18n.t("ajustes_res"), "1080p", "720p", "360p"]
+        self.OptionMenu1.configure(values=valores_resolucao)
+        
+        valores_fps = ["FPS", "120 fps", "60 fps", "30 fps"]
+        self.OptionMenu3.configure(values=valores_fps)
+        
+        # Valores para Idiomas - traduzidos
+        valores_idiomas = [
+            i18n.t("ajustes_idiomas1"),  
+            i18n.t("ajustes_idiomas2"),  
+            i18n.t("ajustes_idiomas3")   
+        ]
+        self.OptionMenu2.configure(values=valores_idiomas)
+
+    def ao_mudar_idioma(self, nome_idioma_selecionado):
+
+        codigo_idioma = self.obter_codigo_idioma(nome_idioma_selecionado)
+        
+        print(f"Mudando idioma via ajustes: {nome_idioma_selecionado} -> {codigo_idioma}")
+        
+        self.controller.mudar_idioma_manual(codigo_idioma)
+        
+        self.salvar_config_camera()
+
     def atualizar_idioma(self):
         self.titulo.configure(text=i18n.t("titulo_ajustes"))
         
@@ -157,15 +223,46 @@ class ajustes(CTkFrame):
         self.label_lingua.configure(text=i18n.t("ajuste_lingua"))
         self.label_termos.configure(text=i18n.t("ajuste_termos"))
         
-        print(f"✓ Página ajustes atualizada para idioma: {i18n.idioma_atual}")
+        self.atualizar_option_menus()
+        
+        idioma_atual_nome = self.obter_nome_idioma_atual()
+        self.OptionMenu2.set(idioma_atual_nome)
+        
+        print(f"Página ajustes atualizada para idioma: {i18n.idioma_atual}")
 
-    def salvar_config(self, _=None):
-        salvar_ajustes(
-            self.OptionMenu1.get(),
-            self.OptionMenu2.get(),
-            self.OptionMenu3.get(),
-            self.OptionMenu5.get(),
-        )
+    def salvar_config_camera(self, _=None):
+        import json
+        import os
+        
+        resolucao = self.OptionMenu1.get()
+        fps = self.OptionMenu3.get()
+        luz = self.OptionMenu5.get()
+        
+        idioma_nome = self.OptionMenu2.get()
+        
+        salvar_ajustes(resolucao, idioma_nome, fps, luz)
+        
+        try:
+            config_path = "config/preferencias.json"
+            os.makedirs(os.path.dirname(config_path), exist_ok=True)
+            
+            if os.path.exists(config_path):
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+            else:
+                config = {}
+            
+            config['resolucao'] = resolucao
+            config['fps'] = fps
+            config['luz_camera'] = luz
+            
+            with open(config_path, 'w', encoding='utf-8') as f:
+                json.dump(config, f, indent=4, ensure_ascii=False)
+            
+            print(f"Configurações de câmera salvas: Resolução={resolucao}, FPS={fps}, Luz={luz}")
+            
+        except Exception as e:
+            print(f"Erro ao salvar configurações no JSON: {e}")
 
     def atualizar_info_label(self):
         pass

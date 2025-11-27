@@ -99,7 +99,7 @@ class App(CTk):
                     config = json.load(f)
                     idioma_salvo = config.get('idioma')
                     
-                    if idioma_salvo and idioma_salvo in ['pt', 'en', 'es']:
+                    if idioma_salvo and idioma_salvo in ['pt', 'en', 'es', 'ar']:
                         i18n.mudar_idioma(idioma_salvo)
                         print(f"Idioma carregado das preferências: {idioma_salvo}")
                         return
@@ -120,7 +120,7 @@ class App(CTk):
             if idioma_sistema:
                 codigo = idioma_sistema[:2].lower()
                 
-                if codigo in ["pt", "en", "es"]:
+                if codigo in ["pt", "en", "es", "ar"]:
                     return codigo
             
             return "pt"
@@ -196,7 +196,7 @@ class App(CTk):
                 pass
 
     def mudar_idioma_manual(self, codigo_idioma):
-        if codigo_idioma in ['pt', 'en', 'es']:
+        if codigo_idioma in ['pt', 'en', 'es', 'ar']:
             i18n.mudar_idioma(codigo_idioma)
             self.salvar_preferencia_idioma(codigo_idioma)
             print(f"Idioma alterado para: {codigo_idioma}")

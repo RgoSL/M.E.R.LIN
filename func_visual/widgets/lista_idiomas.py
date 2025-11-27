@@ -6,6 +6,7 @@ idiomas = { # Idiomas Está Ligado as Chaves do Dicionário na Classe i18
     "pt": "pt", 
     "en": "en",
     "es": "es",
+    "ar": "ar",
 }
 
 pares_disponiveis = [
@@ -15,6 +16,12 @@ pares_disponiveis = [
     ("es", "pt"),
     ("en", "es"),
     ("es", "en"),
+    ("ar", "en"),
+    ("en", "ar"),
+    ("ar", "pt"),
+    ("pt", "ar"),
+    ("es", "ar"),
+    ("ar", "es"),
 ]
 
 # Função Para Criar a Lista Exibida na Tela de Idiomas
@@ -25,7 +32,8 @@ def criar_lista_idiomas(frame, idiomas_dict, callback, padding_y=10):
     nomes_idiomas = {
         "pt": "portugues",
         "en": "ingles",
-        "es": "espanhol"
+        "es": "espanhol",
+        "ar": "arabe"
     }
     
     for codigo in idiomas_dict.keys():

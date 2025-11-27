@@ -1,12 +1,13 @@
 import os
 import tkinter.font as tkfont
-
 from customtkinter import *
+
 from func_visual.funcs_imgs.imagem import adicionar_imagem_texto
 from func_visual.modos.ui_mode import alternar_modo
 from func_visual.widgets.header import nav
 from func_visual.widgets.progress import progress_bar
 from func_visual.widgets.i18n import i18n
+
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 class modo_claro_escuro(CTkFrame):
@@ -24,34 +25,10 @@ class modo_claro_escuro(CTkFrame):
         self.titulo_label = CTkLabel(self, text="", anchor="center")
         self.titulo_label.place(relx=0.5, rely=0.2, anchor="center")
 
-        self.label_claro = None
-        self.label_escuro = None
-
-        self.btn_claro = adicionar_imagem_texto(
-            self,
-            caminho_img_dark="assets/ImgsConfig/temaClaroEscuro.png",
-            caminho_img_light="assets/ImgsConfig/TemaClaroImg.png",
-            cor="transparent",
-            tamanho=150,
-            espacamento=20,
-            texto=i18n.t("tema_claro"),
-            cor_texto="#654E82",
-            comando=self.trocar_modo,
-        )
-        self.btn_claro.place(relx=0.2, rely=0.5, anchor=CENTER)
-
-        self.btn_escuro = adicionar_imagem_texto(
-            self,
-            caminho_img_dark="assets/ImgsConfig/temaEscuroEscuro.png",
-            caminho_img_light="assets/ImgsConfig/TemaEscuroImg.png",
-            cor="transparent",
-            tamanho=150,
-            espacamento=20,
-            texto=i18n.t("tema_escuro"),
-            cor_texto="#654E82",
-            comando=self.trocar_modo,
-        )
-        self.btn_escuro.place(relx=0.8, rely=0.5, anchor=CENTER)
+        self.btn_claro = None
+        self.btn_escuro = None
+        
+        self.criar_botoes_tema()
 
         self.barra = progress_bar(
             self, cor_progresso="#C58ADE", modo="determinate", valor=0.8
@@ -90,6 +67,38 @@ class modo_claro_escuro(CTkFrame):
 
         self.criar_titulo_imagem()
 
+    def criar_botoes_tema(self):
+        if self.btn_claro:
+            self.btn_claro.destroy()
+        if self.btn_escuro:
+            self.btn_escuro.destroy()
+        
+        self.btn_claro = adicionar_imagem_texto(
+            self,
+            caminho_img_dark="assets/ImgsConfig/temaClaroEscuro.png",
+            caminho_img_light="assets/ImgsConfig/TemaClaroImg.png",
+            cor="transparent",
+            tamanho=150,
+            espacamento=20,
+            texto=i18n.t("tema_claro"),
+            cor_texto="#654E82",
+            comando=self.trocar_modo,
+        )
+        self.btn_claro.place(relx=0.2, rely=0.5, anchor=CENTER)
+
+        self.btn_escuro = adicionar_imagem_texto(
+            self,
+            caminho_img_dark="assets/ImgsConfig/temaEscuroEscuro.png",
+            caminho_img_light="assets/ImgsConfig/TemaEscuroImg.png",
+            cor="transparent",
+            tamanho=150,
+            espacamento=20,
+            texto=i18n.t("tema_escuro"),
+            cor_texto="#654E82",
+            comando=self.trocar_modo,
+        )
+        self.btn_escuro.place(relx=0.8, rely=0.5, anchor=CENTER)
+
     def criar_titulo_imagem(self):
         texto = i18n.t("titulo_temas")
         
@@ -108,15 +117,15 @@ class modo_claro_escuro(CTkFrame):
 
         img_tk = ImageTk.PhotoImage(img)
         self.titulo_label.configure(image=img_tk)
-        self.titulo_label.image = img_tk 
+        self.titulo_label.image = img_tk  
 
     def atualizar_idioma(self):
-
         self.criar_titulo_imagem()
         
         self.btn_voltar.configure(text=i18n.t("voltar"))
         self.btn_avancar.configure(text=i18n.t("avancar"))
         
+        self.criar_botoes_tema()
         
         print(f"Página modo_claro_escuro atualizada para idioma: {i18n.idioma_atual}")
 

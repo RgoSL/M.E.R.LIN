@@ -148,7 +148,8 @@ class idioma_software(CTkFrame):
         nomes_idiomas = {
             "pt": "portugues",
             "en": "ingles",
-            "es": "espanhol"
+            "es": "espanhol",
+            "ar": "arabe"
         }
         
         for codigo, label in self.labels_idiomas:

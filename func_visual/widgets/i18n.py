@@ -37,6 +37,13 @@ class I18nManager:
                 "ajuste_camera": "Câmera",
                 "ajuste_lingua": "Língua",
                 "ajuste_termos": "Termos de Uso",
+                "ajustes_res": "Exibição",
+                "ajustes_cam": "Luz da Câmera",
+                "ajustes_idiomas1": "Português ",
+                "ajustes_idiomas2": "Inglês",
+                "ajustes_idiomas3": "Espanhol",
+                "ajustes_sim": "Sim",
+                "ajustes_nao": "Não",
                 
                 # Chave do Texto na Tela de Termos de Uso
                 "texto_termos": "Ao utilizar o M.E.R.LIN, você concorda com os seguintes termos e condições. "
@@ -96,6 +103,13 @@ class I18nManager:
                 "ajuste_camera": "Camera",
                 "ajuste_lingua": "Language",
                 "ajuste_termos": "Use Terms",
+                "ajustes_res": "Exibition",
+                "ajustes_cam": "Camera Light",
+                "ajustes_idiomas1": "Portuguese ",
+                "ajustes_idiomas2": "English",
+                "ajustes_idiomas3": "Spanish ",
+                "ajustes_sim": "Yes",
+                "ajustes_nao": "No",
                 
                 # Chave do Texto na Tela de Termos de Uso
                 "texto_termos": "By using M.E.R.LIN, you agree to the following terms and conditions. "
@@ -155,6 +169,13 @@ class I18nManager:
                 "ajuste_camera": "Cámara",
                 "ajuste_lingua": "Idioma",
                 "ajuste_termos": "Términos de Uso",
+                "ajustes_res": "Mostrar",
+                "ajustes_cam": "Luz de la Cámara",
+                "ajustes_idiomas1": "Portugués",
+                "ajustes_idiomas2": "Inglés",
+                "ajustes_idiomas3": "Español",
+                "ajustes_sim": "Si",
+                "ajustes_nao": "No",
                 
                 # Chave do Texto na Tela de Termos de Uso
                 "texto_termos": "Al utilizar M.E.R.LIN, usted acepta los siguientes términos y condiciones. "
@@ -184,6 +205,71 @@ class I18nManager:
                 "portugues": "Portugués",
                 "ingles": "Inglés",
                 "espanhol": "Español",
+            },
+            "ar": {   # Dicionário em Português Brasileiro
+            
+            # Chaves Para Trocar os Títulos de Cada Tela
+            "titulo_idiomas": "كل السحر يبدأ بالكلمات الصحيحة",
+            "idioma_software": "لغة البرنامج:",
+            "titulo_impressao": "مرحبًا بك في M.E.R.LIN",
+            "titulo_temas": "الأناقة قوة. ما هو أسلوبك؟",
+            "titulo_sos": "اختر أساس تعويذاتك",
+            "titulo_config": "اختر كيفية استعدادك",
+            "titulo_termos": "قواعدنا",
+            "titulo_inicial": "تعويذاتك",
+            "titulo_ajustes": "الإعدادات",
+    
+            # Chaves Para Trocar os Subtítulos de Cada Tela
+            "subtitulo_impressao": "تهيئة القوة",
+            "subtitulo_config": "نوع الإعداد",
+    
+            # Chaves Para Trocar as Opções da Tela de Modo de Configuração
+            "config_rpd": "سريع",
+            "config_per": "مخصص",
+    
+            # Chaves Para Trocar as Opções do AlertCTK na Tela de Modo de Configuração
+            "alerta": "انتباه!",
+            "mensagem_alerta": "يرجى اختيار أحد الخيارات",
+    
+            # Chaves Para Trocar os Textos Presentes na Tela de Ajustes
+            "ajuste_camera": "الكاميرا",
+            "ajuste_lingua": "اللغة",
+            "ajuste_termos": "شروط الاستخدام",
+            "ajustes_res": "إظهار",
+            "ajustes_cam": "إضاءة الكاميرا",
+            "ajustes_idiomas1": "البرتغالية",
+            "ajustes_idiomas2": "الإنجليزية",
+            "ajustes_idiomas3": "الإسبانية",
+    
+            # Chave do Texto na Tela de Termos de Uso
+            "texto_termos": 
+                "باستخدامك M.E.R.LIN، فإنك توافق على الشروط والأحكام التالية. "
+                "تم تصميم خدمتنا لتحسين سهولة الاستخدام والتفاعل من خلال خصائص "
+                "الكاميرا، مع احترام خصوصيتك وسلامتك. من المهم أن تكون على علم بأننا "
+                "نجمع بيانات الفيديو فقط لغرض توفير وظائف الخدمة، وذلك بشفافية كاملة "
+                "والتزام بأنظمة الخصوصية.",
+    
+            # Chave Para Trocar o Nome de Cada Tema 
+            "tema_claro": "الوضع الفاتح",
+            "tema_escuro": "الوضع الداكن",
+    
+            # Chaves Para Trocar o Nome Dos Pacotes
+            "pacote1": "الحزمة 1",
+            "pacote2": "الحزمة 2",
+            "pacote3": "الحزمة 3",
+            "pacote4": "الحزمة 4",
+            "pacote5": "الحزمة 5",
+    
+            # Chaves Para Trocar os Botões
+            "voltar": "رجوع",
+            "avancar": "التالي",
+            "iniciar":"بدء",
+            "finalizar": "إنهاء",
+    
+            # Chaves Para Trocar o Nome Dos Idiomas
+            "portugues": "البرتغالية",
+            "ingles": "الإنجليزية",
+            "espanhol": "الإسبانية",
             }
         }
     
