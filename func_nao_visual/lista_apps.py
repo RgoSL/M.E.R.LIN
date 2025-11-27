@@ -4,15 +4,16 @@ import time
 
 from customtkinter import *
 from scripts.windows.buscar_apps import *
-from func_nao_visual.tecladoCtk import *
-from func_nao_visual.teclado_open import *
+from func_nao_visual.tecladoCtk import TecladoVarreduraTab
 from func_visual.modos.sistema_cores import cores
+from eye_tracking.track_central import gerenciador, eye_aspect_ratio
 
 class AppList(CTkFrame):
     def __init__(self, master, apps):
         super().__init__(master, fg_color="transparent")
         
         self.cores = cores()
+        self.cliente_id = f"applist_{id(self)}"
         
         self.apps = apps
         self.filtered_apps = apps
@@ -23,11 +24,29 @@ class AppList(CTkFrame):
 
         self.itens_navegaveis = []
         self.index_atual = 0
-        self.janela = None
+        self.janela_teclado = None
 
-        self.criar_barra_superior()
+        self.cooldown_tab = 0.4
+        self.cooldown_enter = 0.4
+        self.ultimo_tab = 0
+        self.ultimo_enter = 0
+        self.both_closed_start = None
+        self.right_closed_start = None
         
+        self.LEFT_EYE = [33, 160, 158, 133, 153, 144]
+        self.RIGHT_EYE = [362, 385, 387, 263, 373, 380]
+        
+        self.criar_barra_superior()
         self.criar_lista_apps()
+
+        self.bind("<FocusIn>", self._on_focus_in, add="+")
+        self.bind("<FocusOut>", self._on_focus_out, add="+")
+        
+        gerenciador.registrar_cliente(
+            self.cliente_id,
+            self._processar_deteccao,
+            ativo=False
+        )
 
     def criar_barra_superior(self):
         top_frame = CTkFrame(self, fg_color=self.cores["fundo_frame"])
@@ -71,6 +90,59 @@ class AppList(CTkFrame):
 
         self.populate_list()
 
+    def _processar_deteccao(self, resultado):
+        landmarks = resultado.get("landmarks")
+        if not landmarks:
+            self.both_closed_start = None
+            self.right_closed_start = None
+            return
+
+        w = resultado["width"]
+        h = resultado["height"]
+        now = time.time()
+
+        # Calcula EAR
+        left_ear = eye_aspect_ratio(landmarks, self.LEFT_EYE, w, h)
+        right_ear = eye_aspect_ratio(landmarks, self.RIGHT_EYE, w, h)
+
+        both_closed = (
+            right_ear < 0.20 and left_ear < 0.20
+        )
+
+        # Com os Dois Olhos Fechados dá Tab
+        if both_closed:
+            if self.both_closed_start is None:
+                self.both_closed_start = now
+            elif now - self.both_closed_start >= 0.25:
+                if now - self.ultimo_tab >= self.cooldown_tab:
+                    self.after(0, self._navegar)
+                    self.ultimo_tab = now
+                    self.both_closed_start = None
+        else:
+            self.both_closed_start = None
+
+        # Com o Olho Direito Fechado ele dá Enter
+        if right_ear < 0.20 and left_ear >= 0.20:
+            if self.right_closed_start is None:
+                self.right_closed_start = now
+            elif now - self.right_closed_start >= 0.50:
+                if now - self.ultimo_enter >= self.cooldown_enter:
+                    self.after(0, self._ativar)
+                    self.ultimo_enter = now
+                    self.right_closed_start = None
+        else:
+            self.right_closed_start = None
+
+    def _on_focus_in(self, event=None):
+        # O Foco Deve Estar no Frame e não no Input Para Ativar
+        if event is None or event.widget != self.search_entry:
+            gerenciador.ativar_cliente(self.cliente_id)
+            print(f"AppList em foco")
+
+    def _on_focus_out(self, event=None):
+        gerenciador.desativar_cliente(self.cliente_id)
+        print(f"AppList sem foco")
+
     def atualizar_tema(self):
         self.cores = cores()
         
@@ -95,8 +167,6 @@ class AppList(CTkFrame):
         )
         
         self.populate_list()
-        
-        print(f"✓ Lista de apps atualizada para tema: {get_appearance_mode()}")
 
     def _focar_campo_pesquisa(self, event=None):
         try:
@@ -113,32 +183,29 @@ class AppList(CTkFrame):
         elif self.ultimo_widget_focado is not None:
             widget_dest = self.ultimo_widget_focado
 
-        if self.janela is None or not self.janela.winfo_exists():
-            self.janela = TecladoVarreduraTab()
+        if self.janela_teclado is None or not self.janela_teclado.winfo_exists():
+            self.janela_teclado = TecladoVarreduraTab()
 
             if widget_dest is not None:
                 try:
-                    self.janela.widget_destino = widget_dest
+                    self.janela_teclado.widget_destino = widget_dest
                 except Exception as e:
-                    print("Erro ao setar widget_destino no teclado:", e)
+                    print(f"Erro ao setar widget destino: {e}")
 
-            self.janela.protocol("WM_DELETE_WINDOW", self.fechar_janela)
-            self.janela.mainloop()
+            self.janela_teclado.protocol("WM_DELETE_WINDOW", self.fechar_teclado)
         else:
             if widget_dest is not None:
                 try:
-                    self.janela.widget_destino = widget_dest
-                except Exception as e:
-                    print("Erro ao atualizar widget_destino no teclado:", e)
+                    self.janela_teclado.widget_destino = widget_dest
+                except Exception:
+                    pass
             try:
-                self.janela.focus_force()
+                self.janela_teclado.focus_force()
             except Exception:
                 pass
-            print("Teclado já está aberto.")
 
-    def fechar_janela(self):
-        self.janela = None
-        print("Teclado fechado.")
+    def fechar_teclado(self):
+        self.janela_teclado = None
 
     def populate_list(self):
         for widget in self.scroll_frame.winfo_children():
@@ -148,15 +215,15 @@ class AppList(CTkFrame):
 
         for idx, app in enumerate(self.filtered_apps):
             app_frame = CTkFrame(
-                self.scroll_frame, 
+                self.scroll_frame,
                 fg_color=self.cores["fundo_card"],
                 corner_radius=10
             )
             app_frame.pack(fill="x", pady=5, padx=5)
 
             label = CTkLabel(
-                app_frame, 
-                text=app["name"], 
+                app_frame,
+                text=app["name"],
                 anchor="w",
                 text_color=self.cores["texto_principal"]
             )
@@ -184,22 +251,25 @@ class AppList(CTkFrame):
             )
             open_button.pack(side="right", padx=5)
 
-            self.itens_navegaveis.append(
-                {
-                    "frame": app_frame,
-                    "callback": self.criar_open_callback(app["command"]),
-                }
-            )
+            self.itens_navegaveis.append({
+                "frame": app_frame,
+                "callback": self.criar_open_callback(app["command"]),
+            })
 
-        self._destacar_item(0)
+        if self.itens_navegaveis:
+            self._destacar_item(0)
 
     def _destacar_item(self, index):
         for i, item in enumerate(self.itens_navegaveis):
             if i == index:
                 item["frame"].configure(
-                    border_width=2, 
+                    border_width=2,
                     border_color=self.cores["borda_destaque"]
                 )
+                try:
+                    item["frame"].tkraise()
+                except:
+                    pass
             else:
                 item["frame"].configure(border_width=0)
 
@@ -266,9 +336,13 @@ class AppList(CTkFrame):
         return lambda: self.open_app(command)
 
     def ativar_teclado(self, event=None):
-        if hasattr(self, "teclado") and self.teclado.winfo_exists():
-            self.teclado.destroy()
+        pass
 
+    def __del__(self):
+        try:
+            gerenciador.remover_cliente(self.cliente_id)
+        except:
+            pass
 
 def carregar_apps_em_thread(master):
     def run():
@@ -280,10 +354,10 @@ def carregar_apps_em_thread(master):
 
     threading.Thread(target=run, daemon=True).start()
 
-def abrir_lista_apps(master, apps):
 
+def abrir_lista_apps(master, apps):
     ListaApps = CTkToplevel(master)
-    ListaApps.geometry("400x600+100+100")
+    ListaApps.geometry("400+600+100+100")
     ListaApps.title("Lista de Aplicativos - M.E.R.LIN")
     ListaApps.wm_attributes("-topmost", True)
     
@@ -292,6 +366,9 @@ def abrir_lista_apps(master, apps):
     
     app_list = AppList(ListaApps, apps)
     app_list.pack(fill="both", expand=True, padx=10, pady=10)
+    
     ListaApps.bind("<Tab>", lambda e: app_list._navegar())
     ListaApps.bind("<Return>", lambda e: app_list._ativar())
+    
     ListaApps.after(50, ListaApps.focus_force)
+    ListaApps.after(100, lambda: app_list.focus_set())
