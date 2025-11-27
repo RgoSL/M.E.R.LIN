@@ -143,9 +143,8 @@ class modo_claro_escuro(CTkFrame):
 
     def trocar_modo(self):
         alternar_modo()
-
         modo_atual = get_appearance_mode()
-        self.cor_fundo = "#FFFFFF" if modo_atual == "Light" else "#2B2B2B"
-        self.configure(fg_color=self.cor_fundo)
-
+        tema = "light" if modo_atual == "Light" else "dark"
+        self.controller.salvar_preferencia_tema(tema)
         self.controller.atualizar_tema()
+        print(f"Tema alterado para: {tema}")

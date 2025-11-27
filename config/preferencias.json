@@ -1,7 +1,8 @@
 {
-    "idioma": "pt",
+    "idioma": "es",
     "resolucao": "1080p",
     "idioma_menu": "Espanhol",
     "fps": "60 fps",
-    "luz_camera": "Não"
+    "luz_camera": "Não",
+    "tema": "light"
 }

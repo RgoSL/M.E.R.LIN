@@ -27,7 +27,7 @@ class CoresTema:
         if modo == "Light": # Dicionário do Tema Claro
             return {
                 # Fundos
-                "fundo_principal": "#F5F5F5",      # Cinza Claro
+                "fundo_principal": "#FFFFFF",      # Cinza Claro
                 "fundo_secundario": "#FFFFFF",     # Branco
                 "fundo_frame": "#E8E8E8",          # Cinza Mais Claro
                 "fundo_card": "#FAFAFA",           # Branco OffWhite
