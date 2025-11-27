@@ -4,43 +4,48 @@ import threading
 from customtkinter import *
 from PIL import Image
 
-# Métodos Específicos da Biblioteca os Para Proibir Logs no Terminal
+# Métodos Específicos Para Bloquear Logs
 os.environ["GLOG_minloglevel"] = "3"
 os.environ["ABSL_LOGGING"] = "0"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 import time
-import cv2
-import mediapipe as mp
 
+# Imports Das Funcionalidades Presentes na Dock
 from func_nao_visual.comandos_dock import btns
 from func_nao_visual.lista_apps import (abrir_lista_apps, carregar_apps_em_thread)
 from func_visual.modos.sistema_cores import cores
+from eye_tracking.track_central import gerenciador, calcular_posicao_nariz
 
 class Dock(CTkToplevel):
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
-
-        # Obtém cores do tema atual
         self.cores = cores()
 
-        # Instâncias Para Forçar o Foco na Dock
+        # Definindo o ID de Cliente da Dock
+        self.cliente_id = "dock"
+
+        # Confirmar e Força o Foco
         self.after(50, self.focus_force)
         self.after(100, self.lift)
         self.after(120, lambda: self.attributes("-topmost", True))
 
-        # Propriedades de Atraso Para Evitar Muitas Ativações
+        # Atrasos nos Tempos de Execução em Relação ao Detectar
         self.cooldown_tab = 0.6
         self.cooldown_enter = 0.6
         self.ultimo_tab = 0
         self.ultimo_enter = 0
 
-        # Lista dos Botões da Dock a Serem Percorridos
+        # Debugs
+        self.tempo_direita = 0
+        self.tempo_esquerda = 0
+
+        # Botões
         self.botoes_dock = []
         self.botao_selecionado = 0
 
-        # Estilização do Foco Inicial
+        # Estilização
         self.overrideredirect(True)
         self.attributes("-topmost", True)
         self.wm_attributes("-transparentcolor", self.cores["transparente"])
@@ -66,7 +71,55 @@ class Dock(CTkToplevel):
         )
         self.Frame.pack(fill="both", expand=True)
 
-        # Definição do Formato dos Botões da Dock
+        # Método Para Criar os Botões
+        self._criar_botoes()
+
+        # Navegação
+        def atualizar_selecao():
+            for i, botao in enumerate(self.botoes_dock):
+                if i == self.botao_selecionado:
+                    botao.configure(
+                        border_width=2,
+                        border_color=self.cores["borda_destaque"]
+                    )
+                else:
+                    botao.configure(border_width=0)
+
+        def navegar(event=None):
+            self.botao_selecionado = (self.botao_selecionado + 1) % len(
+                self.botoes_dock
+            )
+            atualizar_selecao()
+            return "break"
+
+        def ativar(event=None):
+            botao = self.botoes_dock[self.botao_selecionado]
+            botao.invoke()
+            return "break"
+
+        atualizar_selecao()
+
+        self.bind("<Tab>", navegar)
+        self.bind("<Return>", ativar)
+        self.bind("<FocusIn>", self._on_focus_in)
+        self.bind("<FocusOut>", self._on_focus_out)
+        self.focus_set()
+
+        self.func_navegar = navegar
+        self.func_ativar = ativar
+        self.func_atualizar_selecao = atualizar_selecao
+
+        # Registro da Dock Como um Cliente
+        gerenciador.registrar_cliente(
+            self.cliente_id,
+            self._processar_deteccao,
+            ativo=True
+        )
+
+        self.protocol("WM_DELETE_WINDOW", self._on_closing)
+
+    def _criar_botoes(self):
+        # Cria o Padrão Dos Botões da Dock
         def btns_dock(caminho, command=None):
             Btn = Image.open(caminho)
             Btn = Btn.resize((150, 120))
@@ -89,169 +142,89 @@ class Dock(CTkToplevel):
             self.botoes_dock.append(Bot)
             return Bot
 
-        # Botões Presentes na Dock
-        btns_dock(
-            "assets/ImgsDock/LApps.png", 
-            command=lambda: carregar_apps_em_thread(self)
-        )
-        
-        btns_dock(
-            "assets/ImgsDock/pacotes.png",
-            command=lambda: btns.Btn_Pacotes(self.controller)
-        )
-        
-        btns_dock(
-            "assets/ImgsDock/navegador.png",
-            command=lambda: btns.Btn_Navegador()
-        )
-        
-        btns_dock(
-            "assets/ImgsDock/teclado.png", 
-            command=lambda: btns.Btn_Teclado(self)
-        )
-    
-        btns_dock(
-            "assets/ImgsDock/ajustes.png",
-            command=lambda: btns.Btn_Ajustar(self.controller, "ajustes") 
-        )
+        btns_dock("assets/ImgsDock/LApps.png",
+                 command=lambda: carregar_apps_em_thread(self))
+        btns_dock("assets/ImgsDock/pacotes.png",
+                 command=lambda: btns.Btn_Pacotes(self.controller))
+        btns_dock("assets/ImgsDock/navegador.png",
+                 command=lambda: btns.Btn_Navegador())
+        btns_dock("assets/ImgsDock/teclado.png",
+                 command=lambda: btns.Btn_Teclado(self))
+        btns_dock("assets/ImgsDock/ajustes.png",
+                 command=lambda: btns.Btn_Ajustar(self.controller, "ajustes"))
+        btns_dock("assets/ImgsDock/Fechar.png",
+                 command=lambda: btns.Btn_Fechar(self))
 
-        btns_dock(
-            "assets/ImgsDock/Fechar.png", 
-            command=lambda: btns.Btn_Fechar(self)
-        )
+    def _processar_deteccao(self, resultado):
+        # Chamada da Função da Classe Central de Detecção
+        landmarks = resultado.get("landmarks")
+        if not landmarks:
+            return
 
-        # Função Para Aplicar Borda no Botão Selecionado
-        def atualizar_selecao():
-            for i, botao in enumerate(self.botoes_dock):
-                if i == self.botao_selecionado:
-                    botao.configure(
-                        border_width=2, 
-                        border_color=self.cores["borda_destaque"]
-                    )
-                else:
-                    botao.configure(border_width=0)
+        w = resultado["width"]
+        h = resultado["height"]
+        agora = time.time()
 
-        atualizar_selecao()
+        # Cálculo da Posição em que Estamos Olhando
+        nariz_x = calcular_posicao_nariz(landmarks, w, h)
 
-        # Função de Seleção dos Botões
-        def navegar(event=None):
-            self.botao_selecionado = (self.botao_selecionado + 1) % len(
-                self.botoes_dock
-            )
-            atualizar_selecao()
-            return "break"
+        # Detecção do Nariz Para o Lado Direito
+        if nariz_x >= 0.50:
+            self.tempo_direita += 1
+            self.tempo_esquerda = 0
+        # Detecção do Nariz Para o Lado Esquerdo
+        elif nariz_x <= 0.38:
+            self.tempo_esquerda += 1
+            self.tempo_direita = 0
+        # Centro - reseta contadores
+        else:
+            # Ativação do Tab Para Seleção
+            if (self.tempo_direita > 6 and
+                (agora - self.ultimo_tab) > self.cooldown_tab):
+                
+                if self.focus_displayof() == self:
+                    self.after(0, self.func_navegar)
+                self.after(50, self.focus_force)
+                self.ultimo_tab = agora
+                
+            # Ativação do Enter Para Execução
+            elif (self.tempo_esquerda > 6 and
+                  (agora - self.ultimo_enter) > self.cooldown_enter):
+                
+                if self.focus_displayof() == self:
+                    self.after(0, self.func_ativar)
+                self.after(50, self.focus_force)
+                self.ultimo_enter = agora
 
-        # Função Para Ativar o Botão Selecionado
-        def ativar(event=None):
-            botao = self.botoes_dock[self.botao_selecionado]
-            botao.invoke()
-            return "break"
+            self.tempo_direita = 0
+            self.tempo_esquerda = 0
 
-        # Atribuição das Funções às Teclas
-        self.bind("<Tab>", navegar)
-        self.bind("<Return>", ativar)
-        self.focus_set()
+    def _on_focus_in(self, event=None):
+        # Detecção Ativada na Hora do Foco
+        gerenciador.ativar_cliente(self.cliente_id)
+        print(f"🎯 Dock em foco")
 
-        # Funções Usadas Como Gatilho dos Comandos
-        self.func_navegar = navegar
-        self.func_ativar = ativar
-        self.func_atualizar_selecao = atualizar_selecao
-
-        # Instância das Threads Para uma Função
-        self.executando_visao = True
-        threading.Thread(target=self._controle_olhos, daemon=True).start()
+    def _on_focus_out(self, event=None):
+        # Detecção Desativada Quando não Houver Foco
+        gerenciador.desativar_cliente(self.cliente_id)
+        print(f"Dock sem foco")
 
     def atualizar_tema(self):
         self.cores = cores()
-        
         self.wm_attributes("-transparentcolor", self.cores["transparente"])
-        
         self.Frame.configure(
             fg_color=self.cores["fundo_frame"],
             border_color=self.cores["borda_destaque"]
         )
-        
         for botao in self.botoes_dock:
             botao.configure(
                 fg_color=self.cores["botao_normal"],
                 hover_color=self.cores["hover"]
             )
-        
         self.func_atualizar_selecao()
-        
-        print(f"✓ Dock atualizada para tema: {get_appearance_mode()}")
+        print(f"Dock atualizada para tema: {get_appearance_mode()}")
 
-    def _controle_olhos(self):
-        print("[INFO] Iniciando reconhecimento ocular...")
-
-        mp_face = mp.solutions.face_mesh.FaceMesh(
-            max_num_faces=1,
-            refine_landmarks=False,
-            static_image_mode=False,
-            min_detection_confidence=0.5,
-            min_tracking_confidence=0.5,
-        )
-
-        cam = cv2.VideoCapture(0)
-        if not cam.isOpened():
-            print("[ERRO] Não foi possível acessar a câmera!")
-            return
-
-        tempo_direita = 0
-        tempo_esquerda = 0
-
-        while self.executando_visao:
-            ok, frame = cam.read()
-            if not ok:
-                print("[ERRO] Falha ao ler frame da câmera.")
-                continue
-
-            h, w, _ = frame.shape
-            rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            result = mp_face.process(rgb)
-            agora = time.time()
-
-            if result.multi_face_landmarks:
-                face = result.multi_face_landmarks[0].landmark
-                nariz_x = face[1].x
-
-                if nariz_x >= 0.50:
-                    tempo_direita += 1
-                else:
-                    if (
-                        tempo_direita > 6
-                        and (agora - self.ultimo_tab) > self.cooldown_tab
-                    ):
-                        print("[EVENTO] TAB disparado (olhar para DIREITA).")
-                        self.ultimo_tab = agora
-
-                        if self.focus_displayof() == self:
-                            self.after(0, self.func_navegar)
-                        self.after(50, self.focus_force)
-
-                    tempo_direita = 0
-
-                if nariz_x <= 0.38:
-                    tempo_esquerda += 1
-                else:
-                    if (
-                        tempo_esquerda > 6
-                        and (agora - self.ultimo_enter) > self.cooldown_enter
-                    ):
-                        print("[EVENTO] ENTER disparado (olhar para ESQUERDA).")
-                        self.ultimo_enter = agora
-
-                        if self.focus_displayof() == self:
-                            self.after(0, self.func_ativar)
-                        self.after(50, self.focus_force)
-
-                    tempo_esquerda = 0
-
-            cv2.imshow("Debug Olhos", frame)
-            if cv2.waitKey(1) & 0xFF == 27:
-                break
-
-            time.sleep(0.04)
-
-        cam.release()
-        cv2.destroyAllWindows()
+    def _on_closing(self):
+        # Remove a Dock Dos Clientes Salvos ao Fechar
+        gerenciador.remover_cliente(self.cliente_id)
+        self.destroy()
