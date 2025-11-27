@@ -1,29 +1,29 @@
 # Bibliotecas Utilizadas
-import os # Simplificação do Subprocess Sendo Utilizado Para Comandar Operações do Sistema
-import threading # Otimiza o Código Controlando o uso do Processamento do PC
-from customtkinter import * # Para Interfaces Gráficas
-from PIL import Image # Para Tratamento, Manipulação e Aplicação de Imagens
+import os
+import threading
+from customtkinter import *
+from PIL import Image
 
-# Métodos Especificos da Biblioteca os Para Proibir Logs no Terminal(Mensagens de Erro)
+# Métodos Específicos da Biblioteca os Para Proibir Logs no Terminal
 os.environ["GLOG_minloglevel"] = "3"
 os.environ["ABSL_LOGGING"] = "0"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
-# Bibliotecas Utilizadas
-import time # Controla Tempo de Duração e Ativação de Funções
-import cv2 # Import do OpenCV
-import mediapipe as mp # Import do MediaPipe Instanciado em um Objeto
+import time
+import cv2
+import mediapipe as mp
 
-# Import da Classe Das Funções Dos Botões na Dock
 from func_nao_visual.comandos_dock import btns
-
-# Import Dos Componentes Integrados do M.E.R.LIN
 from func_nao_visual.lista_apps import (abrir_lista_apps, carregar_apps_em_thread)
+from func_visual.modos.sistema_cores import cores
 
 class Dock(CTkToplevel):
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
+
+        # Obtém cores do tema atual
+        self.cores = cores()
 
         # Instâncias Para Forçar o Foco na Dock
         self.after(50, self.focus_force)
@@ -43,8 +43,9 @@ class Dock(CTkToplevel):
         # Estilização do Foco Inicial
         self.overrideredirect(True)
         self.attributes("-topmost", True)
-        self.wm_attributes("-transparentcolor", "#654E82")
+        self.wm_attributes("-transparentcolor", self.cores["transparente"])
 
+        # Posicionamento da Dock
         altura_tela = self.winfo_screenheight()
         largura_tela = self.winfo_screenwidth()
         largura_dock = 80
@@ -54,15 +55,16 @@ class Dock(CTkToplevel):
         dock_y = altura_tela - altura_dock - offset
         self.geometry(f"{largura_dock}x{altura_dock}+{dock_x}+{dock_y}")
 
-        Frame = CTkFrame(
+        # Frame Principal
+        self.Frame = CTkFrame(
             self,
-            bg_color="#654E82",
-            fg_color="#644C81",
-            border_width=1,
-            border_color="#f9b14f",
+            bg_color=self.cores["transparente"],
+            fg_color=self.cores["fundo_frame"],
+            border_width=2,
+            border_color=self.cores["borda_destaque"],
             corner_radius=10,
         )
-        Frame.pack(fill="both", expand=True)
+        self.Frame.pack(fill="both", expand=True)
 
         # Definição do Formato dos Botões da Dock
         def btns_dock(caminho, command=None):
@@ -71,13 +73,13 @@ class Dock(CTkToplevel):
             Btn = CTkImage(light_image=Btn, dark_image=Btn)
 
             Bot = CTkButton(
-                Frame,
+                self.Frame,
                 image=Btn,
                 text="",
                 width=60,
                 height=60,
-                fg_color="#432D5D",
-                hover_color="#C58ADE",
+                fg_color=self.cores["botao_normal"],
+                hover_color=self.cores["hover"],
                 corner_radius=10,
                 command=command,
             )
@@ -88,47 +90,44 @@ class Dock(CTkToplevel):
             return Bot
 
         # Botões Presentes na Dock
-        
-        btns_dock( # Botão que Chama a Lista de Apps
+        btns_dock(
             "assets/ImgsDock/LApps.png", 
-            command=lambda: 
-                carregar_apps_em_thread(self)
-                )
+            command=lambda: carregar_apps_em_thread(self)
+        )
         
-        btns_dock( # Botão que Executa um Pacote
+        btns_dock(
             "assets/ImgsDock/pacotes.png",
-            command=lambda: 
-                btns.Btn_Pacotes(self.controller)
-                )
+            command=lambda: btns.Btn_Pacotes(self.controller)
+        )
         
-        btns_dock( # Botão que Abre o Navegador 
+        btns_dock(
             "assets/ImgsDock/navegador.png",
-            command=lambda: 
-                btns.Btn_Navegador()
-                )
+            command=lambda: btns.Btn_Navegador()
+        )
         
-        btns_dock( # Botão que Ativa o Teclado Integrado
+        btns_dock(
             "assets/ImgsDock/teclado.png", 
-            command=lambda:
-                btns.Btn_Teclado(self)
-                )
+            command=lambda: btns.Btn_Teclado(self)
+        )
     
         btns_dock(
             "assets/ImgsDock/ajustes.png",
             command=lambda: btns.Btn_Ajustar(self.controller, "ajustes") 
-                )
+        )
 
-        
-        btns_dock( # Botão que Fecha a Dock e Encerra o M.E.R.LIN
+        btns_dock(
             "assets/ImgsDock/Fechar.png", 
             command=lambda: btns.Btn_Fechar(self)
-            )
+        )
 
         # Função Para Aplicar Borda no Botão Selecionado
         def atualizar_selecao():
             for i, botao in enumerate(self.botoes_dock):
                 if i == self.botao_selecionado:
-                    botao.configure(border_width=2, border_color="#f9b14f")
+                    botao.configure(
+                        border_width=2, 
+                        border_color=self.cores["borda_destaque"]
+                    )
                 else:
                     botao.configure(border_width=0)
 
@@ -156,10 +155,31 @@ class Dock(CTkToplevel):
         # Funções Usadas Como Gatilho dos Comandos
         self.func_navegar = navegar
         self.func_ativar = ativar
+        self.func_atualizar_selecao = atualizar_selecao
 
         # Instância das Threads Para uma Função
         self.executando_visao = True
         threading.Thread(target=self._controle_olhos, daemon=True).start()
+
+    def atualizar_tema(self):
+        self.cores = cores()
+        
+        self.wm_attributes("-transparentcolor", self.cores["transparente"])
+        
+        self.Frame.configure(
+            fg_color=self.cores["fundo_frame"],
+            border_color=self.cores["borda_destaque"]
+        )
+        
+        for botao in self.botoes_dock:
+            botao.configure(
+                fg_color=self.cores["botao_normal"],
+                hover_color=self.cores["hover"]
+            )
+        
+        self.func_atualizar_selecao()
+        
+        print(f"✓ Dock atualizada para tema: {get_appearance_mode()}")
 
     def _controle_olhos(self):
         print("[INFO] Iniciando reconhecimento ocular...")
@@ -181,7 +201,6 @@ class Dock(CTkToplevel):
         tempo_esquerda = 0
 
         while self.executando_visao:
-
             ok, frame = cam.read()
             if not ok:
                 print("[ERRO] Falha ao ler frame da câmera.")
@@ -194,13 +213,10 @@ class Dock(CTkToplevel):
 
             if result.multi_face_landmarks:
                 face = result.multi_face_landmarks[0].landmark
-
                 nariz_x = face[1].x
-                print(f"[DEBUG] nariz_x: {nariz_x:.3f}")
 
                 if nariz_x >= 0.50:
                     tempo_direita += 1
-                    print(f"[DEBUG] → direita contador={tempo_direita}")
                 else:
                     if (
                         tempo_direita > 6
@@ -217,7 +233,6 @@ class Dock(CTkToplevel):
 
                 if nariz_x <= 0.38:
                     tempo_esquerda += 1
-                    print(f"[DEBUG] ← esquerda contador={tempo_esquerda}")
                 else:
                     if (
                         tempo_esquerda > 6
