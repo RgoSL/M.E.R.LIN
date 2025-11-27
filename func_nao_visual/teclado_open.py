@@ -9,6 +9,7 @@ import mediapipe as mp
 import pyautogui as py
 import pygetwindow as gw
 from customtkinter import *
+from func_visual.modos.sistema_cores import cores
 
 class TecladoVarreduraTab(CTk):
     def __init__(
@@ -23,10 +24,14 @@ class TecladoVarreduraTab(CTk):
         dock_title=None,
     ):
         super().__init__()
+        
+        self.cores = cores()
+        
         self.dock_title = dock_title
         self.title("Teclado de Varredura")
         self.resizable(False, False)
         self.attributes("-topmost", True)
+        
         self.cooldown = float(cooldown)
         self.ear_threshold = float(ear_threshold)
         self.both_eyes_time = float(both_eyes_time)
@@ -39,6 +44,7 @@ class TecladoVarreduraTab(CTk):
         self.eyes_open_start = None
         self._action_queue = queue.Queue()
         self.widget_destino = None
+        
         self.layout_completo = [
             ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Backspace"],
             ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -46,31 +52,8 @@ class TecladoVarreduraTab(CTk):
             ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "Espaço"],
         ]
 
-        self.entrada = CTkEntry(
-            self,
-            width=600,
-            height=35,
-            font=("Arial", 14),
-            text_color="#654E82",
-            fg_color="#E6C8FA",
-        )
-        self.entrada.pack(padx=10, pady=5)
-
-        botao_enviar = CTkButton(
-            self,
-            text="Digitar Texto",
-            fg_color="#432D5D",
-            hover_color="#C58ADE",
-            width=150,
-            height=40,
-            font=("Arial", 12),
-            command=self.enviar_texto,
-        )
-        botao_enviar.pack(pady=5)
-
-        self.frame_teclado = CTkFrame(self, fg_color="#654E82")
-        self.frame_teclado.pack(padx=10, pady=10)
-
+        self.criar_interface()
+        
         self.botoes = []
         self.indice_tab = 0
         self.tab_direcao = 1
@@ -87,27 +70,87 @@ class TecladoVarreduraTab(CTk):
         t.start()
 
         self.after(50, self._process_queue)
-
         self.protocol("WM_DELETE_WINDOW", self._on_closing)
+
+    def criar_interface(self):
+
+        self.entrada = CTkEntry(
+            self,
+            width=600,
+            height=35,
+            font=("Arial", 14),
+            text_color=self.cores["texto_principal"],
+            fg_color=self.cores["fundo_secundario"],
+            border_color=self.cores["borda_principal"],
+        )
+        self.entrada.pack(padx=10, pady=5)
+
+        self.botao_enviar = CTkButton(
+            self,
+            text="Digitar Texto",
+            fg_color=self.cores["botao_normal"],
+            hover_color=self.cores["hover"],
+            text_color=self.cores["texto_botao"],
+            width=150,
+            height=40,
+            font=("Arial", 12),
+            command=self.enviar_texto,
+        )
+        self.botao_enviar.pack(pady=5)
+
+        self.frame_teclado = CTkFrame(
+            self, 
+            fg_color=self.cores["fundo_frame"]
+        )
+        self.frame_teclado.pack(padx=10, pady=10)
 
     def carregar_teclas(self):
         for widget in self.frame_teclado.winfo_children():
             widget.destroy()
         self.botoes.clear()
+        
         for r_idx, linha in enumerate(self.layout_completo):
             for c_idx, tecla in enumerate(linha):
                 botao = CTkButton(
                     self.frame_teclado,
                     text=tecla,
-                    text_color="#E6C8FA",
-                    fg_color="#432D5D",
-                    hover_color="#C58ADE",
+                    text_color=self.cores["texto_botao"],
+                    fg_color=self.cores["botao_normal"],
+                    hover_color=self.cores["hover"],
                     width=50,
                     height=40,
                     command=lambda t=tecla: self.adicionar_a_entrada(t),
                 )
                 botao.grid(row=r_idx, column=c_idx, padx=2, pady=2)
                 self.botoes.append(botao)
+
+    def atualizar_tema(self):
+        self.cores = cores()
+        
+        self.entrada.configure(
+            text_color=self.cores["texto_principal"],
+            fg_color=self.cores["fundo_secundario"],
+            border_color=self.cores["borda_principal"]
+        )
+        
+        self.botao_enviar.configure(
+            fg_color=self.cores["botao_normal"],
+            hover_color=self.cores["hover"],
+            text_color=self.cores["texto_botao"]
+        )
+        
+        self.frame_teclado.configure(fg_color=self.cores["fundo_frame"])
+        
+        for botao in self.botoes:
+            botao.configure(
+                text_color=self.cores["texto_botao"],
+                fg_color=self.cores["botao_normal"],
+                hover_color=self.cores["hover"]
+            )
+        
+        self.destacar_tecla(self.indice_tab)
+        
+        print(f"✓ Teclado atualizado para tema: {get_appearance_mode()}")
 
     def tab_seguinte(self, event=None):
         try:
@@ -128,7 +171,10 @@ class TecladoVarreduraTab(CTk):
     def destacar_tecla(self, idx):
         if 0 <= idx < len(self.botoes):
             botao = self.botoes[idx]
-            botao.configure(border_width=2, border_color="#F9B14F")
+            botao.configure(
+                border_width=2, 
+                border_color=self.cores["borda_destaque"]
+            )
 
     def remover_destaque(self, idx):
         if 0 <= idx < len(self.botoes):
@@ -317,7 +363,3 @@ class TecladoVarreduraTab(CTk):
     def _on_closing(self):
         self._detector_running = False
         self.after(100, self.destroy)
-
-if __name__ == "__main__":
-    app = TecladoVarreduraTab()
-    app.mainloop()
