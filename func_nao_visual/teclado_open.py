@@ -1,15 +1,11 @@
 import math
-import queue
-import sys
-import threading
 import time
-
-import cv2
-import mediapipe as mp
 import pyautogui as py
 import pygetwindow as gw
 from customtkinter import *
+
 from func_visual.modos.sistema_cores import cores
+from eye_tracking.track_central import gerenciador, eye_aspect_ratio
 
 class TecladoVarreduraTab(CTk):
     def __init__(
@@ -20,30 +16,37 @@ class TecladoVarreduraTab(CTk):
         right_eye_time=0.50,
         close_app_time=2.0,
         surprise_open_time=0.25,
-        cam_index=0,
         dock_title=None,
     ):
         super().__init__()
         
         self.cores = cores()
+        self.cliente_id = "teclado"
         
         self.dock_title = dock_title
         self.title("Teclado de Varredura")
         self.resizable(False, False)
         self.attributes("-topmost", True)
         
+        # Configurações da Detecção
         self.cooldown = float(cooldown)
         self.ear_threshold = float(ear_threshold)
         self.both_eyes_time = float(both_eyes_time)
         self.right_eye_time = float(right_eye_time)
         self.close_app_time = float(close_app_time)
         self.surprise_open_time = float(surprise_open_time)
-        self.cam_index = cam_index
+        
+        # Estados
         self.ultimo_acao_t = 0.0
-        self._detector_running = True
         self.eyes_open_start = None
-        self._action_queue = queue.Queue()
+        self.both_closed_start = None
+        self.right_closed_start = None
+        self.close_app_start = None
+        
         self.widget_destino = None
+        
+        self.LEFT_EYE = [33, 160, 158, 133, 153, 144]
+        self.RIGHT_EYE = [362, 385, 387, 263, 373, 380]
         
         self.layout_completo = [
             ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Backspace"],
@@ -63,17 +66,21 @@ class TecladoVarreduraTab(CTk):
         self.bind("<Return>", self.confirmar_tecla)
         self.bind("<Left>", lambda e: self.mudar_direcao(-1))
         self.bind("<Right>", lambda e: self.mudar_direcao(1))
+        self.bind("<FocusIn>", self._on_focus_in)
+        self.bind("<FocusOut>", self._on_focus_out)
+        
         self.focus_force()
         self.destacar_tecla(self.indice_tab)
 
-        t = threading.Thread(target=self._detector_loop, daemon=True)
-        t.start()
+        gerenciador.registrar_cliente(
+            self.cliente_id,
+            self._processar_deteccao,
+            ativo=True
+        )
 
-        self.after(50, self._process_queue)
         self.protocol("WM_DELETE_WINDOW", self._on_closing)
 
     def criar_interface(self):
-
         self.entrada = CTkEntry(
             self,
             width=600,
@@ -99,7 +106,7 @@ class TecladoVarreduraTab(CTk):
         self.botao_enviar.pack(pady=5)
 
         self.frame_teclado = CTkFrame(
-            self, 
+            self,
             fg_color=self.cores["fundo_frame"]
         )
         self.frame_teclado.pack(padx=10, pady=10)
@@ -124,33 +131,103 @@ class TecladoVarreduraTab(CTk):
                 botao.grid(row=r_idx, column=c_idx, padx=2, pady=2)
                 self.botoes.append(botao)
 
+    def _processar_deteccao(self, resultado):
+        landmarks = resultado.get("landmarks")
+        if not landmarks:
+            # Reset nos Valores se não identificar Rostos
+            self.both_closed_start = None
+            self.right_closed_start = None
+            self.close_app_start = None
+            self.eyes_open_start = None
+            return
+
+        w = resultado["width"]
+        h = resultado["height"]
+        now = time.time()
+
+        # Calcula EAR
+        left_ear = eye_aspect_ratio(landmarks, self.LEFT_EYE, w, h)
+        right_ear = eye_aspect_ratio(landmarks, self.RIGHT_EYE, w, h)
+        ear_avg = (left_ear + right_ear) / 2
+
+        both_closed = (
+            right_ear < self.ear_threshold and left_ear < self.ear_threshold
+        )
+
+        # Muito Tempo Fechado Encerra Tudo
+        if both_closed:
+            if self.close_app_start is None:
+                self.close_app_start = now
+            elif now - self.close_app_start >= self.close_app_time:
+                self.after(0, self._on_closing)
+                return
+        else:
+            self.close_app_start = None
+
+        # Com os Olhos Fechados Ele dá Tab
+        if both_closed:
+            if self.both_closed_start is None:
+                self.both_closed_start = now
+            elif now - self.both_closed_start >= self.both_eyes_time:
+                if now - self.ultimo_acao_t >= self.cooldown:
+                    self.after(0, self.tab_seguinte)
+                    self.ultimo_acao_t = now
+                    self.both_closed_start = None
+        else:
+            self.both_closed_start = None
+
+        # Com o Olho Direito Fechado Ele dá Enter
+        if right_ear < self.ear_threshold and left_ear >= self.ear_threshold:
+            if self.right_closed_start is None:
+                self.right_closed_start = now
+            elif now - self.right_closed_start >= self.right_eye_time:
+                if now - self.ultimo_acao_t >= self.cooldown:
+                    self.after(0, self.confirmar_tecla)
+                    self.ultimo_acao_t = now
+                    self.right_closed_start = None
+        else:
+            self.right_closed_start = None
+
+        # Com os Olhos Muito Abertos Ele Digita
+        if ear_avg > 0.38:
+            if self.eyes_open_start is None:
+                self.eyes_open_start = now
+            elif now - self.eyes_open_start >= self.surprise_open_time:
+                if now - self.ultimo_acao_t >= self.cooldown:
+                    self.after(0, self.enviar_texto)
+                    self.ultimo_acao_t = now
+                    self.eyes_open_start = None
+        else:
+            self.eyes_open_start = None
+
+    def _on_focus_in(self, event=None):
+        gerenciador.ativar_cliente(self.cliente_id)
+        print(f"Teclado em foco")
+
+    def _on_focus_out(self, event=None):
+        gerenciador.desativar_cliente(self.cliente_id)
+        print(f"Teclado sem foco")
+
     def atualizar_tema(self):
         self.cores = cores()
-        
         self.entrada.configure(
             text_color=self.cores["texto_principal"],
             fg_color=self.cores["fundo_secundario"],
             border_color=self.cores["borda_principal"]
         )
-        
         self.botao_enviar.configure(
             fg_color=self.cores["botao_normal"],
             hover_color=self.cores["hover"],
             text_color=self.cores["texto_botao"]
         )
-        
         self.frame_teclado.configure(fg_color=self.cores["fundo_frame"])
-        
         for botao in self.botoes:
             botao.configure(
                 text_color=self.cores["texto_botao"],
                 fg_color=self.cores["botao_normal"],
                 hover_color=self.cores["hover"]
             )
-        
         self.destacar_tecla(self.indice_tab)
-        
-        print(f"✓ Teclado atualizado para tema: {get_appearance_mode()}")
 
     def tab_seguinte(self, event=None):
         try:
@@ -170,16 +247,14 @@ class TecladoVarreduraTab(CTk):
 
     def destacar_tecla(self, idx):
         if 0 <= idx < len(self.botoes):
-            botao = self.botoes[idx]
-            botao.configure(
-                border_width=2, 
+            self.botoes[idx].configure(
+                border_width=2,
                 border_color=self.cores["borda_destaque"]
             )
 
     def remover_destaque(self, idx):
         if 0 <= idx < len(self.botoes):
-            botao = self.botoes[idx]
-            botao.configure(border_width=0)
+            self.botoes[idx].configure(border_width=0)
 
     def confirmar_tecla(self, event=None):
         tecla = self.botoes[self.indice_tab].cget("text")
@@ -205,16 +280,11 @@ class TecladoVarreduraTab(CTk):
         if self.widget_destino is not None:
             try:
                 if hasattr(self.widget_destino, "winfo_exists") and self.widget_destino.winfo_exists():
-                    try:
-                        self.widget_destino.insert(END, texto_para_digitar)
-                        self.entrada.delete(0, END)
-                        return
-                    except Exception as e:
-                        print("Erro ao digitar no widget destino:", e)
-                else:
-                    self.widget_destino = None
-            except Exception as e:
-                print("Erro verificando widget_destino:", e)
+                    self.widget_destino.insert(END, texto_para_digitar)
+                    self.entrada.delete(0, END)
+                    return
+            except Exception:
+                self.widget_destino = None
 
         try:
             janelas = gw.getAllWindows()
@@ -224,7 +294,7 @@ class TecladoVarreduraTab(CTk):
                     time.sleep(0.2)
                     break
         except Exception as e:
-            print("Não foi possível focar no app:", e)
+            print(f"Erro ao focar janela: {e}")
 
         self.withdraw()
         time.sleep(0.5)
@@ -233,133 +303,7 @@ class TecladoVarreduraTab(CTk):
         self.entrada.delete(0, END)
         self.focus_force()
 
-    def _detector_loop(self):
-        mp_face_mesh = mp.solutions.face_mesh
-        face_mesh = mp_face_mesh.FaceMesh(
-            max_num_faces=1,
-            refine_landmarks=True,
-            min_detection_confidence=0.5,
-            min_tracking_confidence=0.5,
-        )
-        cap = cv2.VideoCapture(self.cam_index, cv2.CAP_DSHOW)
-        if not cap.isOpened():
-            print(f"Erro: não foi possível abrir a câmera index {self.cam_index}")
-            return
-
-        RIGHT_EYE = [33, 160, 158, 133, 153, 144]
-        LEFT_EYE = [362, 385, 387, 263, 373, 380]
-
-        right_closed_since = None
-        both_closed_since = None
-        close_app_since = None
-
-        try:
-            while self._detector_running and cap.isOpened():
-                ret, frame = cap.read()
-                if not ret:
-                    time.sleep(0.01)
-                    continue
-
-                small = cv2.resize(frame, (0, 0), fx=0.6, fy=0.6)
-                img_rgb = cv2.cvtColor(small, cv2.COLOR_BGR2RGB)
-                results = face_mesh.process(img_rgb)
-                h, w = small.shape[:2]
-                left_ear, right_ear = 1.0, 1.0
-
-                if results.multi_face_landmarks:
-                    lm = results.multi_face_landmarks[0].landmark
-
-                    def landmark_point(idx):
-                        p = lm[idx]
-                        return int(p.x * w), int(p.y * h)
-
-                    try:
-                        r_points = [landmark_point(i) for i in RIGHT_EYE]
-                        l_points = [landmark_point(i) for i in LEFT_EYE]
-                    except Exception:
-                        time.sleep(0.001)
-                        continue
-
-                    def euclid(a, b):
-                        return math.hypot(a[0] - b[0], a[1] - b[1])
-
-                    def ear(p1, p2, p3, p4, p5, p6):
-                        vertical = euclid(p2, p6) + euclid(p3, p5)
-                        horizontal = euclid(p1, p4)
-                        return vertical / (2 * horizontal) if horizontal != 0 else 1.0
-
-                    right_ear = ear(*r_points)
-                    left_ear = ear(*l_points)
-                    ear_avg = (right_ear + left_ear) / 2
-
-                now = time.time()
-                both_closed = (
-                    right_ear < self.ear_threshold and left_ear < self.ear_threshold
-                )
-
-                if both_closed:
-                    if close_app_since is None:
-                        close_app_since = now
-                    elif now - close_app_since >= self.close_app_time:
-                        self._action_queue.put("CLOSE")
-                        self.ultimo_acao_t = now
-                        close_app_since = both_closed_since = right_closed_since = None
-                        time.sleep(0.01)
-                        continue
-                else:
-                    close_app_since = None
-
-                if both_closed:
-                    if both_closed_since is None:
-                        both_closed_since = now
-                    elif now - both_closed_since >= self.both_eyes_time:
-                        if now - self.ultimo_acao_t >= self.cooldown:
-                            self._action_queue.put("TAB")
-                            self.ultimo_acao_t = now
-                            both_closed_since = right_closed_since = None
-                else:
-                    both_closed_since = None
-
-                if right_ear < self.ear_threshold and left_ear >= self.ear_threshold:
-                    if right_closed_since is None:
-                        right_closed_since = now
-                    elif now - right_closed_since >= self.right_eye_time:
-                        if now - self.ultimo_acao_t >= self.cooldown:
-                            self._action_queue.put("ENTER")
-                            self.ultimo_acao_t = now
-                            right_closed_since = both_closed_since = None
-                else:
-                    right_closed_since = None
-
-                if ear_avg > 0.38:
-                    if self.eyes_open_start is None:
-                        self.eyes_open_start = now
-                    elif now - self.eyes_open_start >= self.surprise_open_time:
-                        if now - self.ultimo_acao_t >= self.cooldown:
-                            self._action_queue.put("DIGITAR")
-                            self.ultimo_acao_t = now
-                            self.eyes_open_start = None
-                else:
-                    self.eyes_open_start = None
-
-                time.sleep(0.01)
-        finally:
-            cap.release()
-            face_mesh.close()
-
-    def _process_queue(self):
-        while not self._action_queue.empty():
-            action = self._action_queue.get()
-            if action == "TAB":
-                self.tab_seguinte()
-            elif action == "ENTER":
-                self.confirmar_tecla()
-            elif action == "DIGITAR":
-                self.enviar_texto()
-            elif action == "CLOSE":
-                self._on_closing()
-        self.after(50, self._process_queue)
-
     def _on_closing(self):
-        self._detector_running = False
+        """Limpa recursos"""
+        gerenciador.remover_cliente(self.cliente_id)
         self.after(100, self.destroy)
